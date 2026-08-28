@@ -25,9 +25,9 @@ export const Route = createFileRoute("/admin/users")({
 });
 
 function isActive(row: AdminRecord) {
-  if (typeof row.isBlocked === "boolean") return !row.isBlocked;
-  if (typeof row.isActive === "boolean") return row.isActive;
-  if (typeof row.status === "string") return row.status.toLowerCase() === "active";
+  if (typeof row["isBlocked"] === "boolean") return !row["isBlocked"];
+  if (typeof row["isActive"] === "boolean") return row["isActive"];
+  if (typeof row["status"] === "string") return row["status"].toLowerCase() === "active";
   return true;
 }
 
@@ -88,9 +88,9 @@ function UsersPage() {
           { name: "mobile", label: "Mobile", required: true },
         ]}
         initialValues={{
-          name: editing ? String(editing.name ?? "") : "",
-          email: editing ? String(editing.email ?? "") : "",
-          mobile: editing ? String(editing.mobile ?? editing.phone ?? "") : "",
+          name: editing ? String(editing["name"] ?? "") : "",
+          email: editing ? String(editing["email"] ?? "") : "",
+          mobile: editing ? String(editing["mobile"] ?? editing["phone"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;

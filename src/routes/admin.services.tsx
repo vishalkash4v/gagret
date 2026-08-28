@@ -25,7 +25,7 @@ export const Route = createFileRoute("/admin/services")({
 });
 
 function imageUrl(row: AdminRecord) {
-  const value = row.image ?? row.icon ?? row.imageUrl;
+  const value = row["image"] ?? row["icon"] ?? row["imageUrl"];
   return typeof value === "string" && value ? value : null;
 }
 
@@ -60,7 +60,7 @@ function ServicesPage() {
     { header: "Name", cell: (r) => <span className="font-medium">{pickString(r, "name", "title")}</span> },
     {
       header: "Status",
-      cell: (r) => <StatusBadge active={r.isActive !== false} labels={["Active", "Inactive"]} />,
+      cell: (r) => <StatusBadge active={r["isActive"] !== false} labels={["Active", "Inactive"]} />,
     },
     {
       header: "Actions",
@@ -73,7 +73,7 @@ function ServicesPage() {
             aria-label="Toggle service status"
             onClick={() => run(() => api.put(`/admin/services/${recordId(r)}/toggle-status`), "Service status updated")}
           >
-            {r.isActive !== false ? <ToggleRight className="h-4 w-4 text-success" /> : <ToggleLeft className="h-4 w-4" />}
+            {r["isActive"] !== false ? <ToggleRight className="h-4 w-4 text-success" /> : <ToggleLeft className="h-4 w-4" />}
           </Button>
           <Button variant="ghost" size="icon" aria-label="Edit service" onClick={() => setEditing(r)}>
             <Pencil className="h-4 w-4" />
@@ -141,7 +141,7 @@ function ServicesPage() {
           { name: "name", label: "Service name", required: true },
           { name: "image", label: "Replace image", type: "file" },
         ]}
-        initialValues={{ name: editing ? String(editing.name ?? "") : "" }}
+        initialValues={{ name: editing ? String(editing["name"] ?? "") : "" }}
         onSubmit={async (values) => {
           if (!editing) return;
           const ok = await run(

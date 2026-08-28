@@ -34,7 +34,7 @@ export function AdminLayout({ title, actions, children }: { title: string; actio
 
   useEffect(() => {
     if (!getToken()) {
-      navigate({ to: "/admin/login", replace: true });
+      window.location.replace("/admin/login");
     } else {
       setAuthorized(true);
     }

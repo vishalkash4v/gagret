@@ -58,7 +58,7 @@ function normalise(rows: Array<Record<string, unknown>> | undefined, labelKeys: 
       rawLabel && typeof rawLabel === "object"
         ? Object.values(rawLabel as Record<string, unknown>).join("-")
         : String(rawLabel ?? "");
-    const value = Number(row.count ?? row.total ?? row.bookings ?? row.value ?? 0);
+    const value = Number(row["count"] ?? row["total"] ?? row["bookings"] ?? row["value"] ?? 0);
     return { label, value };
   });
 }

@@ -43,7 +43,7 @@ function TransactionsPage() {
       header: "Booking ID",
       cell: (r) => <span className="font-mono text-xs">{pickString(r, "booking._id", "bookingId", "booking")}</span>,
     },
-    { header: "Amount", cell: (r) => formatCurrency(Number(r.amount ?? 0)) },
+    { header: "Amount", cell: (r) => formatCurrency(Number(r["amount"] ?? 0)) },
     { header: "Status", cell: (r) => <TextBadge value={pickString(r, "status", "paymentStatus")} /> },
     {
       header: "Actions",
@@ -87,9 +87,9 @@ function TransactionsPage() {
           { name: "remarks", label: "Remarks" },
         ]}
         initialValues={{
-          status: editing ? String(editing.status ?? "") : "",
-          amount: editing ? String(editing.amount ?? "") : "",
-          remarks: editing ? String(editing.remarks ?? "") : "",
+          status: editing ? String(editing["status"] ?? "") : "",
+          amount: editing ? String(editing["amount"] ?? "") : "",
+          remarks: editing ? String(editing["remarks"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;

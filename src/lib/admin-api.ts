@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://providersbackend.vercel.app/api";
+/** Browser calls go through our same-origin relay because the upstream API sends no CORS headers. */
+export const API_BASE_URL = "/api/public/admin-proxy";
 const TOKEN_KEY = "admin_token";
 
 export function getToken(): string | null {
@@ -71,7 +72,7 @@ export function unwrapList<T>(payload: unknown, ...keys: string[]): T[] {
 
 export function unwrapObject<T>(payload: unknown): T {
   if (payload && typeof payload === "object" && "data" in (payload as Record<string, unknown>)) {
-    const inner = (payload as Record<string, unknown>).data;
+    const inner = (payload as Record<string, unknown>)["data"];
     if (inner && typeof inner === "object") return inner as T;
   }
   return payload as T;

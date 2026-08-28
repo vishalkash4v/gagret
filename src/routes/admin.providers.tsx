@@ -25,8 +25,8 @@ export const Route = createFileRoute("/admin/providers")({
 });
 
 function isActive(row: AdminRecord) {
-  if (typeof row.isBlocked === "boolean") return !row.isBlocked;
-  if (typeof row.isActive === "boolean") return row.isActive;
+  if (typeof row["isBlocked"] === "boolean") return !row["isBlocked"];
+  if (typeof row["isActive"] === "boolean") return row["isActive"];
   return true;
 }
 
@@ -43,7 +43,7 @@ function ProvidersPage() {
     { header: "Email", cell: (r) => pickString(r, "email") },
     {
       header: "Verification",
-      cell: (r) => <StatusBadge active={!!r.isVerified} labels={["Verified", "Unverified"]} />,
+      cell: (r) => <StatusBadge active={!!r["isVerified"]} labels={["Verified", "Unverified"]} />,
     },
     { header: "Status", cell: (r) => <StatusBadge active={isActive(r)} /> },
     {
@@ -54,15 +54,15 @@ function ProvidersPage() {
           <Button
             variant="ghost"
             size="icon"
-            aria-label={r.isVerified ? "Remove verification" : "Verify provider"}
+            aria-label={r["isVerified"] ? "Remove verification" : "Verify provider"}
             onClick={() =>
               run(
-                () => api.put(`/admin/providers/${recordId(r)}/verify`, { isVerified: !r.isVerified }),
+                () => api.put(`/admin/providers/${recordId(r)}/verify`, { isVerified: !r["isVerified"] }),
                 "Verification updated",
               )
             }
           >
-            {r.isVerified ? <BadgeCheck className="h-4 w-4 text-success" /> : <BadgeX className="h-4 w-4" />}
+            {r["isVerified"] ? <BadgeCheck className="h-4 w-4 text-success" /> : <BadgeX className="h-4 w-4" />}
           </Button>
           <Button
             variant="ghost"
@@ -111,11 +111,11 @@ function ProvidersPage() {
           { name: "radius", label: "Service Radius (km)", type: "number" },
         ]}
         initialValues={{
-          name: editing ? String(editing.name ?? "") : "",
-          email: editing ? String(editing.email ?? "") : "",
-          mobile: editing ? String(editing.mobile ?? editing.phone ?? "") : "",
-          bookingCredits: editing ? String(editing.bookingCredits ?? "") : "",
-          radius: editing ? String(editing.radius ?? "") : "",
+          name: editing ? String(editing["name"] ?? "") : "",
+          email: editing ? String(editing["email"] ?? "") : "",
+          mobile: editing ? String(editing["mobile"] ?? editing["phone"] ?? "") : "",
+          bookingCredits: editing ? String(editing["bookingCredits"] ?? "") : "",
+          radius: editing ? String(editing["radius"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;
