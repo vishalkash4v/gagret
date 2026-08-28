@@ -17,7 +17,7 @@ export function TableSkeleton({ rows = 6, cols = 5 }: { rows?: number; cols?: nu
   );
 }
 
-export function ErrorState({ message, onRetry }: { message: string; onRetry?: () => void }) {
+export function ErrorState({ message, onRetry }: { message: string; onRetry?: (() => void) | undefined }) {
   return (
     <div className="flex flex-col items-center gap-3 p-12 text-center">
       <AlertCircle className="h-8 w-8 text-destructive" aria-hidden="true" />
@@ -31,7 +31,7 @@ export function ErrorState({ message, onRetry }: { message: string; onRetry?: ()
   );
 }
 
-export function EmptyState({ message, action }: { message: string; action?: ReactNode }) {
+export function EmptyState({ message, action }: { message: string; action?: ReactNode | undefined }) {
   return (
     <div className="flex flex-col items-center gap-3 p-12 text-center">
       <Inbox className="h-8 w-8 text-muted-foreground" aria-hidden="true" />

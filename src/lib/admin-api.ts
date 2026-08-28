@@ -71,7 +71,7 @@ export function unwrapList<T>(payload: unknown, ...keys: string[]): T[] {
 
 export function unwrapObject<T>(payload: unknown): T {
   if (payload && typeof payload === "object" && "data" in (payload as Record<string, unknown>)) {
-    const inner = (payload as Record<string, unknown>).data;
+    const inner = (payload as Record<string, unknown>)["data"];
     if (inner && typeof inner === "object") return inner as T;
   }
   return payload as T;

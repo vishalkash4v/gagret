@@ -99,7 +99,7 @@ export function RecordDialog({
 
                 {field.type === "select" ? (
                   <Select
-                    value={typeof value === "string" ? value : undefined}
+                    value={typeof value === "string" ? value : ""}
                     onValueChange={(v) => setValues((p) => ({ ...p, [field.name]: v }))}
                   >
                     <SelectTrigger id={id}>
