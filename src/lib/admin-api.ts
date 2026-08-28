@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const API_BASE_URL = "https://providersbackend.vercel.app/api";
+/** Browser calls go through our same-origin relay because the upstream API sends no CORS headers. */
+export const API_BASE_URL = "/api/public/admin-proxy";
 const TOKEN_KEY = "admin_token";
 
 export function getToken(): string | null {
