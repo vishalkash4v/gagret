@@ -36,8 +36,8 @@ function OffersPage() {
       header: "Provider",
       cell: (r) => <span className="font-medium">{pickString(r, "provider.name", "providerName")}</span>,
     },
-    { header: "Amount", cell: (r) => formatCurrency(Number(r.amount ?? r.price ?? 0)) },
-    { header: "Access Fee", cell: (r) => formatCurrency(Number(r.accessFee ?? r.fee ?? 0)) },
+    { header: "Amount", cell: (r) => formatCurrency(Number(r["amount"] ?? r["price"] ?? 0)) },
+    { header: "Access Fee", cell: (r) => formatCurrency(Number(r["accessFee"] ?? r["fee"] ?? 0)) },
     { header: "Status", cell: (r) => <TextBadge value={pickString(r, "status")} /> },
     { header: "Payment", cell: (r) => <TextBadge value={pickString(r, "paymentStatus")} /> },
     {
@@ -81,10 +81,10 @@ function OffersPage() {
           { name: "paymentStatus", label: "Payment status", type: "select", options: PAYMENT_STATUSES },
         ]}
         initialValues={{
-          amount: editing ? String(editing.amount ?? "") : "",
-          accessFee: editing ? String(editing.accessFee ?? "") : "",
-          status: editing ? String(editing.status ?? "") : "",
-          paymentStatus: editing ? String(editing.paymentStatus ?? "") : "",
+          amount: editing ? String(editing["amount"] ?? "") : "",
+          accessFee: editing ? String(editing["accessFee"] ?? "") : "",
+          status: editing ? String(editing["status"] ?? "") : "",
+          paymentStatus: editing ? String(editing["paymentStatus"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;

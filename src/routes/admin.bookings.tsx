@@ -86,9 +86,9 @@ function BookingsPage() {
           { name: "notes", label: "Admin note" },
         ]}
         initialValues={{
-          status: editing ? String(editing.status ?? "") : "",
-          scheduledAt: editing ? String(editing.scheduledAt ?? editing.scheduleDate ?? "") : "",
-          notes: editing ? String(editing.notes ?? "") : "",
+          status: editing ? String(editing["status"] ?? "") : "",
+          scheduledAt: editing ? String(editing["scheduledAt"] ?? editing["scheduleDate"] ?? "") : "",
+          notes: editing ? String(editing["notes"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;
