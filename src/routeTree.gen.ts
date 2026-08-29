@@ -18,11 +18,13 @@ import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
+import { Route as AdminCmsRouteImport } from './routes/admin.cms'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminOffersRouteImport } from './routes/admin.offers'
 import { Route as AdminProvidersRouteImport } from './routes/admin.providers'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminSupportRouteImport } from './routes/admin.support'
 import { Route as AdminTransactionsRouteImport } from './routes/admin.transactions'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiPublicAdminProxySplatRouteImport } from './routes/api/public/admin-proxy.$'
@@ -72,6 +74,11 @@ const AdminBookingsRoute = AdminBookingsRouteImport.update({
   path: '/admin/bookings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCmsRoute = AdminCmsRouteImport.update({
+  id: '/admin/cms',
+  path: '/admin/cms',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDashboardRoute = AdminDashboardRouteImport.update({
   id: '/admin/dashboard',
   path: '/admin/dashboard',
@@ -95,6 +102,11 @@ const AdminProvidersRoute = AdminProvidersRouteImport.update({
 const AdminServicesRoute = AdminServicesRouteImport.update({
   id: '/admin/services',
   path: '/admin/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSupportRoute = AdminSupportRouteImport.update({
+  id: '/admin/support',
+  path: '/admin/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminTransactionsRoute = AdminTransactionsRouteImport.update({
@@ -123,11 +135,13 @@ export interface FileRoutesByFullPath {
   '/refund-policy': typeof RefundPolicyRoute
   '/terms': typeof TermsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/cms': typeof AdminCmsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/support': typeof AdminSupportRoute
   '/admin/transactions': typeof AdminTransactionsRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/': typeof AdminIndexRoute
@@ -142,11 +156,13 @@ export interface FileRoutesByTo {
   '/refund-policy': typeof RefundPolicyRoute
   '/terms': typeof TermsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/cms': typeof AdminCmsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/support': typeof AdminSupportRoute
   '/admin/transactions': typeof AdminTransactionsRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin': typeof AdminIndexRoute
@@ -162,11 +178,13 @@ export interface FileRoutesById {
   '/refund-policy': typeof RefundPolicyRoute
   '/terms': typeof TermsRoute
   '/admin/bookings': typeof AdminBookingsRoute
+  '/admin/cms': typeof AdminCmsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
+  '/admin/support': typeof AdminSupportRoute
   '/admin/transactions': typeof AdminTransactionsRoute
   '/admin/users': typeof AdminUsersRoute
   '/admin/': typeof AdminIndexRoute
@@ -183,11 +201,13 @@ export interface FileRouteTypes {
     | '/refund-policy'
     | '/terms'
     | '/admin/bookings'
+    | '/admin/cms'
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/offers'
     | '/admin/providers'
     | '/admin/services'
+    | '/admin/support'
     | '/admin/transactions'
     | '/admin/users'
     | '/admin/'
@@ -202,11 +222,13 @@ export interface FileRouteTypes {
     | '/refund-policy'
     | '/terms'
     | '/admin/bookings'
+    | '/admin/cms'
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/offers'
     | '/admin/providers'
     | '/admin/services'
+    | '/admin/support'
     | '/admin/transactions'
     | '/admin/users'
     | '/admin'
@@ -221,11 +243,13 @@ export interface FileRouteTypes {
     | '/refund-policy'
     | '/terms'
     | '/admin/bookings'
+    | '/admin/cms'
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/offers'
     | '/admin/providers'
     | '/admin/services'
+    | '/admin/support'
     | '/admin/transactions'
     | '/admin/users'
     | '/admin/'
@@ -241,11 +265,13 @@ export interface RootRouteChildren {
   RefundPolicyRoute: typeof RefundPolicyRoute
   TermsRoute: typeof TermsRoute
   AdminBookingsRoute: typeof AdminBookingsRoute
+  AdminCmsRoute: typeof AdminCmsRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOffersRoute: typeof AdminOffersRoute
   AdminProvidersRoute: typeof AdminProvidersRoute
   AdminServicesRoute: typeof AdminServicesRoute
+  AdminSupportRoute: typeof AdminSupportRoute
   AdminTransactionsRoute: typeof AdminTransactionsRoute
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -317,6 +343,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBookingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/cms': {
+      id: '/admin/cms'
+      path: '/admin/cms'
+      fullPath: '/admin/cms'
+      preLoaderRoute: typeof AdminCmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/dashboard': {
       id: '/admin/dashboard'
       path: '/admin/dashboard'
@@ -352,6 +385,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/support': {
+      id: '/admin/support'
+      path: '/admin/support'
+      fullPath: '/admin/support'
+      preLoaderRoute: typeof AdminSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/transactions': {
       id: '/admin/transactions'
       path: '/admin/transactions'
@@ -385,11 +425,13 @@ const rootRouteChildren: RootRouteChildren = {
   RefundPolicyRoute: RefundPolicyRoute,
   TermsRoute: TermsRoute,
   AdminBookingsRoute: AdminBookingsRoute,
+  AdminCmsRoute: AdminCmsRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminOffersRoute: AdminOffersRoute,
   AdminProvidersRoute: AdminProvidersRoute,
   AdminServicesRoute: AdminServicesRoute,
+  AdminSupportRoute: AdminSupportRoute,
   AdminTransactionsRoute: AdminTransactionsRoute,
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
