@@ -6,7 +6,6 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { ErrorState, EmptyState, TableSkeleton } from "@/components/admin/DataState";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
-import { TextBadge } from "@/components/admin/StatusBadge";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
