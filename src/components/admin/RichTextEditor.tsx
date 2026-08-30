@@ -4,7 +4,6 @@ import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import { Bold, Heading1, Heading2, Italic, Link2, List, ListOrdered } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 export function RichTextEditor({
   value,
@@ -46,7 +45,7 @@ export function RichTextEditor({
 
   function addLink() {
     if (!editor) return;
-    const previous = editor.getAttributes("link").href as string | undefined;
+    const previous = editor.getAttributes("link")["href"] as string | undefined;
     const url = window.prompt("Link URL", previous ?? "https://");
     if (url === null) return;
     if (url.trim() === "") editor.chain().focus().unsetLink().run();

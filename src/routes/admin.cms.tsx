@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Eye, Pencil, Plus, Trash2 } from "lucide-react";
+import { Eye, Pencil, Plus } from "lucide-react";
 import { toast } from "sonner";
 import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { ErrorState, EmptyState, TableSkeleton } from "@/components/admin/DataState";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
-import { TextBadge } from "@/components/admin/StatusBadge";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -44,6 +44,11 @@ function pageDate(row: AdminRecord) {
   return Number.isNaN(date.getTime()) ? String(value) : date.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 }
 
+function pageStatus(value: unknown) {
+  const status = String(value ?? "DRAFT").toUpperCase();
+  return <Badge variant={status === "PUBLISHED" ? "default" : "secondary"}>{status}</Badge>;
+}
+
 function CmsPage() {
   const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("cms", "/admin/cms", "cms", "pages");
   const [editing, setEditing] = useState<AdminRecord | null>(null);
@@ -73,7 +78,7 @@ function CmsPage() {
                 {data.map((row, index) => <tr key={recordId(row) || index} className="transition-colors hover:bg-muted/40">
                   <td className="px-5 py-4 font-medium">{String(row["title"] ?? "Untitled page")}</td>
                   <td className="px-5 py-4 font-mono text-xs text-muted-foreground">/{String(row["slug"] ?? "")}</td>
-                  <td className="px-5 py-4"><TextBadge value={String(row["status"] ?? "DRAFT")} /></td>
+                  <td className="px-5 py-4">{pageStatus(row["status"])}</td>
                   <td className="px-5 py-4 text-muted-foreground">{pageDate(row)}</td>
                   <td className="px-5 py-4"><div className="flex justify-end gap-1">
                     <Button variant="ghost" size="icon" aria-label="Preview page" onClick={() => setPreview(row)}><Eye aria-hidden="true" /></Button>
