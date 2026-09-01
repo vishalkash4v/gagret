@@ -19,7 +19,7 @@ import {
 export const Route = createFileRoute("/admin/users")({
   ssr: false,
   head: () => ({
-    meta: [{ title: "Users — HomeFix Admin" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "Users — Go4Task Admin" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: UsersPage,
 });
@@ -32,11 +32,11 @@ function isActive(row: AdminRecord) {
 }
 
 function UsersPage() {
-  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("users", "/admin/users", "users");
+  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("users", "/users", "users");
   const [editing, setEditing] = useState<AdminRecord | null>(null);
 
   const columns: Column<AdminRecord>[] = [
-    { header: "Name", cell: (r) => <span className="font-medium">{pickString(r, "name", "fullName")}</span> },
+    { header: "Name", cell: (r) => <span className="font-medium">{[r["firstName"], r["lastName"]].filter(Boolean).join(" ") || "N/A"}</span> },
     { header: "Email", cell: (r) => pickString(r, "email") },
     { header: "Mobile", cell: (r) => pickString(r, "mobile", "phone", "mobileNumber") },
     { header: "Status", cell: (r) => <StatusBadge active={isActive(r)} /> },
@@ -49,7 +49,7 @@ function UsersPage() {
             variant="ghost"
             size="icon"
             aria-label={isActive(r) ? "Block user" : "Unblock user"}
-            onClick={() => run(() => api.put(`/admin/users/${recordId(r)}/toggle-status`), "User status updated")}
+            onClick={() => run(() => api.put(`/users/${recordId(r)}/toggle-status`), "User status updated")}
           >
             {isActive(r) ? <ToggleRight className="h-4 w-4 text-success" /> : <ToggleLeft className="h-4 w-4" />}
           </Button>
@@ -58,7 +58,7 @@ function UsersPage() {
           </Button>
           <ConfirmDelete
             label="this user"
-            onConfirm={() => run(() => api.delete(`/admin/users/${recordId(r)}`), "User deleted").then(() => undefined)}
+            onConfirm={() => run(() => api.delete(`/users/${recordId(r)}`), "User deleted").then(() => undefined)}
           />
         </div>
       ),
@@ -83,18 +83,20 @@ function UsersPage() {
         title="Edit user"
         description="Update the customer's profile details."
         fields={[
-          { name: "name", label: "Name", required: true },
+          { name: "firstName", label: "First name", required: true },
+          { name: "lastName", label: "Last name", required: true },
           { name: "email", label: "Email", type: "email", required: true },
           { name: "mobile", label: "Mobile", required: true },
         ]}
         initialValues={{
-          name: editing ? String(editing["name"] ?? "") : "",
+          firstName: editing ? String(editing["firstName"] ?? "") : "",
+          lastName: editing ? String(editing["lastName"] ?? "") : "",
           email: editing ? String(editing["email"] ?? "") : "",
           mobile: editing ? String(editing["mobile"] ?? editing["phone"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;
-          const ok = await run(() => api.put(`/admin/users/${recordId(editing)}`, toJson(values)), "User updated");
+           const ok = await run(() => api.put(`/users/${recordId(editing)}`, toJson(values)), "User updated");
           if (ok) setEditing(null);
         }}
       />

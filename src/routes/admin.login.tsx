@@ -11,8 +11,8 @@ export const Route = createFileRoute("/admin/login")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Admin Login — HomeFix Console" },
-      { name: "description", content: "Secure sign-in for the HomeFix marketplace admin console." },
+      { title: "Admin Login — Go4Task Console" },
+      { name: "description", content: "Secure sign-in for the Go4Task marketplace admin console." },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -41,7 +41,7 @@ function AdminLogin() {
 
     setBusy(true);
     try {
-      const res = await api.post("/admin/login", { email: email.trim(), password });
+      const res = await api.post("/login", { email: email.trim(), password });
       const data = res.data ?? {};
       const token: string | undefined = data.token ?? data.data?.token ?? data.accessToken;
       if (!token) throw new Error("Login response did not include a token");
@@ -62,7 +62,7 @@ function AdminLogin() {
           <LockKeyhole className="h-5 w-5" aria-hidden="true" />
         </div>
         <h1 className="mt-5 text-2xl font-bold">Admin Console</h1>
-        <p className="mt-1 text-sm text-muted-foreground">Sign in to manage the HomeFix marketplace.</p>
+        <p className="mt-1 text-sm text-muted-foreground">Sign in to manage the Go4Task marketplace.</p>
 
         <form onSubmit={handleSubmit} className="mt-7 space-y-4" noValidate>
           <div className="space-y-1.5">
@@ -73,7 +73,7 @@ function AdminLogin() {
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@homefix.app"
+              placeholder="admin@go4task.app"
             />
             {errors.email && <p className="text-xs font-medium text-destructive">{errors.email}</p>}
           </div>

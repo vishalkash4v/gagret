@@ -21,7 +21,7 @@ export const Route = createFileRoute("/admin/dashboard")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Dashboard — HomeFix Admin" },
+      { title: "Dashboard — Go4Task Admin" },
       { name: "robots", content: "noindex, nofollow" },
     ],
   }),
@@ -66,7 +66,7 @@ function normalise(rows: Array<Record<string, unknown>> | undefined, labelKeys: 
 function DashboardPage() {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["admin", "dashboard"],
-    queryFn: async () => unwrapObject<DashboardData>((await api.get("/admin/dashboard")).data),
+     queryFn: async () => unwrapObject<DashboardData>((await api.get("/dashboard")).data),
     retry: 1,
   });
 
