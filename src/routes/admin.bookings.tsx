@@ -19,17 +19,40 @@ import {
 export const Route = createFileRoute("/admin/bookings")({
   ssr: false,
   head: () => ({
-    meta: [{ title: "Bookings — HomeFix Admin" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "Bookings — Go4Task Admin" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: BookingsPage,
 });
 
 const STATUSES = ["pending", "accepted", "in-progress", "completed", "cancelled"];
 
+type BookingPerson = { firstName?: string; lastName?: string; name?: string };
+
+function userOf(row: AdminRecord) {
+  return row["user"] as BookingPerson | null | undefined;
+}
+
+function providerName(row: AdminRecord) {
+  const provider = row["provider"] as BookingPerson | null | undefined;
+  return provider ? [provider.firstName, provider.lastName].filter(Boolean).join(" ") || "N/A" : "Unassigned";
+}
+
+function serviceName(row: AdminRecord) {
+  const service = row["service"] as { name?: string } | null | undefined;
+  return service?.name ?? "N/A";
+}
+
+function BookingStatusBadge({ value }: { value: unknown }) {
+  const status = Number(value);
+  const labels = ["Pending", "Assigned/Active", "Completed"];
+  const label = labels[status] ?? "Unknown";
+  return <TextBadge value={label} />;
+}
+
 function BookingsPage() {
   const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
     "bookings",
-    "/admin/bookings",
+    "/bookings",
     "bookings",
   );
   const [editing, setEditing] = useState<AdminRecord | null>(null);
@@ -38,12 +61,12 @@ function BookingsPage() {
     {
       header: "Customer",
       cell: (r) => (
-        <span className="font-medium">{pickString(r, "user.name", "customer.name", "userName", "customerName")}</span>
+       <span className="font-medium">{[userOf(r)?.firstName, userOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}</span>
       ),
     },
-    { header: "Provider", cell: (r) => pickString(r, "provider.name", "providerName") },
-    { header: "Service", cell: (r) => pickString(r, "service.name", "serviceName", "category") },
-    { header: "Status", cell: (r) => <TextBadge value={pickString(r, "status")} /> },
+    { header: "Provider", cell: (r) => providerName(r) },
+    { header: "Service", cell: (r) => serviceName(r) },
+    { header: "Status", cell: (r) => <BookingStatusBadge value={r["status"]} /> },
     {
       header: "Actions",
       className: "text-right",
@@ -55,7 +78,7 @@ function BookingsPage() {
           <ConfirmDelete
             label="this booking"
             onConfirm={() =>
-              run(() => api.delete(`/admin/bookings/${recordId(r)}`), "Booking deleted").then(() => undefined)
+              run(() => api.delete(`/bookings/${recordId(r)}`), "Booking deleted").then(() => undefined)
             }
           />
         </div>
@@ -93,7 +116,7 @@ function BookingsPage() {
         onSubmit={async (values) => {
           if (!editing) return;
           const ok = await run(
-            () => api.put(`/admin/bookings/${recordId(editing)}`, toJson(values)),
+            () => api.put(`/bookings/${recordId(editing)}`, toJson(values)),
             "Booking updated",
           );
           if (ok) setEditing(null);

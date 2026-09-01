@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-const UPSTREAM = "https://providersbackend.vercel.app/api";
+const UPSTREAM = "https://providersbackend.vercel.app/api/admin";
 
 /**
  * Server-side pass-through to the marketplace backend.

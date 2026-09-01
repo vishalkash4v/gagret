@@ -5,7 +5,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ResourceTable, type Column } from "@/components/admin/ResourceTable";
 import { RecordDialog } from "@/components/admin/RecordDialog";
 import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
-import { TextBadge } from "@/components/admin/StatusBadge";
+import { EnumBadge, TextBadge, type BadgeTone } from "@/components/admin/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { api, apiErrorMessage, formatCurrency } from "@/lib/admin-api";
 import {
@@ -19,27 +19,47 @@ import {
 export const Route = createFileRoute("/admin/offers")({
   ssr: false,
   head: () => ({
-    meta: [{ title: "Offers — HomeFix Admin" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "Offers — Go4Task Admin" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: OffersPage,
 });
 
-const STATUSES = ["pending", "accepted", "rejected", "withdrawn"];
+const STATUSES = ["0", "1", "2", "3", "4", "5"];
 const PAYMENT_STATUSES = ["pending", "paid", "failed", "refunded", "free"];
 
+const offerStatuses: Array<{ label: string; tone: BadgeTone }> = [
+  { label: "Pending", tone: "warning" },
+  { label: "Accepted by User", tone: "info" },
+  { label: "Rejected", tone: "danger" },
+  { label: "Provider Approved", tone: "violet" },
+  { label: "Cancelled", tone: "neutral" },
+  { label: "Timeout", tone: "orange" },
+];
+
+type Provider = { firstName?: string; lastName?: string };
+
+function providerOf(row: AdminRecord) {
+  return row["provider"] as Provider | null | undefined;
+}
+
+function OfferStatusBadge({ value }: { value: unknown }) {
+  const status = offerStatuses[Number(value)];
+  return status ? <EnumBadge label={status.label} tone={status.tone} /> : <TextBadge value="Unknown" />;
+}
+
 function OffersPage() {
-  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("offers", "/admin/offers", "offers");
+  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("offers", "/offers", "offers");
   const [editing, setEditing] = useState<AdminRecord | null>(null);
 
   const columns: Column<AdminRecord>[] = [
     {
       header: "Provider",
-      cell: (r) => <span className="font-medium">{pickString(r, "provider.name", "providerName")}</span>,
+      <span className="font-medium">{[providerOf(r)?.firstName, providerOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}</span>
     },
-    { header: "Amount", cell: (r) => formatCurrency(Number(r["amount"] ?? r["price"] ?? 0)) },
+    { header: "Amount", cell: (r) => formatCurrency(Number(r["offerAmount"] ?? 0)) },
     { header: "Access Fee", cell: (r) => formatCurrency(Number(r["accessFee"] ?? r["fee"] ?? 0)) },
-    { header: "Status", cell: (r) => <TextBadge value={pickString(r, "status")} /> },
-    { header: "Payment", cell: (r) => <TextBadge value={pickString(r, "paymentStatus")} /> },
+    { header: "Status", cell: (r) => <OfferStatusBadge value={r["status"]} /> },
+    { header: "Payment", cell: (r) => <TextBadge value={typeof r["paymentStatus"] === "string" ? r["paymentStatus"] : "N/A"} /> },
     {
       header: "Actions",
       className: "text-right",
@@ -50,7 +70,7 @@ function OffersPage() {
           </Button>
           <ConfirmDelete
             label="this offer"
-            onConfirm={() => run(() => api.delete(`/admin/offers/${recordId(r)}`), "Offer deleted").then(() => undefined)}
+            onConfirm={() => run(() => api.delete(`/offers/${recordId(r)}`), "Offer deleted").then(() => undefined)}
           />
         </div>
       ),
@@ -75,20 +95,20 @@ function OffersPage() {
         title="Force update offer"
         description="Override bid amount, access fee or payment state."
         fields={[
-          { name: "amount", label: "Amount", type: "number", required: true },
+          { name: "offerAmount", label: "Offer amount", type: "number", required: true },
           { name: "accessFee", label: "Access fee", type: "number" },
           { name: "status", label: "Status", type: "select", options: STATUSES, required: true },
           { name: "paymentStatus", label: "Payment status", type: "select", options: PAYMENT_STATUSES },
         ]}
         initialValues={{
-          amount: editing ? String(editing["amount"] ?? "") : "",
+          offerAmount: editing ? String(editing["offerAmount"] ?? "") : "",
           accessFee: editing ? String(editing["accessFee"] ?? "") : "",
           status: editing ? String(editing["status"] ?? "") : "",
           paymentStatus: editing ? String(editing["paymentStatus"] ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;
-          const ok = await run(() => api.put(`/admin/offers/${recordId(editing)}`, toJson(values)), "Offer updated");
+          const ok = await run(() => api.put(`/offers/${recordId(editing)}`, toJson(values)), "Offer updated");
           if (ok) setEditing(null);
         }}
       />

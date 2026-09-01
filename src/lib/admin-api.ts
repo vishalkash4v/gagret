@@ -1,7 +1,8 @@
 import axios from "axios";
 
-/** Browser calls go through our same-origin relay because the upstream API sends no CORS headers. */
-export const API_BASE_URL = "/api/public/admin-proxy";
+/** Canonical admin API base URL. Browser requests use the same-origin relay below. */
+export const API_BASE_URL = "https://providersbackend.vercel.app/api/admin";
+const BROWSER_API_BASE_URL = "/api/public/admin-proxy";
 const TOKEN_KEY = "admin_token";
 
 export function getToken(): string | null {
@@ -17,7 +18,7 @@ export function clearToken() {
   window.localStorage.removeItem(TOKEN_KEY);
 }
 
-export const api = axios.create({ baseURL: API_BASE_URL });
+export const api = axios.create({ baseURL: BROWSER_API_BASE_URL });
 
 api.interceptors.request.use((config) => {
   const token = getToken();

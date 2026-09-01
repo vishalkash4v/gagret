@@ -19,7 +19,7 @@ import {
 export const Route = createFileRoute("/admin/transactions")({
   ssr: false,
   head: () => ({
-    meta: [{ title: "Transactions — HomeFix Admin" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "Transactions — Go4Task Admin" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: TransactionsPage,
 });
@@ -29,7 +29,7 @@ const STATUSES = ["pending", "success", "failed", "refunded"];
 function TransactionsPage() {
   const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
     "transactions",
-    "/admin/transactions",
+    "/transactions",
     "transactions",
   );
   const [editing, setEditing] = useState<AdminRecord | null>(null);
@@ -37,7 +37,7 @@ function TransactionsPage() {
   const columns: Column<AdminRecord>[] = [
     {
       header: "Provider",
-      cell: (r) => <span className="font-medium">{pickString(r, "provider.name", "providerName")}</span>,
+      <span className="font-medium">{[providerOf(r)?.firstName, providerOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}</span>
     },
     {
       header: "Booking ID",
@@ -56,7 +56,7 @@ function TransactionsPage() {
           <ConfirmDelete
             label="this transaction"
             onConfirm={() =>
-              run(() => api.delete(`/admin/transactions/${recordId(r)}`), "Transaction deleted").then(() => undefined)
+              run(() => api.delete(`/transactions/${recordId(r)}`), "Transaction deleted").then(() => undefined)
             }
           />
         </div>
@@ -94,7 +94,7 @@ function TransactionsPage() {
         onSubmit={async (values) => {
           if (!editing) return;
           const ok = await run(
-            () => api.put(`/admin/transactions/${recordId(editing)}`, toJson(values)),
+            () => api.put(`/transactions/${recordId(editing)}`, toJson(values)),
             "Transaction updated",
           );
           if (ok) setEditing(null);
