@@ -19,7 +19,7 @@ import {
 export const Route = createFileRoute("/admin/providers")({
   ssr: false,
   head: () => ({
-    meta: [{ title: "Providers — HomeFix Admin" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "Providers — Go4Task Admin" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: ProvidersPage,
 });
@@ -33,14 +33,15 @@ function isActive(row: AdminRecord) {
 function ProvidersPage() {
   const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
     "providers",
-    "/admin/providers",
+    "/providers",
     "providers",
   );
   const [editing, setEditing] = useState<AdminRecord | null>(null);
 
   const columns: Column<AdminRecord>[] = [
-    { header: "Name", cell: (r) => <span className="font-medium">{pickString(r, "name", "fullName")}</span> },
-    { header: "Email", cell: (r) => pickString(r, "email") },
+    { header: "Name", cell: (r) => <span className="font-medium">{providerName(r)}</span> },
+    { header: "Email", cell: (r) => userOf(r)?.email ?? "N/A" },
+    { header: "Radius", cell: (r) => `${String(r["radius"] ?? "N/A")} KM` },
     {
       header: "Verification",
       cell: (r) => <StatusBadge active={!!r["isVerified"]} labels={["Verified", "Unverified"]} />,
@@ -57,7 +58,7 @@ function ProvidersPage() {
             aria-label={r["isVerified"] ? "Remove verification" : "Verify provider"}
             onClick={() =>
               run(
-                () => api.put(`/admin/providers/${recordId(r)}/verify`, { isVerified: !r["isVerified"] }),
+                () => api.put(`/providers/${recordId(r)}/verify`, { isVerified: !r["isVerified"] }),
                 "Verification updated",
               )
             }
@@ -68,7 +69,7 @@ function ProvidersPage() {
             variant="ghost"
             size="icon"
             aria-label={isActive(r) ? "Block provider" : "Unblock provider"}
-            onClick={() => run(() => api.put(`/admin/providers/${recordId(r)}/toggle-status`), "Provider status updated")}
+            onClick={() => run(() => api.put(`/providers/${recordId(r)}/toggle-status`), "Provider status updated")}
           >
             {isActive(r) ? <ToggleRight className="h-4 w-4 text-success" /> : <ToggleLeft className="h-4 w-4" />}
           </Button>
@@ -78,7 +79,7 @@ function ProvidersPage() {
           <ConfirmDelete
             label="this provider"
             onConfirm={() =>
-              run(() => api.delete(`/admin/providers/${recordId(r)}`), "Provider deleted").then(() => undefined)
+              run(() => api.delete(`/providers/${recordId(r)}`), "Provider deleted").then(() => undefined)
             }
           />
         </div>
@@ -104,15 +105,17 @@ function ProvidersPage() {
         title="Edit provider"
         description="Update provider profile, credits and service radius."
         fields={[
-          { name: "name", label: "Name", required: true },
+          { name: "firstName", label: "First name", required: true },
+          { name: "lastName", label: "Last name", required: true },
           { name: "email", label: "Email", type: "email", required: true },
           { name: "mobile", label: "Mobile" },
           { name: "bookingCredits", label: "Booking Credits", type: "number" },
           { name: "radius", label: "Service Radius (km)", type: "number" },
         ]}
         initialValues={{
-          name: editing ? String(editing["name"] ?? "") : "",
-          email: editing ? String(editing["email"] ?? "") : "",
+          firstName: editing ? String(userOf(editing)?.firstName ?? "") : "",
+          lastName: editing ? String(userOf(editing)?.lastName ?? "") : "",
+          email: editing ? String(userOf(editing)?.email ?? "") : "",
           mobile: editing ? String(editing["mobile"] ?? editing["phone"] ?? "") : "",
           bookingCredits: editing ? String(editing["bookingCredits"] ?? "") : "",
           radius: editing ? String(editing["radius"] ?? "") : "",
@@ -120,7 +123,7 @@ function ProvidersPage() {
         onSubmit={async (values) => {
           if (!editing) return;
           const ok = await run(
-            () => api.put(`/admin/providers/${recordId(editing)}`, toJson(values)),
+            () => api.put(`/providers/${recordId(editing)}`, toJson(values)),
             "Provider updated",
           );
           if (ok) setEditing(null);
@@ -128,4 +131,15 @@ function ProvidersPage() {
       />
     </AdminLayout>
   );
+}
+
+type ProviderUser = { firstName?: string; lastName?: string; email?: string };
+
+function userOf(row: AdminRecord) {
+  return row["user"] as ProviderUser | null | undefined;
+}
+
+function providerName(row: AdminRecord) {
+  const user = userOf(row);
+  return [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "N/A";
 }
