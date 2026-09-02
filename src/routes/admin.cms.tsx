@@ -19,10 +19,10 @@ export const Route = createFileRoute("/admin/cms")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "CMS & Policies — HomeFix Admin" },
-      { name: "description", content: "Manage HomeFix policy pages and published content." },
-      { property: "og:title", content: "CMS & Policies — HomeFix Admin" },
-      { property: "og:description", content: "Manage HomeFix policy pages and published content." },
+      { title: "CMS & Policies — Go4Task Admin" },
+      { name: "description", content: "Manage Go4Task policy pages and published content." },
+      { property: "og:title", content: "CMS & Policies — Go4Task Admin" },
+      { property: "og:description", content: "Manage Go4Task policy pages and published content." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
@@ -50,13 +50,13 @@ function pageStatus(value: unknown) {
 }
 
 function CmsPage() {
-  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("cms", "/admin/cms", "cms", "pages");
+  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("cms", "/cms", "cms", "pages");
   const [editing, setEditing] = useState<AdminRecord | null>(null);
   const [creating, setCreating] = useState(false);
   const [preview, setPreview] = useState<AdminRecord | null>(null);
 
   async function remove(row: AdminRecord) {
-    await run(() => api.delete(`/admin/cms/${recordId(row)}`), "Page deleted");
+    await run(() => api.delete(`/cms/${recordId(row)}`), "Page deleted");
   }
 
   return (
@@ -125,7 +125,7 @@ function CmsDialog({ open, page, onOpenChange, onSaved, run }: { open: boolean; 
     setBusy(true);
     try {
       const values = toFormData({ title: title.trim(), slug: slug.trim(), status, content });
-      const action = page ? api.put(`/admin/cms/${recordId(page)}`, values, { headers: { "Content-Type": "multipart/form-data" } }) : api.post("/admin/cms", values, { headers: { "Content-Type": "multipart/form-data" } });
+      const action = page ? api.put(`/cms/${recordId(page)}`, values, { headers: { "Content-Type": "multipart/form-data" } }) : api.post("/cms", values, { headers: { "Content-Type": "multipart/form-data" } });
       const ok = await run(() => action, page ? "Page updated" : "Page created");
       if (ok) onSaved();
     } finally { setBusy(false); }

@@ -5,7 +5,7 @@ import { AdminLayout } from "@/components/admin/AdminLayout";
 import { ResourceTable, type Column } from "@/components/admin/ResourceTable";
 import { RecordDialog } from "@/components/admin/RecordDialog";
 import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
-import { TextBadge } from "@/components/admin/StatusBadge";
+import { EnumBadge, type BadgeTone } from "@/components/admin/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { api, apiErrorMessage } from "@/lib/admin-api";
 import {
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/admin/bookings")({
   component: BookingsPage,
 });
 
-const STATUSES = ["pending", "accepted", "in-progress", "completed", "cancelled"];
+const STATUSES = ["0", "1", "2"];
 
 type BookingPerson = { firstName?: string; lastName?: string; name?: string };
 
@@ -43,9 +43,13 @@ function serviceName(row: AdminRecord) {
 
 function BookingStatusBadge({ value }: { value: unknown }) {
   const status = Number(value);
-  const labels = ["Pending", "Assigned/Active", "Completed"];
-  const label = labels[status] ?? "Unknown";
-  return <TextBadge value={label} />;
+  const statuses: Array<{ label: string; tone: BadgeTone }> = [
+    { label: "Pending", tone: "warning" },
+    { label: "Assigned/Active", tone: "info" },
+    { label: "Completed", tone: "success" },
+  ];
+  const current = statuses[status];
+  return current ? <EnumBadge label={current.label} tone={current.tone} /> : <EnumBadge label="Unknown" tone="neutral" />;
 }
 
 function BookingsPage() {

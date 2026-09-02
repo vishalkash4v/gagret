@@ -72,7 +72,7 @@ export function AdminLayout({ title, actions, children }: { title: string; actio
       >
         <div className="flex h-16 items-center justify-between border-b border-border px-5">
           <span className="font-display text-lg font-extrabold">
-            Home<span className="text-accent">Fix</span>{" "}
+            Go<span className="text-accent">4Task</span>{" "}
             <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Admin</span>
           </span>
           <button
