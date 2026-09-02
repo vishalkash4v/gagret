@@ -26,7 +26,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { Button } from "@/components/site/Button";
 import { StoreBadges } from "@/components/site/StoreBadges";
 
-const title = "HomeFix — Local Plumbers, Electricians & Home Repairs Near You";
+const title = "Go4Task — Local Plumbers, Electricians & Home Repairs Near You";
 const description =
   "Post a job free, get bids from verified pros within 50km and hire the best. 100% free for customers. Providers pay a small flat access fee only on won bookings.";
 
@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
-          name: "HomeFix",
+          name: "Go4Task",
           description,
           telephone: "+91-6230450047",
           email: "cqlsysvishal@gmail.com",
@@ -154,7 +154,7 @@ function LandingPage() {
             <div className="relative">
               <img
                 src={heroImage}
-                alt="Smiling verified HomeFix handyman with his toolkit greeting a happy family at their front door"
+                alt="Smiling verified Go4Task handyman with his toolkit greeting a happy family at their front door"
                 width={1280}
                 height={1024}
                 className="w-full rounded-2xl object-cover shadow-lift"
@@ -200,7 +200,7 @@ function LandingPage() {
         <section id="how-it-works" aria-labelledby="how-heading" className="px-4 py-16 sm:px-6">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">How HomeFix Works</h2>
+              <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">How Go4Task Works</h2>
               <p className="mt-3 text-muted-foreground">
                 One simple bidding flow — built to be free for the household and fair for the
                 professional.
@@ -259,7 +259,7 @@ function LandingPage() {
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
               <h2 id="why-heading" className="text-3xl font-extrabold sm:text-4xl">
-                Why Choose HomeFix?
+                Why Choose Go4Task?
               </h2>
               <p className="mt-3 text-muted-foreground">
                 Trusted local home services — verified pros, honest quotes and no fees for customers.
@@ -298,7 +298,7 @@ function LandingPage() {
             </div>
             <img
               src={appScreens}
-              alt="HomeFix app screens showing job posting, received bids and a confirmed booking"
+              alt="Go4Task app screens showing job posting, received bids and a confirmed booking"
               width={1280}
               height={912}
               loading="lazy"

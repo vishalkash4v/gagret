@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout, Prose } from "@/components/site/PageLayout";
 
-const title = "About Us — HomeFix Hyper-Local Home Services";
+const title = "About Us — Go4Task Hyper-Local Home Services";
 const description =
-  "HomeFix is a hyper-local home services app built in Una, Himachal Pradesh, with free bookings for customers and a fair flat access fee for pros.";
+  "Go4Task is a hyper-local home services app built in Una, Himachal Pradesh, with free bookings for customers and a fair flat access fee for pros.";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -23,12 +23,12 @@ export const Route = createFileRoute("/about")({
 function AboutPage() {
   return (
     <PageLayout
-      title="About HomeFix"
+      title="About Go4Task"
       intro="A fairer way to book home services in small-town India."
     >
       <Prose>
         <p>
-          HomeFix started in Una, Himachal Pradesh with a simple frustration: finding a reliable
+          Go4Task started in Una, Himachal Pradesh with a simple frustration: finding a reliable
           plumber or electrician meant calling three neighbours and hoping. Meanwhile, skilled local
           pros were paying heavy subscriptions and commissions to big platforms for leads that rarely
           converted.
@@ -49,7 +49,7 @@ function AboutPage() {
 
         <h2>Say hello</h2>
         <p>
-          HomeFix, Una, Himachal Pradesh · +91 62304 50047 · cqlsysvishal@gmail.com
+          Go4Task, Una, Himachal Pradesh · +91 62304 50047 · cqlsysvishal@gmail.com
         </p>
       </Prose>
     </PageLayout>

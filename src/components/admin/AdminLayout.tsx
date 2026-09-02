@@ -27,6 +27,7 @@ const navItems = [
   { to: "/admin/offers", label: "Offers", Icon: BadgePercent },
   { to: "/admin/transactions", label: "Transactions", Icon: Receipt },
   { to: "/admin/cms", label: "CMS & Policies", Icon: FileText },
+  { to: "/admin/policy", label: "Policies", Icon: FileText },
   { to: "/admin/support", label: "Support Tickets", Icon: LifeBuoy },
 ] as const;
 

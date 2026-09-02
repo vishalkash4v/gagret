@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout, Prose } from "@/components/site/PageLayout";
 
-const title = "Cancellation & Refund Policy — HomeFix";
+const title = "Cancellation & Refund Policy — Go4Task";
 const description =
-  "How cancellations work for HomeFix customers and when provider access fees are refunded or credited back.";
+  "How cancellations work for Go4Task customers and when provider access fees are refunded or credited back.";
 
 export const Route = createFileRoute("/refund-policy")({
   head: () => ({
@@ -27,7 +27,7 @@ function RefundPage() {
         <h2>Customer cancellations</h2>
         <ul>
           <li>Cancelling before a professional arrives is always free.</li>
-          <li>Because customers pay no platform fee, there is nothing for HomeFix to refund.</li>
+          <li>Because customers pay no platform fee, there is nothing for Go4Task to refund.</li>
           <li>Repeated late cancellations may temporarily limit new job postings.</li>
         </ul>
 

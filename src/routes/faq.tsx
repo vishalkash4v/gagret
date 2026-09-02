@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/site/PageLayout";
 
-const title = "FAQ — HomeFix Home Services & Provider Access Fee";
+const title = "FAQ — Go4Task Home Services & Provider Access Fee";
 const description =
-  "Answers about HomeFix: how bidding works, why it is free for customers, the flat access fee for providers, and the first 3 free bookings offer.";
+  "Answers about Go4Task: how bidding works, why it is free for customers, the flat access fee for providers, and the first 3 free bookings offer.";
 
 const faqs = [
   {
-    q: "Is HomeFix really free for customers?",
+    q: "Is Go4Task really free for customers?",
     a: "Yes. Posting a job, receiving bids, chatting with pros and confirming a booking are 100% free. You only pay the professional for the work itself, at the price you accepted.",
   },
   {
