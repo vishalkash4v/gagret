@@ -22,6 +22,7 @@ import { Route as AdminCmsRouteImport } from './routes/admin.cms'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminOffersRouteImport } from './routes/admin.offers'
+import { Route as AdminPolicyRouteImport } from './routes/admin.policy'
 import { Route as AdminProvidersRouteImport } from './routes/admin.providers'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
 import { Route as AdminSupportRouteImport } from './routes/admin.support'
@@ -94,6 +95,11 @@ const AdminOffersRoute = AdminOffersRouteImport.update({
   path: '/admin/offers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPolicyRoute = AdminPolicyRouteImport.update({
+  id: '/admin/policy',
+  path: '/admin/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProvidersRoute = AdminProvidersRouteImport.update({
   id: '/admin/providers',
   path: '/admin/providers',
@@ -139,6 +145,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
+  '/admin/policy': typeof AdminPolicyRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/support': typeof AdminSupportRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
+  '/admin/policy': typeof AdminPolicyRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/support': typeof AdminSupportRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
+  '/admin/policy': typeof AdminPolicyRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/support': typeof AdminSupportRoute
@@ -205,6 +214,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/offers'
+    | '/admin/policy'
     | '/admin/providers'
     | '/admin/services'
     | '/admin/support'
@@ -226,6 +236,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/offers'
+    | '/admin/policy'
     | '/admin/providers'
     | '/admin/services'
     | '/admin/support'
@@ -247,6 +258,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/login'
     | '/admin/offers'
+    | '/admin/policy'
     | '/admin/providers'
     | '/admin/services'
     | '/admin/support'
@@ -269,6 +281,7 @@ export interface RootRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOffersRoute: typeof AdminOffersRoute
+  AdminPolicyRoute: typeof AdminPolicyRoute
   AdminProvidersRoute: typeof AdminProvidersRoute
   AdminServicesRoute: typeof AdminServicesRoute
   AdminSupportRoute: typeof AdminSupportRoute
@@ -371,6 +384,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminOffersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/policy': {
+      id: '/admin/policy'
+      path: '/admin/policy'
+      fullPath: '/admin/policy'
+      preLoaderRoute: typeof AdminPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/providers': {
       id: '/admin/providers'
       path: '/admin/providers'
@@ -429,6 +449,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminOffersRoute: AdminOffersRoute,
+  AdminPolicyRoute: AdminPolicyRoute,
   AdminProvidersRoute: AdminProvidersRoute,
   AdminServicesRoute: AdminServicesRoute,
   AdminSupportRoute: AdminSupportRoute,
