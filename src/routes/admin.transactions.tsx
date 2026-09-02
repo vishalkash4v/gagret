@@ -26,6 +26,12 @@ export const Route = createFileRoute("/admin/transactions")({
 
 const STATUSES = ["pending", "success", "failed", "refunded"];
 
+type Provider = { firstName?: string; lastName?: string };
+
+function providerOf(row: AdminRecord) {
+  return row["provider"] as Provider | null | undefined;
+}
+
 function TransactionsPage() {
   const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
     "transactions",
@@ -37,7 +43,11 @@ function TransactionsPage() {
   const columns: Column<AdminRecord>[] = [
     {
       header: "Provider",
-      <span className="font-medium">{[providerOf(r)?.firstName, providerOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}</span>
+      cell: (r) => (
+        <span className="font-medium">
+          {[providerOf(r)?.firstName, providerOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}
+        </span>
+      ),
     },
     {
       header: "Booking ID",

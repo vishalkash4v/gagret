@@ -30,9 +30,9 @@ function imageUrl(row: AdminRecord) {
 }
 
 function ServicesPage() {
-  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
+    const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
     "services",
-    "/admin/services",
+    "/services",
     "services",
   );
   const [creating, setCreating] = useState(false);
