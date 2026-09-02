@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout, Prose } from "@/components/site/PageLayout";
 
-const title = "Privacy Policy — HomeFix";
+const title = "Privacy Policy — Go4Task";
 const description =
-  "How HomeFix collects, uses and protects customer and service provider data across our home services marketplace.";
+  "How Go4Task collects, uses and protects customer and service provider data across our home services marketplace.";
 
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
@@ -25,7 +25,7 @@ function PrivacyPage() {
     <PageLayout title="Privacy Policy" intro="Last updated: 1 August 2026">
       <Prose>
         <p>
-          HomeFix ("we", "us") operates a hyper-local home services marketplace. This policy explains
+          Go4Task ("we", "us") operates a hyper-local home services marketplace. This policy explains
           what we collect, why we collect it, and the choices you have.
         </p>
 
@@ -65,7 +65,7 @@ function PrivacyPage() {
 
         <h2>Contact</h2>
         <p>
-          HomeFix, Una, Himachal Pradesh, India. Phone: +91 62304 50047. Email:
+          Go4Task, Una, Himachal Pradesh, India. Phone: +91 62304 50047. Email:
           cqlsysvishal@gmail.com
         </p>
       </Prose>

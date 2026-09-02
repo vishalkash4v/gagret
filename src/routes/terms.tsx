@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout, Prose } from "@/components/site/PageLayout";
 
-const title = "Terms & Conditions — HomeFix";
+const title = "Terms & Conditions — Go4Task";
 const description =
-  "The terms governing use of the HomeFix home services app for customers and service providers, including the flat access fee model.";
+  "The terms governing use of the Go4Task home services app for customers and service providers, including the flat access fee model.";
 
 export const Route = createFileRoute("/terms")({
   head: () => ({
@@ -26,14 +26,14 @@ function TermsPage() {
       <Prose>
         <h2>1. About the platform</h2>
         <p>
-          HomeFix connects customers with independent local service professionals. We are a
-          marketplace: the professional, not HomeFix, performs the service and is responsible for the
+          Go4Task connects customers with independent local service professionals. We are a
+          marketplace: the professional, not Go4Task, performs the service and is responsible for the
           quality of their work.
         </p>
 
         <h2>2. Customer terms</h2>
         <ul>
-          <li>Using HomeFix as a customer is free — posting, bidding and booking carry no platform fee.</li>
+          <li>Using Go4Task as a customer is free — posting, bidding and booking carry no platform fee.</li>
           <li>Job descriptions must be accurate and lawful.</li>
           <li>Payment for completed work is settled directly with the professional at the accepted price.</li>
         </ul>
@@ -54,7 +54,7 @@ function TermsPage() {
 
         <h2>5. Liability</h2>
         <p>
-          Our liability is limited to fees paid to HomeFix in the preceding three months. Disputes
+          Our liability is limited to fees paid to Go4Task in the preceding three months. Disputes
           about workmanship are mediated by our support team in good faith.
         </p>
 

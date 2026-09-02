@@ -9,7 +9,6 @@ import { EnumBadge, TextBadge, type BadgeTone } from "@/components/admin/StatusB
 import { Button } from "@/components/ui/button";
 import { api, apiErrorMessage, formatCurrency } from "@/lib/admin-api";
 import {
-  pickString,
   recordId,
   toJson,
   useAdminList,
@@ -54,7 +53,11 @@ function OffersPage() {
   const columns: Column<AdminRecord>[] = [
     {
       header: "Provider",
-      <span className="font-medium">{[providerOf(r)?.firstName, providerOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}</span>
+      cell: (r) => (
+        <span className="font-medium">
+          {[providerOf(r)?.firstName, providerOf(r)?.lastName].filter(Boolean).join(" ") || "N/A"}
+        </span>
+      ),
     },
     { header: "Amount", cell: (r) => formatCurrency(Number(r["offerAmount"] ?? 0)) },
     { header: "Access Fee", cell: (r) => formatCurrency(Number(r["accessFee"] ?? r["fee"] ?? 0)) },

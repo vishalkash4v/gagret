@@ -19,7 +19,7 @@ import {
 export const Route = createFileRoute("/admin/services")({
   ssr: false,
   head: () => ({
-    meta: [{ title: "Services — HomeFix Admin" }, { name: "robots", content: "noindex, nofollow" }],
+    meta: [{ title: "Services — Go4Task Admin" }, { name: "robots", content: "noindex, nofollow" }],
   }),
   component: ServicesPage,
 });
@@ -30,9 +30,9 @@ function imageUrl(row: AdminRecord) {
 }
 
 function ServicesPage() {
-  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
+    const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>(
     "services",
-    "/admin/services",
+    "/services",
     "services",
   );
   const [creating, setCreating] = useState(false);
@@ -71,7 +71,7 @@ function ServicesPage() {
             variant="ghost"
             size="icon"
             aria-label="Toggle service status"
-            onClick={() => run(() => api.put(`/admin/services/${recordId(r)}/toggle-status`), "Service status updated")}
+            onClick={() => run(() => api.put(`/services/${recordId(r)}/toggle-status`), "Service status updated")}
           >
             {r["isActive"] !== false ? <ToggleRight className="h-4 w-4 text-success" /> : <ToggleLeft className="h-4 w-4" />}
           </Button>
@@ -81,7 +81,7 @@ function ServicesPage() {
           <ConfirmDelete
             label="this service"
             onConfirm={() =>
-              run(() => api.delete(`/admin/services/${recordId(r)}`), "Service deleted").then(() => undefined)
+              run(() => api.delete(`/services/${recordId(r)}`), "Service deleted").then(() => undefined)
             }
           />
         </div>
@@ -123,7 +123,7 @@ function ServicesPage() {
         onSubmit={async (values) => {
           const ok = await run(
             () =>
-              api.post("/admin/services", toFormData(values), {
+              api.post("/services", toFormData(values), {
                 headers: { "Content-Type": "multipart/form-data" },
               }),
             "Service created",
@@ -146,7 +146,7 @@ function ServicesPage() {
           if (!editing) return;
           const ok = await run(
             () =>
-              api.put(`/admin/services/${recordId(editing)}`, toFormData(values), {
+              api.put(`/services/${recordId(editing)}`, toFormData(values), {
                 headers: { "Content-Type": "multipart/form-data" },
               }),
             "Service updated",

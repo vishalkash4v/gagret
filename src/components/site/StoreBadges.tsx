@@ -5,7 +5,7 @@ export function StoreBadges({ className = "" }: { className?: string }) {
     <div className={`flex flex-wrap gap-3 ${className}`}>
       <a
         href="#download"
-        aria-label="Download HomeFix on Google Play"
+        aria-label="Download Go4Task on Google Play"
         className="inline-flex items-center gap-3 rounded-xl bg-foreground px-5 py-3 text-background transition-transform hover:-translate-y-0.5"
       >
         <Play className="h-6 w-6" aria-hidden="true" />

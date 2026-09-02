@@ -17,12 +17,12 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-2" aria-label="HomeFix home">
+        <Link to="/" className="flex items-center gap-2" aria-label="Go4Task home">
           <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Wrench className="h-5 w-5" aria-hidden="true" />
           </span>
           <span className="font-display text-lg font-extrabold tracking-tight">
-            Home<span className="text-accent">Fix</span>
+            Go<span className="text-accent">4Task</span>
           </span>
         </Link>
 

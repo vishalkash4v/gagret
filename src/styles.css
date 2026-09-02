@@ -5,7 +5,7 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * HomeFix design system — deep navy trust + vibrant orange CTA + green proof.
+ * Go4Task design system — deep navy trust + vibrant orange CTA + green proof.
  * All colors are oklch semantic tokens. Never hardcode colors in components.
  */
 

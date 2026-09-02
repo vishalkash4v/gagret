@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { PageLayout } from "@/components/site/PageLayout";
 
-const title = "Contact HomeFix — Support for Customers & Providers";
+const title = "Contact Go4Task — Support for Customers & Providers";
 const description =
-  "Reach the HomeFix team in Una, Himachal Pradesh. Call +91 62304 50047 or email cqlsysvishal@gmail.com for support, partnerships or provider onboarding.";
+  "Reach the Go4Task team in Una, Himachal Pradesh. Call +91 62304 50047 or email cqlsysvishal@gmail.com for support, partnerships or provider onboarding.";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({

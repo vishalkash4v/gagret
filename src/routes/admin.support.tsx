@@ -13,10 +13,10 @@ export const Route = createFileRoute("/admin/support")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Support Tickets — HomeFix Admin" },
-      { name: "description", content: "Review and respond to HomeFix customer support requests." },
-      { property: "og:title", content: "Support Tickets — HomeFix Admin" },
-      { property: "og:description", content: "Review and respond to HomeFix customer support requests." },
+      { title: "Support Tickets — Go4Task Admin" },
+      { name: "description", content: "Review and respond to Go4Task customer support requests." },
+      { property: "og:title", content: "Support Tickets — Go4Task Admin" },
+      { property: "og:description", content: "Review and respond to Go4Task customer support requests." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex, nofollow" },
@@ -34,7 +34,7 @@ function ticketDate(row: AdminRecord) { const value = row["createdAt"] ?? row["c
 function statusClass(status: string) { const normalized = status.toUpperCase(); if (normalized === "RESOLVED") return "border-transparent bg-success-soft text-success"; if (normalized === "IN_PROGRESS") return "border-transparent bg-primary-soft text-primary"; return "border-transparent bg-accent-soft text-accent-foreground"; }
 
 function SupportPage() {
-  const { data = [], isLoading, error, refetch } = useAdminList<AdminRecord>("support", "/admin/support", "support", "tickets");
+  const { data = [], isLoading, error, refetch } = useAdminList<AdminRecord>("support", "/support", "support", "tickets");
   const [selected, setSelected] = useState<AdminRecord | null>(null);
   return <AdminLayout title="Support Tickets"><div className="mb-5 flex items-end justify-between gap-3"><div><p className="text-sm text-muted-foreground">Review customer requests and keep every conversation moving.</p></div>{!isLoading && !error && <p className="text-xs text-muted-foreground">{data.length} ticket{data.length === 1 ? "" : "s"}</p>}</div>
     <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-soft)]">{isLoading ? <TableSkeleton cols={6} /> : error ? <ErrorState message={apiErrorMessage(error, "Could not load support tickets")} onRetry={() => refetch()} /> : data.length === 0 ? <EmptyState message="No support tickets found." action={<LifeBuoy className="h-5 w-5 text-muted-foreground" aria-hidden="true" />} /> : <div className="overflow-x-auto"><table className="w-full min-w-[820px] text-sm"><thead className="bg-muted/50 text-left text-xs uppercase tracking-wide text-muted-foreground"><tr><th className="px-5 py-3 font-semibold">User</th><th className="px-5 py-3 font-semibold">Contact info</th><th className="px-5 py-3 font-semibold">Subject</th><th className="px-5 py-3 font-semibold">Status</th><th className="px-5 py-3 font-semibold">Date</th><th className="px-5 py-3 text-right font-semibold">Action</th></tr></thead><tbody className="divide-y divide-border">{data.map((row, index) => { const info = contact(row); const status = String(row["status"] ?? "PENDING"); return <tr key={recordId(row) || index} className="transition-colors hover:bg-muted/40"><td className="px-5 py-4"><div className="flex items-center gap-2"><span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary-soft text-primary"><UserRound className="h-4 w-4" aria-hidden="true" /></span><span className="font-medium">{userName(row)}</span></div></td><td className="px-5 py-4"><div className="space-y-1 text-xs text-muted-foreground"><p>{info.email}</p><p>{info.mobile}</p></div></td><td className="max-w-[260px] truncate px-5 py-4 font-medium">{String(row["subject"] ?? "No subject")}</td><td className="px-5 py-4"><span className={`inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold ${statusClass(status)}`}>{status.replaceAll("_", " ")}</span></td><td className="px-5 py-4 text-muted-foreground">{ticketDate(row)}</td><td className="px-5 py-4 text-right"><Button variant="outline" size="sm" onClick={() => setSelected(row)}><Eye aria-hidden="true" /> View</Button></td></tr>; })}</tbody></table></div>}</div>

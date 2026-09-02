@@ -14,10 +14,10 @@ const legalLinks = [
 ];
 
 const socials = [
-  { label: "HomeFix on Facebook", Icon: Facebook },
-  { label: "HomeFix on Instagram", Icon: Instagram },
-  { label: "HomeFix on LinkedIn", Icon: Linkedin },
-  { label: "HomeFix on YouTube", Icon: Youtube },
+  { label: "Go4Task on Facebook", Icon: Facebook },
+  { label: "Go4Task on Instagram", Icon: Instagram },
+  { label: "Go4Task on LinkedIn", Icon: Linkedin },
+  { label: "Go4Task on YouTube", Icon: Youtube },
 ];
 
 export function SiteFooter() {
@@ -29,7 +29,7 @@ export function SiteFooter() {
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-accent-foreground">
               <Wrench className="h-5 w-5" aria-hidden="true" />
             </span>
-            <span className="font-display text-lg font-extrabold">HomeFix</span>
+            <span className="font-display text-lg font-extrabold">Go4Task</span>
           </div>
           <p className="mt-4 text-sm text-primary-foreground/75">
             Hyper-local home services with a fair bidding model. Free for customers, flat access fee
@@ -98,7 +98,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-primary-foreground/15 px-4 py-5 text-center text-xs text-primary-foreground/65">
-        © 2026 HomeFix. All rights reserved.
+        © 2026 Go4Task. All rights reserved.
       </div>
     </footer>
   );
