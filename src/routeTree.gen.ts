@@ -20,9 +20,11 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 import { Route as AdminCmsRouteImport } from './routes/admin.cms'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as AdminKycRouteImport } from './routes/admin.kyc'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminOffersRouteImport } from './routes/admin.offers'
 import { Route as AdminPolicyRouteImport } from './routes/admin.policy'
+import { Route as AdminProfileImagesRouteImport } from './routes/admin.profile-images'
 import { Route as AdminProvidersRouteImport } from './routes/admin.providers'
 import { Route as AdminServicesRouteImport } from './routes/admin.services'
 import { Route as AdminSupportRouteImport } from './routes/admin.support'
@@ -86,6 +88,11 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/admin/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminKycRoute = AdminKycRouteImport.update({
+  id: '/admin/kyc',
+  path: '/admin/kyc',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin/login',
   path: '/admin/login',
@@ -99,6 +106,11 @@ const AdminOffersRoute = AdminOffersRouteImport.update({
 const AdminPolicyRoute = AdminPolicyRouteImport.update({
   id: '/admin/policy',
   path: '/admin/policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProfileImagesRoute = AdminProfileImagesRouteImport.update({
+  id: '/admin/profile-images',
+  path: '/admin/profile-images',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminProvidersRoute = AdminProvidersRouteImport.update({
@@ -149,9 +161,11 @@ export interface FileRoutesByFullPath {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/cms': typeof AdminCmsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/kyc': typeof AdminKycRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
   '/admin/policy': typeof AdminPolicyRoute
+  '/admin/profile-images': typeof AdminProfileImagesRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/support': typeof AdminSupportRoute
@@ -172,9 +186,11 @@ export interface FileRoutesByTo {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/cms': typeof AdminCmsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/kyc': typeof AdminKycRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
   '/admin/policy': typeof AdminPolicyRoute
+  '/admin/profile-images': typeof AdminProfileImagesRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/support': typeof AdminSupportRoute
@@ -196,9 +212,11 @@ export interface FileRoutesById {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/cms': typeof AdminCmsRoute
   '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/kyc': typeof AdminKycRoute
   '/admin/login': typeof AdminLoginRoute
   '/admin/offers': typeof AdminOffersRoute
   '/admin/policy': typeof AdminPolicyRoute
+  '/admin/profile-images': typeof AdminProfileImagesRoute
   '/admin/providers': typeof AdminProvidersRoute
   '/admin/services': typeof AdminServicesRoute
   '/admin/support': typeof AdminSupportRoute
@@ -221,9 +239,11 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/cms'
     | '/admin/dashboard'
+    | '/admin/kyc'
     | '/admin/login'
     | '/admin/offers'
     | '/admin/policy'
+    | '/admin/profile-images'
     | '/admin/providers'
     | '/admin/services'
     | '/admin/support'
@@ -244,9 +264,11 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/cms'
     | '/admin/dashboard'
+    | '/admin/kyc'
     | '/admin/login'
     | '/admin/offers'
     | '/admin/policy'
+    | '/admin/profile-images'
     | '/admin/providers'
     | '/admin/services'
     | '/admin/support'
@@ -267,9 +289,11 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/cms'
     | '/admin/dashboard'
+    | '/admin/kyc'
     | '/admin/login'
     | '/admin/offers'
     | '/admin/policy'
+    | '/admin/profile-images'
     | '/admin/providers'
     | '/admin/services'
     | '/admin/support'
@@ -291,9 +315,11 @@ export interface RootRouteChildren {
   AdminBookingsRoute: typeof AdminBookingsRoute
   AdminCmsRoute: typeof AdminCmsRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminKycRoute: typeof AdminKycRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminOffersRoute: typeof AdminOffersRoute
   AdminPolicyRoute: typeof AdminPolicyRoute
+  AdminProfileImagesRoute: typeof AdminProfileImagesRoute
   AdminProvidersRoute: typeof AdminProvidersRoute
   AdminServicesRoute: typeof AdminServicesRoute
   AdminSupportRoute: typeof AdminSupportRoute
@@ -383,6 +409,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/kyc': {
+      id: '/admin/kyc'
+      path: '/admin/kyc'
+      fullPath: '/admin/kyc'
+      preLoaderRoute: typeof AdminKycRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/admin/login'
@@ -402,6 +435,13 @@ declare module '@tanstack/react-router' {
       path: '/admin/policy'
       fullPath: '/admin/policy'
       preLoaderRoute: typeof AdminPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/profile-images': {
+      id: '/admin/profile-images'
+      path: '/admin/profile-images'
+      fullPath: '/admin/profile-images'
+      preLoaderRoute: typeof AdminProfileImagesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/providers': {
@@ -467,9 +507,11 @@ const rootRouteChildren: RootRouteChildren = {
   AdminBookingsRoute: AdminBookingsRoute,
   AdminCmsRoute: AdminCmsRoute,
   AdminDashboardRoute: AdminDashboardRoute,
+  AdminKycRoute: AdminKycRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminOffersRoute: AdminOffersRoute,
   AdminPolicyRoute: AdminPolicyRoute,
+  AdminProfileImagesRoute: AdminProfileImagesRoute,
   AdminProvidersRoute: AdminProvidersRoute,
   AdminServicesRoute: AdminServicesRoute,
   AdminSupportRoute: AdminSupportRoute,
