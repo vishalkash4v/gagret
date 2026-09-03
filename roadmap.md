@@ -1,0 +1,4 @@
+- [ ] Add a root API proxy and authenticated client for KYC and profile-image endpoints
+- [ ] Build the KYC verification route with filters, review dialog, image comparison, and FormData actions
+- [ ] Build the provider profile-image approvals route with comparison cards and FormData actions
+- [ ] Wire both routes into admin navigation and verify generated routes/build/preview
