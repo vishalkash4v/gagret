@@ -3,7 +3,9 @@ import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import {
   BadgePercent,
   CalendarCheck,
+  FileCheck2,
   FileText,
+  ImageCheck,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -29,6 +31,8 @@ const navItems = [
   { to: "/admin/cms", label: "CMS & Policies", Icon: FileText },
   { to: "/admin/policy", label: "Policies", Icon: FileText },
   { to: "/admin/support", label: "Support Tickets", Icon: LifeBuoy },
+  { to: "/admin/kyc", label: "KYC Verification", Icon: FileCheck2 },
+  { to: "/admin/profile-images", label: "Profile Approvals", Icon: ImageCheck },
 ] as const;
 
 export function AdminLayout({ title, actions, children }: { title: string; actions?: ReactNode; children: ReactNode }) {
