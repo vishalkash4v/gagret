@@ -29,6 +29,7 @@ import { Route as AdminSupportRouteImport } from './routes/admin.support'
 import { Route as AdminTransactionsRouteImport } from './routes/admin.transactions'
 import { Route as AdminUsersRouteImport } from './routes/admin.users'
 import { Route as ApiPublicAdminProxySplatRouteImport } from './routes/api/public/admin-proxy.$'
+import { Route as ApiPublicApiProxySplatRouteImport } from './routes/api/public/api-proxy.$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -131,6 +132,11 @@ const ApiPublicAdminProxySplatRoute =
     path: '/api/public/admin-proxy/$',
     getParentRoute: () => rootRouteImport,
   } as any)
+const ApiPublicApiProxySplatRoute = ApiPublicApiProxySplatRouteImport.update({
+  id: '/api/public/api-proxy/$',
+  path: '/api/public/api-proxy/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -153,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/admin/users': typeof AdminUsersRoute
   '/admin/': typeof AdminIndexRoute
   '/api/public/admin-proxy/$': typeof ApiPublicAdminProxySplatRoute
+  '/api/public/api-proxy/$': typeof ApiPublicApiProxySplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -175,6 +182,7 @@ export interface FileRoutesByTo {
   '/admin/users': typeof AdminUsersRoute
   '/admin': typeof AdminIndexRoute
   '/api/public/admin-proxy/$': typeof ApiPublicAdminProxySplatRoute
+  '/api/public/api-proxy/$': typeof ApiPublicApiProxySplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -198,6 +206,7 @@ export interface FileRoutesById {
   '/admin/users': typeof AdminUsersRoute
   '/admin/': typeof AdminIndexRoute
   '/api/public/admin-proxy/$': typeof ApiPublicAdminProxySplatRoute
+  '/api/public/api-proxy/$': typeof ApiPublicApiProxySplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -222,6 +231,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/admin/'
     | '/api/public/admin-proxy/$'
+    | '/api/public/api-proxy/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -244,6 +254,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/admin'
     | '/api/public/admin-proxy/$'
+    | '/api/public/api-proxy/$'
   id:
     | '__root__'
     | '/'
@@ -266,6 +277,7 @@ export interface FileRouteTypes {
     | '/admin/users'
     | '/admin/'
     | '/api/public/admin-proxy/$'
+    | '/api/public/api-proxy/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -289,6 +301,7 @@ export interface RootRouteChildren {
   AdminUsersRoute: typeof AdminUsersRoute
   AdminIndexRoute: typeof AdminIndexRoute
   ApiPublicAdminProxySplatRoute: typeof ApiPublicAdminProxySplatRoute
+  ApiPublicApiProxySplatRoute: typeof ApiPublicApiProxySplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -433,6 +446,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicAdminProxySplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/api-proxy/$': {
+      id: '/api/public/api-proxy/$'
+      path: '/api/public/api-proxy/$'
+      fullPath: '/api/public/api-proxy/$'
+      preLoaderRoute: typeof ApiPublicApiProxySplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -457,6 +477,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminUsersRoute: AdminUsersRoute,
   AdminIndexRoute: AdminIndexRoute,
   ApiPublicAdminProxySplatRoute: ApiPublicAdminProxySplatRoute,
+  ApiPublicApiProxySplatRoute: ApiPublicApiProxySplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
