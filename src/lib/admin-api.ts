@@ -18,28 +18,36 @@ export function clearToken() {
   window.localStorage.removeItem(TOKEN_KEY);
 }
 
-export const api = axios.create({ baseURL: BROWSER_API_BASE_URL });
-
-api.interceptors.request.use((config) => {
-  const token = getToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-api.interceptors.response.use(
-  (res) => res,
-  (error) => {
-    if (error?.response?.status === 401 && typeof window !== "undefined") {
-      clearToken();
-      if (!window.location.pathname.startsWith("/admin/login")) {
-        window.location.href = "/admin/login";
-      }
+function configureClient(client: ReturnType<typeof axios.create>) {
+  client.interceptors.request.use((config) => {
+    const token = getToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return Promise.reject(error);
-  },
-);
+    return config;
+  });
+
+  client.interceptors.response.use(
+    (res) => res,
+    (error) => {
+      if (error?.response?.status === 401 && typeof window !== "undefined") {
+        clearToken();
+        if (!window.location.pathname.startsWith("/admin/login")) {
+          window.location.href = "/admin/login";
+        }
+      }
+      return Promise.reject(error);
+    },
+  );
+  return client;
+}
+
+/** Admin routes are served by /api/admin on the upstream service. */
+export const api = configureClient(axios.create({ baseURL: BROWSER_API_BASE_URL }));
+
+/** Public API routes share the same admin bearer token but do not include /admin. */
+export const apiRoot = configureClient(axios.create({ baseURL: "/api/public/api-proxy" }));
+
 
 export function apiErrorMessage(error: unknown, fallback = "Something went wrong") {
   if (axios.isAxiosError(error)) {
