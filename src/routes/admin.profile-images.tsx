@@ -56,9 +56,24 @@ function ProfileImagesPage() {
 
   const pendingCount = data.reduce((total, group) => total + (group?.pendingImages?.filter((image) => Number(image?.status) === 0).length ?? 0), 0);
 
-    <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-soft)]">{isLoading ? <TableSkeleton cols={5} /> : error ? <ErrorState message={apiErrorMessage(error, "Could not load pending profile images")} onRetry={() => refetch()} /> : pendingCount === 0 ? <EmptyState message="No pending profile image updates found." action={<BadgeCheck className="h-5 w-5 text-muted-foreground" aria-hidden="true" />} /> : <div className="divide-y divide-border">{data.map((group, index) => (group?.pendingImages ?? []).filter((image) => Number(image?.status) === 0).map((image) => <ProfileImageRow key={image?._id ?? `${group?.userId}-${index}`} group={group} image={image} busy={busyKey === `${group?.userId}-${image?._id}`} onApprove={() => review(group, image, 1)} onReject={() => { setRejecting({ group, image }); setReason(""); }} />))}</div>}</div>
-    <Dialog open={Boolean(rejecting)} onOpenChange={(open) => !open && setRejecting(null)}><DialogContent><DialogHeader><DialogTitle>Reject profile image?</DialogTitle><DialogDescription>Give the provider a clear reason so they know what to update.</DialogDescription></DialogHeader><div className="space-y-2"><Label htmlFor="image-rejection-reason">Rejection reason</Label><Input id="image-rejection-reason" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Explain why this image cannot be approved" autoFocus /></div><DialogFooter><Button variant="outline" onClick={() => setRejecting(null)} disabled={Boolean(busyKey)}>Cancel</Button><Button variant="destructive" disabled={!reason.trim() || Boolean(busyKey)} onClick={() => rejecting && review(rejecting.group, rejecting.image, 2, reason)}>{busyKey ? <Loader2 className="animate-spin" /> : <X />} Reject image</Button></DialogFooter></DialogContent></Dialog>
-  </AdminLayout>;
+  return (
+    <AdminLayout title="Profile Image Approvals">
+      <div className="mb-5 flex items-end justify-between gap-3">
+        <div><p className="text-sm text-muted-foreground">Compare current provider photos with their requested updates.</p></div>
+        {!isLoading && !error && <p className="text-xs text-muted-foreground">{pendingCount} pending image{pendingCount === 1 ? "" : "s"}</p>}
+      </div>
+      <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-soft)]">
+        {isLoading ? <TableSkeleton cols={5} /> : error ? <ErrorState message={apiErrorMessage(error, "Could not load pending profile images")} onRetry={() => refetch()} /> : pendingCount === 0 ? <EmptyState message="No pending profile image updates found." action={<BadgeCheck className="h-5 w-5 text-muted-foreground" aria-hidden="true" />} /> : <div className="divide-y divide-border">{data.map((group, index) => (group?.pendingImages ?? []).filter((image) => Number(image?.status) === 0).map((image) => <ProfileImageRow key={image?._id ?? `${group?.userId}-${index}`} group={group} image={image} busy={busyKey === `${group?.userId}-${image?._id}`} onApprove={() => review(group, image, 1)} onReject={() => { setRejecting({ group, image }); setReason(""); }} />))}</div>}
+      </div>
+      <Dialog open={Boolean(rejecting)} onOpenChange={(open) => !open && setRejecting(null)}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Reject profile image?</DialogTitle><DialogDescription>Give the provider a clear reason so they know what to update.</DialogDescription></DialogHeader>
+          <div className="space-y-2"><Label htmlFor="image-rejection-reason">Rejection reason</Label><Input id="image-rejection-reason" value={reason} onChange={(event) => setReason(event.target.value)} placeholder="Explain why this image cannot be approved" autoFocus /></div>
+          <DialogFooter><Button variant="outline" onClick={() => setRejecting(null)} disabled={Boolean(busyKey)}>Cancel</Button><Button variant="destructive" disabled={!reason.trim() || Boolean(busyKey)} onClick={() => rejecting && review(rejecting.group, rejecting.image, 2, reason)}>{busyKey ? <Loader2 className="animate-spin" /> : <X />} Reject image</Button></DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </AdminLayout>
+  );
 }
 
 function ProfileImageRow({ group, image, busy, onApprove, onReject }: { group: PendingProfileImageGroup; image: PendingProfileImage; busy: boolean; onApprove: () => void; onReject: () => void }) {
