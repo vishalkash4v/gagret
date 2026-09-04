@@ -129,7 +129,7 @@ function KycPage() {
   );
 }
 
-function Avatar({ src, alt }: { src?: string; alt: string }) {
+function Avatar({ src, alt }: { src: string | undefined; alt: string }) {
   return src ? <img src={src} alt={alt} className="h-9 w-9 rounded-full border border-border object-cover" loading="lazy" /> : <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-soft text-primary"><ImageIcon className="h-4 w-4" aria-hidden="true" /></span>;
 }
 
@@ -161,6 +161,6 @@ function KycReviewDialog({ record, onOpenChange, onReview }: { record: KycRecord
   </DialogContent></Dialog>;
 }
 
-function ImagePanel({ label, src }: { label: string; src?: string }) {
+function ImagePanel({ label, src }: { label: string; src: string | undefined }) {
   return <div className="overflow-hidden rounded-lg border border-border bg-muted/30"><div className="flex aspect-[4/3] items-center justify-center">{src ? <img src={src} alt={label} className="h-full w-full object-contain" loading="lazy" /> : <div className="text-center text-xs text-muted-foreground"><ImageIcon className="mx-auto mb-2 h-6 w-6" aria-hidden="true" />Image unavailable</div>}</div><p className="border-t border-border px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p></div>;
 }

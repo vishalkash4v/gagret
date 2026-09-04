@@ -6,6 +6,8 @@ export type KycRecord = {
   userId?: string;
   firstName?: string;
   lastName?: string;
+  email?: string;
+  mobile?: string;
   profilePic?: string;
   documentType?: string;
   frontImage?: string;
