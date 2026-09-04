@@ -105,14 +105,15 @@ function KycPage() {
           <div className="overflow-x-auto">
             <table className="w-full min-w-[850px] text-sm">
               <thead className="bg-muted/50 text-left text-xs uppercase tracking-wide text-muted-foreground">
-                <tr><th className="px-5 py-3 font-semibold">Applicant</th><th className="px-5 py-3 font-semibold">Contact</th><th className="px-5 py-3 font-semibold">Document</th><th className="px-5 py-3 font-semibold">Status</th><th className="px-5 py-3 font-semibold">Submitted</th><th className="px-5 py-3 text-right font-semibold">Review</th></tr>
+                <tr><th className="px-5 py-3 font-semibold">Applicant</th><th className="px-5 py-3 font-semibold">Email</th><th className="px-5 py-3 font-semibold">Mobile</th><th className="px-5 py-3 font-semibold">Document</th><th className="px-5 py-3 font-semibold">Status</th><th className="px-5 py-3 font-semibold">Submitted</th><th className="px-5 py-3 text-right font-semibold">Review</th></tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {data.map((record, index) => {
                   const currentStatus = statusOf(record?.status);
                   return <tr key={record?.kycId ?? record?.userId ?? index} className="cursor-pointer transition-colors hover:bg-muted/40" onClick={() => setSelected(record)}>
                     <td className="px-5 py-4"><div className="flex items-center gap-3"><Avatar src={record?.profilePic} alt={`${nameOf(record)} profile`} /><span className="font-medium">{nameOf(record)}</span></div></td>
-                    <td className="px-5 py-4 text-muted-foreground">{record?.email ?? record?.mobile ?? "N/A"}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{record?.email ?? "N/A"}</td>
+                    <td className="px-5 py-4 text-muted-foreground">{record?.mobile ?? "N/A"}</td>
                     <td className="px-5 py-4 font-medium">{record?.documentType ?? "N/A"}</td>
                     <td className="px-5 py-4"><EnumBadge label={currentStatus.label} tone={currentStatus.tone} /></td>
                     <td className="px-5 py-4 text-muted-foreground">{dateOf(record?.submittedAt)}</td>
@@ -129,7 +130,7 @@ function KycPage() {
   );
 }
 
-function Avatar({ src, alt }: { src?: string; alt: string }) {
+function Avatar({ src, alt }: { src: string | undefined; alt: string }) {
   return src ? <img src={src} alt={alt} className="h-9 w-9 rounded-full border border-border object-cover" loading="lazy" /> : <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-soft text-primary"><ImageIcon className="h-4 w-4" aria-hidden="true" /></span>;
 }
 
@@ -161,6 +162,6 @@ function KycReviewDialog({ record, onOpenChange, onReview }: { record: KycRecord
   </DialogContent></Dialog>;
 }
 
-function ImagePanel({ label, src }: { label: string; src?: string }) {
+function ImagePanel({ label, src }: { label: string; src: string | undefined }) {
   return <div className="overflow-hidden rounded-lg border border-border bg-muted/30"><div className="flex aspect-[4/3] items-center justify-center">{src ? <img src={src} alt={label} className="h-full w-full object-contain" loading="lazy" /> : <div className="text-center text-xs text-muted-foreground"><ImageIcon className="mx-auto mb-2 h-6 w-6" aria-hidden="true" />Image unavailable</div>}</div><p className="border-t border-border px-3 py-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{label}</p></div>;
 }

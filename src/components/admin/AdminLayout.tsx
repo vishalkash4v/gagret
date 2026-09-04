@@ -5,7 +5,7 @@ import {
   CalendarCheck,
   FileCheck2,
   FileText,
-  ImageCheck,
+  BadgeCheck,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -32,7 +32,7 @@ const navItems = [
   { to: "/admin/policy", label: "Policies", Icon: FileText },
   { to: "/admin/support", label: "Support Tickets", Icon: LifeBuoy },
   { to: "/admin/kyc", label: "KYC Verification", Icon: FileCheck2 },
-  { to: "/admin/profile-images", label: "Profile Approvals", Icon: ImageCheck },
+  { to: "/admin/profile-images", label: "Profile Approvals", Icon: BadgeCheck },
 ] as const;
 
 export function AdminLayout({ title, actions, children }: { title: string; actions?: ReactNode; children: ReactNode }) {
