@@ -39,8 +39,8 @@ function ProvidersPage() {
 
   const columns: Column<AdminRecord>[] = [
     { header: "Name", cell: (r) => <span className="font-medium">{providerName(r)}</span> },
-    { header: "Email", cell: (r) => userOf(r)?.email ?? "N/A" },
-    { header: "Radius", cell: (r) => `${String(r["radius"] ?? "N/A")} KM` },
+    { header: "Email", cell: (r) => String(r["email"] || "N/A") },
+    { header: "Radius", cell: (r) => `${String((r["profile"] as any)?.radius ?? "0")} KM` },
     {
       header: "Verification",
       cell: (r) => <StatusBadge active={!!r["isVerified"]} labels={["Verified", "Unverified"]} />,
@@ -112,12 +112,12 @@ function ProvidersPage() {
           { name: "radius", label: "Service Radius (km)", type: "number" },
         ]}
         initialValues={{
-          firstName: editing ? String(userOf(editing)?.firstName ?? "") : "",
-          lastName: editing ? String(userOf(editing)?.lastName ?? "") : "",
-          email: editing ? String(userOf(editing)?.email ?? "") : "",
-          mobile: editing ? String(editing["mobile"] ?? editing["phone"] ?? "") : "",
+          firstName: editing ? String(editing["firstName"] ?? "") : "",
+          lastName: editing ? String(editing["lastName"] ?? "") : "",
+          email: editing ? String(editing["email"] ?? "") : "",
+          mobile: editing ? String(editing["mobile"] ?? "") : "",
           bookingCredits: editing ? String(editing["bookingCredits"] ?? "") : "",
-          radius: editing ? String(editing["radius"] ?? "") : "",
+          radius: editing ? String((editing["profile"] as any)?.radius ?? "") : "",
         }}
         onSubmit={async (values) => {
           if (!editing) return;
@@ -132,13 +132,6 @@ function ProvidersPage() {
   );
 }
 
-type ProviderUser = { firstName?: string; lastName?: string; email?: string };
-
-function userOf(row: AdminRecord) {
-  return row["user"] as ProviderUser | null | undefined;
-}
-
 function providerName(row: AdminRecord) {
-  const user = userOf(row);
-  return [user?.firstName, user?.lastName].filter(Boolean).join(" ") || "N/A";
+  return [row["firstName"], row["lastName"]].filter(Boolean).join(" ") || "N/A";
 }
