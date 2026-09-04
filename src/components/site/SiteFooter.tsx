@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Wrench, Youtube } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter, Wrench, Youtube } from "lucide-react";
 
 const quickLinks = [
   { label: "About Us", to: "/about" },
@@ -14,10 +14,31 @@ const legalLinks = [
 ];
 
 const socials = [
-  { label: "Go4Task on Facebook", Icon: Facebook },
-  { label: "Go4Task on Instagram", Icon: Instagram },
-  { label: "Go4Task on LinkedIn", Icon: Linkedin },
-  { label: "Go4Task on YouTube", Icon: Youtube },
+  { 
+    label: "Go4Task on Facebook", 
+    Icon: Facebook,
+    href: "https://www.facebook.com/profile.php?id=61593731445729"
+  },
+  { 
+    label: "Go4Task on Instagram", 
+    Icon: Instagram,
+    href: "https://www.instagram.com/go4task"
+  },
+  { 
+    label: "Go4Task on X", 
+    Icon: Twitter, // Using Twitter icon for X
+    href: "https://x.com/go4task"
+  },
+  { 
+    label: "Go4Task on LinkedIn", 
+    Icon: Linkedin,
+    href: "https://www.linkedin.com/in/go-for-task-a79a63433/"
+  },
+  { 
+    label: "Go4Task on YouTube", 
+    Icon: Youtube,
+    href: "https://youtube.com/@go4task?si=qWGlwqbmvFtJUEsx"
+  },
 ];
 
 export function SiteFooter() {
@@ -36,10 +57,12 @@ export function SiteFooter() {
             for pros — no subscriptions, ever.
           </p>
           <ul className="mt-5 flex gap-2">
-            {socials.map(({ label, Icon }) => (
+            {socials.map(({ label, Icon, href }) => (
               <li key={label}>
                 <a
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-foreground/10 transition-colors hover:bg-accent hover:text-accent-foreground"
                 >
