@@ -38,8 +38,26 @@ function ProvidersPage() {
   const [editing, setEditing] = useState<AdminRecord | null>(null);
 
   const columns: Column<AdminRecord>[] = [
+    {
+      header: "Profile",
+      cell: (r) => {
+        const img = r["profileImage"] as string;
+        const src = !img || img === "noimage.jpg" ? "https://ui-avatars.com/api/?name=" + (r["firstName"] || "P") : img;
+        return <img src={src} alt="Profile" className="h-10 w-10 rounded-full object-cover bg-muted" />;
+      },
+    },
     { header: "Name", cell: (r) => <span className="font-medium">{providerName(r)}</span> },
-    { header: "Email", cell: (r) => String(r["email"] || "N/A") },
+    { 
+      header: "Contact", 
+      cell: (r) => (
+        <div className="flex flex-col">
+          <span className="font-medium whitespace-nowrap">
+            {r["countryCode"] ? `${r["countryCode"]} ` : ""}{r["mobile"] || "N/A"}
+          </span>
+          <span className="text-sm text-muted-foreground">{String(r["email"] || "N/A")}</span>
+        </div>
+      ) 
+    },
     { header: "Radius", cell: (r) => `${String((r["profile"] as any)?.radius ?? "0")} KM` },
     {
       header: "Verification",
