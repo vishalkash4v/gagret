@@ -4,15 +4,18 @@ import {
   Apple,
   BadgeCheck,
   CalendarDays,
+  CheckCircle2,
   ClipboardList,
   Gift,
   Handshake,
+  Home as HomeIcon,
   IndianRupee,
   MapPinned,
   Play,
   Send,
   ShieldCheck,
   Sparkles,
+  Star,
   UserRoundCheck,
   Users,
 } from "lucide-react";
@@ -125,31 +128,27 @@ const features = [
   },
 ];
 
+// 4-step strip that overlaps the bottom edge of the hero photo.
 const howItWorksSteps = [
   {
     Icon: CalendarDays,
     title: "1. Choose a Service",
-    text: "Tell us what you need and share the details for your task.",
+    text: "Pick what you need",
   },
   {
     Icon: Users,
-    title: "2. Get the Best Offers",
-    text: "Receive offers from eligible professional providers near you.",
+    title: "2. Get a Verified Professional",
+    text: "We match you with the right expert",
   },
   {
-    Icon: Handshake,
-    title: "3. Choose the Offer That Suits You",
-    text: "Compare the available offers and select the one that works best for you.",
+    Icon: HomeIcon,
+    title: "3. Sit Back & Relax",
+    text: "Your home is in safe hands",
   },
   {
-    Icon: Sparkles,
-    title: "4. Sit Back & Relax",
-    text: "Your selected professional takes care of the service while you relax.",
-  },
-  {
-    Icon: BadgeCheck,
-    title: "5. Enjoy the Service",
-    text: "Get the service completed and enjoy a simpler way to get things done.",
+    Icon: CheckCircle2,
+    title: "4. Enjoy the Service",
+    text: "Quality service, every time",
   },
 ];
 
@@ -163,29 +162,53 @@ function LandingPage() {
 
       <main>
         <section className="relative overflow-hidden bg-background" aria-labelledby="hero-heading">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-primary-soft),transparent_46%)]" aria-hidden="true" />
           <div className="relative mx-auto max-w-7xl px-0 pb-10 pt-0 sm:px-4 sm:pt-4 lg:px-6">
-            <div className="grid min-h-[660px] overflow-hidden bg-card shadow-lift lg:grid-cols-[0.94fr_1.06fr] lg:rounded-[2rem]">
-              <div className="relative flex flex-col justify-center bg-card px-6 py-12 sm:px-10 lg:px-12 xl:px-16">
-                <div className="absolute left-0 top-0 h-1 w-32 bg-accent sm:w-40" aria-hidden="true" />
+            {/* Full-bleed photo hero with text overlaid on a left-side fade */}
+            <div className="relative min-h-[560px] overflow-hidden shadow-lift sm:min-h-[620px] lg:min-h-[680px] lg:rounded-[2rem]">
+              <img
+                src="/go4task-hero.png"
+                alt="Go4Task service professional shaking hands with a happy customer at home"
+                width={2048}
+                height={682}
+                fetchPriority="high"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover object-[72%_22%]"
+              />
+              {/* Left-to-right white fade so the headline stays readable over the photo */}
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/15 sm:from-white sm:via-white/85 sm:to-transparent"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent"
+                aria-hidden="true"
+              />
+
+              <div className="relative flex min-h-[560px] flex-col justify-center px-6 py-14 sm:min-h-[620px] sm:px-10 lg:min-h-[680px] lg:max-w-2xl lg:px-12 xl:px-16">
                 <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
                   Trusted Home Services
                 </span>
 
-                <h1 id="hero-heading" className="mt-4 max-w-2xl text-5xl font-extrabold leading-[0.92] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-7xl">
+                <h1
+                  id="hero-heading"
+                  className="mt-4 max-w-xl text-5xl font-extrabold leading-[0.92] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-7xl"
+                >
                   Your Home.
-                  <span className="block">Our <span className="text-accent">Experts.</span></span>
+                  <span className="block">
+                    Our <span className="text-accent">Experts.</span>
+                  </span>
                 </h1>
 
-                <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
-                  Book trusted professionals for cleaning, plumbing, electrical, painting, AC service and more. Create a request, receive offers from professional providers and choose the one that suits you best.
+                <p className="mt-6 max-w-md text-base leading-7 text-muted-foreground sm:text-lg">
+                  Book verified professionals for all your home service needs — cleaning, plumbing,
+                  electrical, painting, AC service and more.
                 </p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
                   {[
                     { Icon: ShieldCheck, title: "Verified", text: "Professionals" },
-                    { Icon: IndianRupee, title: "Multiple", text: "Offers" },
-                    { Icon: BadgeCheck, title: "Your", text: "Choice" },
+                    { Icon: IndianRupee, title: "Transparent", text: "Pricing" },
+                    { Icon: Star, title: "Reliable", text: "& On-Time" },
                   ].map(({ Icon, title: itemTitle, text }) => (
                     <div key={itemTitle} className="flex items-center gap-3">
                       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
@@ -200,7 +223,9 @@ function LandingPage() {
                 </div>
 
                 <p className="mt-8 max-w-xs text-2xl font-semibold italic leading-tight text-accent sm:text-3xl">
-                  A better home.<br />A brighter you.
+                  A better home.
+                  <br />
+                  A brighter you.
                 </p>
 
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -214,34 +239,26 @@ function LandingPage() {
                   </Button>
                 </div>
               </div>
-
-              <div className="relative min-h-[390px] overflow-hidden bg-secondary lg:min-h-0">
-                <img
-                  src="/go4task-hero.png"
-                  alt="Go4Task service professional helping a customer at home"
-                  width={2048}
-                  height={682}
-                  fetchPriority="high"
-                  decoding="async"
-                  className="absolute inset-0 h-full w-full object-cover object-center"
-                />
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-card/25 to-transparent lg:w-40" aria-hidden="true" />
-                <div className="absolute bottom-6 right-6 rounded-2xl bg-white/90 px-5 py-4 shadow-lift backdrop-blur sm:bottom-8 sm:right-8">
-                  <p className="text-base font-extrabold text-foreground">Home Services Made Easy</p>
-                  <p className="mt-1 text-xs text-muted-foreground">Simple requests. Better choices.</p>
-                </div>
-              </div>
             </div>
 
-            <div className="relative z-10 mx-4 -mt-7 overflow-hidden rounded-[1.7rem] border border-primary/10 bg-card shadow-lift sm:mx-8 lg:mx-10">
-              <div className="grid lg:grid-cols-5">
+            {/* 4-step strip overlapping the bottom edge of the hero photo */}
+            <div className="relative z-10 mx-4 -mt-10 overflow-hidden rounded-[1.7rem] border border-primary/10 bg-card shadow-lift sm:mx-8 lg:mx-10">
+              <div className="grid lg:grid-cols-4">
                 {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
                   <div
                     key={stepTitle}
-                    className={`flex min-h-[122px] items-center gap-3 px-5 py-5 ${index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}
+                    className={`flex min-h-[110px] items-center gap-3 px-5 py-5 ${
+                      index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""
+                    }`}
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
-                      <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
+                    <span
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
+                        index === howItWorksSteps.length - 1
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-accent-soft text-accent"
+                      }`}
+                    >
+                      <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
                     <div>
                       <p className="text-sm font-extrabold leading-snug text-foreground">{stepTitle}</p>
