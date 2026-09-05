@@ -14,7 +14,6 @@ import {
   Play,
   Send,
   ShieldCheck,
-  Sparkles,
   Star,
   UserRoundCheck,
   Users,
@@ -128,7 +127,6 @@ const features = [
   },
 ];
 
-// 4-step strip that overlaps the bottom edge of the hero photo.
 const howItWorksSteps = [
   {
     Icon: CalendarDays,
@@ -161,106 +159,116 @@ function LandingPage() {
       <SiteHeader />
 
       <main>
-        <section className="relative overflow-hidden bg-background" aria-labelledby="hero-heading">
-          <div className="relative mx-auto max-w-7xl px-0 pb-10 pt-0 sm:px-4 sm:pt-4 lg:px-6">
-            {/* Full-bleed photo hero with text overlaid on a left-side fade */}
-            <div className="relative min-h-[560px] overflow-hidden shadow-lift sm:min-h-[620px] lg:min-h-[680px] lg:rounded-[2rem]">
+        {/* Homepage hero */}
+        <section className="relative overflow-visible bg-background" aria-labelledby="hero-heading">
+          <div className="relative w-full pb-10 pt-0">
+            {/*
+              Selected Go4Task hero artwork.
+              The source image already has a clean/white left side for the text,
+              so we do NOT put a heavy gradient over it. This keeps the provider
+              and customer scene crisp on the right.
+            */}
+            <div className="relative min-h-[610px] w-full overflow-hidden shadow-lift sm:min-h-[650px] lg:min-h-[690px]">
               <img
-                src="/go4task-hero.png"
+                src="/go4taskbgforhero.png"
                 alt="Go4Task service professional shaking hands with a happy customer at home"
                 width={2048}
-                height={682}
+                height={768}
                 fetchPriority="high"
                 decoding="async"
-                className="absolute inset-0 h-full w-full object-cover object-[72%_22%]"
+                className="absolute inset-0 h-full w-full object-cover object-center"
               />
-              {/* Left-to-right white fade so the headline stays readable over the photo */}
+
+              {/* Only a very soft mobile readability layer; desktop uses the image's own white space. */}
               <div
-                className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/15 sm:from-white sm:via-white/85 sm:to-transparent"
-                aria-hidden="true"
-              />
-              <div
-                className="absolute inset-0 bg-gradient-to-t from-white/50 via-transparent to-transparent"
+                className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/45 to-transparent lg:hidden"
                 aria-hidden="true"
               />
 
-              <div className="relative flex min-h-[560px] flex-col justify-center px-6 py-14 sm:min-h-[620px] sm:px-10 lg:min-h-[680px] lg:max-w-2xl lg:px-12 xl:px-16">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
-                  Trusted Home Services
-                </span>
-
-                <h1
-                  id="hero-heading"
-                  className="mt-4 max-w-xl text-5xl font-extrabold leading-[0.92] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-7xl"
-                >
-                  Your Home.
-                  <span className="block">
-                    Our <span className="text-accent">Experts.</span>
+              <div className="relative z-10 mx-auto flex min-h-[610px] max-w-[1800px] items-center px-6 py-14 sm:min-h-[650px] sm:px-10 lg:min-h-[690px] lg:px-16 xl:px-20">
+                <div className="max-w-[650px]">
+                  <span className="inline-flex rounded-full border border-accent/20 bg-white/85 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-accent shadow-sm backdrop-blur-sm">
+                    Trusted Home Services
                   </span>
-                </h1>
 
-                <p className="mt-6 max-w-md text-base leading-7 text-muted-foreground sm:text-lg">
-                  Book verified professionals for all your home service needs — cleaning, plumbing,
-                  electrical, painting, AC service and more.
-                </p>
+                  <h1
+                    id="hero-heading"
+                    className="mt-6 max-w-[620px] text-5xl font-extrabold leading-[0.92] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem] xl:text-[5.5rem]"
+                  >
+                    Your Home.
+                    <span className="block">
+                      Our <span className="text-accent">Experts.</span>
+                    </span>
+                  </h1>
 
-                <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
-                  {[
-                    { Icon: ShieldCheck, title: "Verified", text: "Professionals" },
-                    { Icon: IndianRupee, title: "Transparent", text: "Pricing" },
-                    { Icon: Star, title: "Reliable", text: "& On-Time" },
-                  ].map(({ Icon, title: itemTitle, text }) => (
-                    <div key={itemTitle} className="flex items-center gap-3">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
-                        <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                      </span>
-                      <div>
-                        <p className="text-sm font-extrabold text-foreground">{itemTitle}</p>
-                        <p className="text-xs text-muted-foreground">{text}</p>
+                  <p className="mt-6 max-w-[570px] text-base font-medium leading-7 text-foreground/75 sm:text-lg sm:leading-8">
+                    Book verified professionals for all your home service needs — cleaning, plumbing,
+                    electrical, painting, AC service and more.
+                  </p>
+
+                  <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+                    {[
+                      { Icon: ShieldCheck, title: "Verified", text: "Professionals" },
+                      { Icon: IndianRupee, title: "Transparent", text: "Pricing" },
+                      { Icon: Star, title: "Reliable", text: "& On-Time" },
+                    ].map(({ Icon, title: itemTitle, text }) => (
+                      <div key={itemTitle} className="flex items-center gap-3 rounded-xl bg-white/55 px-2 py-1 backdrop-blur-[2px]">
+                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft shadow-sm">
+                          <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
+                        </span>
+                        <div>
+                          <p className="text-sm font-extrabold text-foreground">{itemTitle}</p>
+                          <p className="text-xs text-foreground/65">{text}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
 
-                <p className="mt-8 max-w-xs text-2xl font-semibold italic leading-tight text-accent sm:text-3xl">
-                  A better home.
-                  <br />
-                  A brighter you.
-                </p>
+                  <div className="mt-8">
+                    <p className="font-display text-3xl font-semibold italic leading-[1.02] text-accent sm:text-4xl">
+                      A better home.
+                      <br />
+                      A brighter you.
+                    </p>
+                    <div className="mt-2 h-1 w-[205px] -rotate-2 rounded-full bg-accent" />
+                  </div>
 
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <Button as="a" href="#download" variant="accent" size="lg">
-                    <Play className="h-5 w-5" aria-hidden="true" />
-                    Download Android App
-                  </Button>
-                  <Button as="button" type="button" variant="muted" size="lg" disabled aria-disabled="true">
-                    <Apple className="h-5 w-5" aria-hidden="true" />
-                    iOS App — Coming Soon
-                  </Button>
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <Button as="a" href="#download" variant="accent" size="lg" className="shadow-lg">
+                      <Play className="h-5 w-5" aria-hidden="true" />
+                      Download Android App
+                    </Button>
+                    <Button
+                      as="button"
+                      type="button"
+                      variant="muted"
+                      size="lg"
+                      disabled
+                      aria-disabled="true"
+                      className="bg-white/80 backdrop-blur-sm"
+                    >
+                      <Apple className="h-5 w-5" aria-hidden="true" />
+                      iOS App — Coming Soon
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* 4-step strip overlapping the bottom edge of the hero photo */}
-            <div className="relative z-10 mx-4 -mt-10 overflow-hidden rounded-[1.7rem] border border-primary/10 bg-card shadow-lift sm:mx-8 lg:mx-10">
+            {/* Floating step card, intentionally overlapping the hero bottom edge. */}
+            <div className="relative z-20 mx-4 -mt-10 overflow-hidden rounded-[2rem] border border-primary/10 bg-white/95 shadow-[0_18px_50px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:mx-8 lg:mx-auto lg:w-[calc(100%-9rem)] xl:w-[calc(100%-12rem)]">
               <div className="grid lg:grid-cols-4">
                 {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
                   <div
                     key={stepTitle}
-                    className={`flex min-h-[110px] items-center gap-3 px-5 py-5 ${
+                    className={`flex min-h-[116px] items-center gap-4 px-5 py-5 sm:px-7 ${
                       index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""
                     }`}
                   >
-                    <span
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${
-                        index === howItWorksSteps.length - 1
-                          ? "bg-accent text-accent-foreground"
-                          : "bg-accent-soft text-accent"
-                      }`}
-                    >
-                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-soft">
+                      <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
                     </span>
-                    <div>
+                    <div className="min-w-0">
                       <p className="text-sm font-extrabold leading-snug text-foreground">{stepTitle}</p>
                       <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{text}</p>
                     </div>
@@ -268,6 +276,8 @@ function LandingPage() {
                 ))}
               </div>
             </div>
+
+            <div className="h-6 lg:h-10" />
           </div>
         </section>
 
