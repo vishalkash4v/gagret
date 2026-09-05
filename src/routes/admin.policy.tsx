@@ -1,18 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Plus } from "lucide-react";
-import { toast } from "sonner";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 import { AdminLayout } from "@/components/admin/AdminLayout";
+import { ConfirmDelete } from "@/components/admin/ConfirmDelete";
 import { ErrorState, EmptyState, TableSkeleton } from "@/components/admin/DataState";
 import { RichTextEditor } from "@/components/admin/RichTextEditor";
 import { EnumBadge } from "@/components/admin/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { api, apiErrorMessage } from "@/lib/admin-api";
-import { recordId, toFormData, useAdminList, type AdminRecord } from "@/hooks/use-admin-resource";
+import { recordId, toFormData, unwrapList, useAdminList, type AdminRecord } from "@/hooks/use-admin-resource";
 
 export const Route = createFileRoute("/admin/policy")({
   ssr: false,
@@ -30,11 +29,7 @@ export const Route = createFileRoute("/admin/policy")({
   component: PolicyPage,
 });
 
-const STATUS_OPTIONS = ["PUBLISHED", "DRAFT"] as const;
-
-function slugify(value: string) {
-  return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-}
+const POLICY_TYPES = ["PRIVACY", "TERMS"] as const;
 
 function policyDate(row: AdminRecord) {
   const value = row["updatedAt"] ?? row["updated_at"] ?? row["createdAt"];
@@ -44,9 +39,13 @@ function policyDate(row: AdminRecord) {
 }
 
 function PolicyPage() {
-  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("policy", "/policy", "policy", "policies", "data");
+  const { data = [], isLoading, error, refetch, run } = useAdminList<AdminRecord>("policy", "/policies", "policies", "data");
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState<AdminRecord | null>(null);
+
+  async function remove(policy: AdminRecord) {
+    await run(() => api.delete(`/policy/${recordId(policy)}`), "Policy deleted");
+  }
 
   return (
     <AdminLayout title="Policies" actions={<Button size="sm" onClick={() => setCreating(true)}><Plus aria-hidden="true" /> New policy</Button>}>
@@ -55,21 +54,24 @@ function PolicyPage() {
         {!isLoading && !error && <p className="text-xs text-muted-foreground">{data.length} polic{data.length === 1 ? "y" : "ies"}</p>}
       </div>
       <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-soft)]">
-        {isLoading ? <TableSkeleton cols={5} /> : error ? <ErrorState message={apiErrorMessage(error, "Could not load policies")} onRetry={() => refetch()} /> : data.length === 0 ? <EmptyState message="No policies found." action={<Button onClick={() => setCreating(true)}><Plus aria-hidden="true" /> Create policy</Button>} /> : (
+        {isLoading ? <TableSkeleton cols={4} /> : error ? <ErrorState message={apiErrorMessage(error, "Could not load policies")} onRetry={() => refetch()} /> : data.length === 0 ? <EmptyState message="No policies found." action={<Button onClick={() => setCreating(true)}><Plus aria-hidden="true" /> Create policy</Button>} /> : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[680px] text-sm">
+            <table className="w-full min-w-[640px] text-sm">
               <thead className="bg-muted/50 text-left text-xs uppercase tracking-wide text-muted-foreground">
-                <tr><th className="px-5 py-3 font-semibold">Title</th><th className="px-5 py-3 font-semibold">Slug</th><th className="px-5 py-3 font-semibold">Status</th><th className="px-5 py-3 font-semibold">Last updated</th><th className="px-5 py-3 text-right font-semibold">Actions</th></tr>
+                <tr><th className="px-5 py-3 font-semibold">Type</th><th className="px-5 py-3 font-semibold">Content</th><th className="px-5 py-3 font-semibold">Last updated</th><th className="px-5 py-3 text-right font-semibold">Actions</th></tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {data.map((row, index) => {
-                  const status = String(row["status"] ?? "DRAFT").toUpperCase();
+                  const type = String(row["type"] ?? "POLICY").toUpperCase();
+                  const content = String(row["content"] ?? "").replace(/<[^>]+>/g, "").trim();
                   return <tr key={recordId(row) || index} className="transition-colors hover:bg-muted/40">
-                    <td className="px-5 py-4 font-medium">{String(row["title"] ?? "Untitled policy")}</td>
-                    <td className="px-5 py-4 font-mono text-xs text-muted-foreground">/{String(row["slug"] ?? "")}</td>
-                    <td className="px-5 py-4"><EnumBadge label={status} tone={status === "PUBLISHED" ? "success" : "neutral"} /></td>
+                    <td className="px-5 py-4"><EnumBadge label={type} tone="neutral" /></td>
+                    <td className="max-w-md px-5 py-4 text-muted-foreground">{content || "No content"}</td>
                     <td className="px-5 py-4 text-muted-foreground">{policyDate(row)}</td>
-                    <td className="px-5 py-4 text-right"><Button variant="ghost" size="icon" aria-label="Edit policy" onClick={() => setEditing(row)}><Pencil aria-hidden="true" /></Button></td>
+                    <td className="px-5 py-4"><div className="flex justify-end gap-1">
+                      <Button variant="ghost" size="icon" aria-label={`Edit ${type} policy`} onClick={() => setEditing(row)}><Pencil aria-hidden="true" /></Button>
+                      <ConfirmDelete label={`the ${type.toLowerCase()} policy`} onConfirm={() => remove(row)} />
+                    </div></td>
                   </tr>;
                 })}
               </tbody>
@@ -83,41 +85,47 @@ function PolicyPage() {
 }
 
 function PolicyDialog({ open, policy, onOpenChange, onSaved, run }: { open: boolean; policy: AdminRecord | null; onOpenChange: (open: boolean) => void; onSaved: () => void; run: (action: () => Promise<unknown>, successMessage: string) => Promise<boolean> }) {
-  const [title, setTitle] = useState("");
-  const [slug, setSlug] = useState("");
-  const [status, setStatus] = useState<string>("DRAFT");
+  const [type, setType] = useState<string>("PRIVACY");
   const [content, setContent] = useState("");
-  const [slugTouched, setSlugTouched] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [loadingPolicy, setLoadingPolicy] = useState(false);
 
   useEffect(() => {
     if (!open) return;
-    setTitle(policy ? String(policy["title"] ?? "") : "");
-    setSlug(policy ? String(policy["slug"] ?? "") : "");
-    setStatus(policy ? String(policy["status"] ?? "DRAFT").toUpperCase() : "DRAFT");
+    const selectedType = String(policy?.["type"] ?? "PRIVACY").toUpperCase();
+    setType(selectedType);
     setContent(policy ? String(policy["content"] ?? "") : "");
-    setSlugTouched(Boolean(policy));
+    if (!policy) return;
+
+    let cancelled = false;
+    setLoadingPolicy(true);
+    api.get(`/policy/${selectedType}`).then((response) => {
+      const detail = unwrapList<AdminRecord>(response.data, "data")[0];
+      if (!cancelled && detail) setContent(String(detail["content"] ?? ""));
+    }).catch(() => undefined).finally(() => {
+      if (!cancelled) setLoadingPolicy(false);
+    });
+    return () => { cancelled = true; };
   }, [open, policy]);
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
-    if (!title.trim() || !slug.trim() || !content.trim()) { toast.error("Title, slug and content are required"); return; }
+    if (!type.trim() || !content.trim()) return;
     setBusy(true);
     try {
-      const values = toFormData({ title: title.trim(), slug: slug.trim(), status, content });
-      const ok = await run(() => api.post("/policy", values, { headers: { "Content-Type": "multipart/form-data" } }), "Policy created");
+      const values = toFormData({ type, content });
+      const ok = await run(() => api.post("/policy", values), "Policy saved");
       if (ok) onSaved();
     } finally {
       setBusy(false);
     }
   }
 
-  return <Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="max-h-[92vh] overflow-y-auto sm:max-w-3xl"><DialogHeader><DialogTitle>{policy ? "Add policy version" : "Create policy"}</DialogTitle><DialogDescription>Publish clear, current policy content for Go4Task customers.</DialogDescription></DialogHeader>
+  return <Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="max-h-[92vh] overflow-y-auto sm:max-w-3xl"><DialogHeader><DialogTitle>{policy ? "Edit policy" : "Create policy"}</DialogTitle><DialogDescription>Update the customer-facing Privacy or Terms policy.</DialogDescription></DialogHeader>
     <form onSubmit={submit} className="space-y-4" noValidate>
-      <div className="grid gap-4 sm:grid-cols-2"><div className="space-y-1.5"><Label htmlFor="policy-title">Title</Label><Input id="policy-title" value={title} onChange={(event) => { const value = event.target.value; setTitle(value); if (!slugTouched) setSlug(slugify(value)); }} placeholder="Privacy Policy" /></div><div className="space-y-1.5"><Label htmlFor="policy-slug">Slug</Label><Input id="policy-slug" value={slug} onChange={(event) => { setSlugTouched(true); setSlug(slugify(event.target.value)); }} placeholder="privacy-policy" /></div></div>
-      <div className="space-y-1.5"><Label>Status</Label><Select value={status} onValueChange={setStatus}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{STATUS_OPTIONS.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select></div>
-      <div className="space-y-1.5"><Label>Content</Label><RichTextEditor value={content} onChange={setContent} /></div>
-      <DialogFooter><Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>Cancel</Button><Button type="submit" disabled={busy}>{busy ? "Saving…" : "Create policy"}</Button></DialogFooter>
+      <div className="space-y-1.5"><Label>Policy type</Label><Select value={type} onValueChange={setType} disabled={Boolean(policy) || loadingPolicy}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent>{POLICY_TYPES.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}</SelectContent></Select></div>
+      <div className="space-y-1.5"><Label>Content</Label>{loadingPolicy ? <div className="flex min-h-48 items-center justify-center rounded-md border border-border text-sm text-muted-foreground">Loading policy…</div> : <RichTextEditor value={content} onChange={setContent} />}</div>
+      <DialogFooter><Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={busy}>Cancel</Button><Button type="submit" disabled={busy || loadingPolicy}>{busy ? "Saving…" : "Save policy"}</Button></DialogFooter>
     </form>
   </DialogContent></Dialog>;
 }
