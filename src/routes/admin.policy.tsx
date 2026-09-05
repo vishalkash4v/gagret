@@ -51,7 +51,7 @@ function PolicyPage() {
   return (
     <AdminLayout title="Policies" actions={<Button size="sm" onClick={() => setCreating(true)}><Plus aria-hidden="true" /> New policy</Button>}>
       <div className="mb-5 flex items-end justify-between gap-3">
-        <p className="text-sm text-muted-foreground">Manage the policies shown to Go4Task customers.</p>
+        <p className="text-sm text-muted-foreground">Manage the policies shown to Go4Task customers.......</p>
         {!isLoading && !error && <p className="text-xs text-muted-foreground">{data.length} polic{data.length === 1 ? "y" : "ies"}</p>}
       </div>
       <div className="overflow-hidden rounded-xl border border-border bg-card shadow-[var(--shadow-soft)]">
