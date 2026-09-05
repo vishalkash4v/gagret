@@ -2,3 +2,5 @@
 - [x] Build the KYC verification route with filters, review dialog, image comparison, and FormData actions
 - [x] Build the provider profile-image approvals route with comparison cards and FormData actions
 - [x] Wire both routes into admin navigation and verify generated routes/build/preview
+- [ ] Consolidate policy navigation and connect policy CRUD to the exact API contract
+- [ ] Load public Privacy and Terms pages from the managed policy content
