@@ -68,17 +68,21 @@ function RefundPolicyPage() {
     );
   }
 
-  if (isError || !data) {
-    return (
-      <PageLayout title="Refund Policy">
-        <Prose>
-          <p>
-            Refund policy is currently unavailable. Please try again later.
+if (isError || !data) {
+  return (
+    <PageLayout title="Refund Policy">
+      <Prose>
+        <p>Refund policy is currently unavailable.</p>
+
+        {isError && (
+          <p className="mt-2 text-sm text-muted-foreground">
+            Please refresh the page and try again.
           </p>
-        </Prose>
-      </PageLayout>
-    );
-  }
+        )}
+      </Prose>
+    </PageLayout>
+  );
+}
 
   return (
     <PageLayout
