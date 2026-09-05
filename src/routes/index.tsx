@@ -16,7 +16,6 @@ import {
   UserRoundCheck,
   Users,
 } from "lucide-react";
-import heroImage from "@/assets/hero-handyman.jpg";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { AppShowcase } from "@/components/site/AppShowcase";
@@ -135,21 +134,23 @@ function LandingPage() {
       <SiteHeader />
 
       <main>
-        <section className="bg-hero-gradient text-primary-foreground" aria-labelledby="hero-heading">
-          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/12 px-3 py-1.5 text-xs font-semibold">
+        <section className="relative overflow-hidden border-b border-primary/10 bg-background" aria-labelledby="hero-heading">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-primary-soft),transparent_48%)]" aria-hidden="true" />
+          <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pb-8 pt-8 sm:px-6 sm:pb-12 sm:pt-10 lg:grid-cols-[0.96fr_1.04fr] lg:gap-10 lg:pb-14 lg:pt-12">
+            <div className="max-w-2xl">
+              <span className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1.5 text-xs font-bold text-primary">
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                One app for customers & service professionals
+                Trusted local home services
               </span>
-              <h1 id="hero-heading" className="mt-5 text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">
-                Find the Right Professional for Your Task.
+              <h1 id="hero-heading" className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.03] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+                Your Task.
+                <span className="block text-primary">Our Trusted Experts.</span>
               </h1>
-              <p className="mt-5 max-w-xl text-base text-primary-foreground/85 sm:text-lg">
-                Request a service, reach nearby eligible providers, receive multiple offers, compare your options and choose the provider that works best for you.
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Get the right professional for your home service needs. Send a request, receive multiple offers, compare your options and choose with confidence.
               </p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                 <Button as="a" href="#download" variant="accent" size="lg">
                   <Play className="h-5 w-5" aria-hidden="true" />
                   Download Android App
@@ -160,35 +161,61 @@ function LandingPage() {
                 </Button>
               </div>
 
-              <div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-3">
+              <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
                 {[
-                  ["1", "Request a service"],
-                  ["2", "Compare offers"],
-                  ["3", "Confirm your provider"],
-                ].map(([value, label]) => (
-                  <div key={label} className="rounded-xl border border-primary-foreground/15 bg-primary-foreground/8 p-4">
-                    <span className="text-2xl font-extrabold text-accent">{value}</span>
-                    <span className="mt-1 block text-sm font-semibold">{label}</span>
+                  "Verified providers",
+                  "Multiple offers",
+                  "Simple booking flow",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-2 shadow-[var(--shadow-soft)]">
+                    <BadgeCheck className="h-4 w-4 text-primary" aria-hidden="true" />
+                    {item}
                   </div>
                 ))}
               </div>
+
+              <div className="mt-7 rounded-2xl border border-primary/10 bg-card p-4 shadow-[var(--shadow-soft)] sm:p-5">
+                <p className="text-sm font-extrabold text-primary">Home services made easier.</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                  One marketplace for customers who need help and service professionals who are ready to help.
+                </p>
+              </div>
             </div>
 
-            <div className="relative">
-              <img
-                src={heroImage}
-                alt="Go4Task service professional with toolkit"
-                width={1280}
-                height={1024}
-                className="w-full rounded-2xl object-cover shadow-lift"
-              />
-              <div className="surface-card absolute -bottom-5 left-4 flex items-center gap-3 px-4 py-3 sm:left-8">
-                <BadgeCheck className="h-6 w-6 text-success" aria-hidden="true" />
-                <div>
-                  <p className="text-sm font-bold text-card-foreground">Provider verification</p>
-                  <p className="text-xs text-muted-foreground">KYC is required for eligible provider offers</p>
-                </div>
+            <div className="relative lg:pl-2">
+              <div className="absolute -inset-5 rounded-[2rem] bg-primary-soft/50 blur-2xl" aria-hidden="true" />
+              <div className="relative overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-lift">
+                <img
+                  src="/go4task-hero.png"
+                  alt="Go4Task service professional helping a customer at home"
+                  width={2048}
+                  height={682}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-auto w-full object-cover"
+                />
               </div>
+            </div>
+          </div>
+
+          <div className="relative mx-auto -mb-1 max-w-6xl px-4 pb-8 sm:px-6 lg:pb-10">
+            <div className="grid overflow-hidden rounded-2xl border border-primary/10 bg-card shadow-[var(--shadow-soft)] sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                { Icon: CalendarDays, title: "1. Choose a Service", text: "Pick what you need" },
+                { Icon: Users, title: "2. Get a Verified Professional", text: "We help connect you" },
+                { Icon: ClipboardList, title: "3. Sit Back & Relax", text: "Your request is in progress" },
+                { Icon: BadgeCheck, title: "4. Enjoy the Service", text: "Quality service, every time" },
+              ].map(({ Icon, title: stepTitle, text }, index) => (
+                <div key={stepTitle} className={`flex items-center gap-3 p-4 sm:p-5 ${index > 0 ? "border-t border-border sm:border-t-0 sm:border-l" : ""}`}>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  </span>
+                  <div>
+                    <p className="text-sm font-extrabold text-foreground">{stepTitle}</p>
+                    <p className="mt-0.5 text-xs text-muted-foreground">{text}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -332,21 +359,18 @@ function LandingPage() {
               </p>
               <StoreBadges className="mt-8" />
               <p className="mt-5 text-sm text-primary-foreground/70">
-                Need more details? <Link to="/faq" className="font-semibold underline hover:text-accent">Read the FAQ</Link>{" "}
-                or <Link to="/contact" className="font-semibold underline hover:text-accent">talk to our team</Link>.
+                Need more details? <Link to="/faq" className="font-semibold text-primary-foreground underline-offset-4 hover:underline">Read the FAQ</Link> or review our <Link to="/terms" className="font-semibold text-primary-foreground underline-offset-4 hover:underline">Terms</Link>.
               </p>
             </div>
-            <div className="surface-card overflow-hidden p-2">
-              <img
-                src="/go4task-signup.png"
-                alt="Go4Task signup screen for customers and providers"
-                width={941}
-                height={1672}
-                loading="lazy"
-                decoding="async"
-                className="mx-auto max-h-[620px] w-auto rounded-xl"
-              />
-            </div>
+            <img
+              src="/go4task-provider-home.png"
+              alt="Go4Task provider app home screen"
+              width={941}
+              height={1672}
+              loading="lazy"
+              decoding="async"
+              className="mx-auto max-h-[680px] w-auto rounded-2xl shadow-lift"
+            />
           </div>
         </section>
       </main>
