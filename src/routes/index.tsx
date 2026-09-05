@@ -138,7 +138,7 @@ const howItWorksSteps = [
   },
   {
     Icon: Handshake,
-    title: "3. Choose What Suits You",
+    title: "3. Choose the Offer That Suits You",
     text: "Compare the available offers and select the one that works best for you.",
   },
   {
@@ -163,22 +163,43 @@ function LandingPage() {
 
       <main>
         <section className="relative overflow-hidden border-b border-primary/10 bg-background" aria-labelledby="hero-heading">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-primary-soft),transparent_48%)]" aria-hidden="true" />
-          <div className="relative mx-auto max-w-7xl px-4 pb-7 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pb-8">
-            <div className="grid items-stretch gap-0 overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-lift lg:grid-cols-[0.9fr_1.1fr]">
-              <div className="flex flex-col justify-center px-7 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
-                <span className="inline-flex w-fit items-center gap-2 rounded-full bg-accent-soft px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-accent-foreground">
-                  <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_8%,var(--color-primary-soft),transparent_38%)]" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-8">
+            <div className="grid min-h-[620px] overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-lift lg:grid-cols-2">
+              <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12 lg:py-12">
+                <span className="w-fit text-xs font-bold uppercase tracking-[0.18em] text-accent">
                   Trusted Home Services
                 </span>
 
-                <h1 id="hero-heading" className="mt-5 max-w-2xl text-4xl font-extrabold leading-[0.98] tracking-[-0.04em] text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
+                <h1 id="hero-heading" className="mt-4 text-5xl font-extrabold leading-[0.98] tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
                   Your Home.
-                  <span className="block text-primary">Our <span className="text-accent">Experts.</span></span>
+                  <span className="block">Our <span className="text-accent">Experts.</span></span>
                 </h1>
 
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Book the right professional for your home service needs. Create a request, get offers from eligible providers and choose the offer that suits you best.
+                  Book trusted professionals for cleaning, plumbing, electrical, painting, AC service and more. Create a request, receive multiple offers and choose the one that suits you.
+                </p>
+
+                <div className="mt-7 grid max-w-xl gap-3 sm:grid-cols-3">
+                  {[
+                    { Icon: ShieldCheck, title: "Verified", text: "Professional providers" },
+                    { Icon: IndianRupee, title: "Multiple Offers", text: "Compare your options" },
+                    { Icon: BadgeCheck, title: "Your Choice", text: "Pick what suits you" },
+                  ].map(({ Icon, title: itemTitle, text }) => (
+                    <div key={itemTitle} className="flex items-start gap-3 rounded-2xl border border-border bg-background/85 px-3 py-4">
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-foreground">
+                        <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
+                      </span>
+                      <div>
+                        <p className="text-sm font-extrabold text-foreground">{itemTitle}</p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{text}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-7 max-w-sm text-2xl font-semibold leading-tight text-accent sm:text-3xl">
+                  A better home.<br />A brighter you.
                 </p>
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -191,27 +212,9 @@ function LandingPage() {
                     iOS App — Coming Soon
                   </Button>
                 </div>
-
-                <div className="mt-8 grid gap-3 sm:grid-cols-3">
-                  {[
-                    ["Verified", "Professional providers"],
-                    ["Multiple", "Offers to compare"],
-                    ["Your Choice", "Pick what suits you"],
-                  ].map(([label, text]) => (
-                    <div key={label} className="rounded-2xl border border-border bg-background/80 p-4">
-                      <BadgeCheck className="h-5 w-5 text-accent" aria-hidden="true" />
-                      <p className="mt-2 text-sm font-extrabold text-foreground">{label}</p>
-                      <p className="mt-0.5 text-xs text-muted-foreground">{text}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <p className="mt-7 max-w-sm text-xl font-semibold leading-tight text-accent sm:text-2xl">
-                  A better home.<br />A brighter you.
-                </p>
               </div>
 
-              <div className="relative min-h-[360px] overflow-hidden bg-secondary lg:min-h-[620px]">
+              <div className="relative min-h-[360px] overflow-hidden lg:min-h-full">
                 <img
                   src="/go4task-hero.png"
                   alt="Go4Task service professional helping a customer at home"
@@ -221,22 +224,18 @@ function LandingPage() {
                   decoding="async"
                   className="h-full w-full object-cover object-center"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-card/10 via-transparent to-transparent" aria-hidden="true" />
-                <div className="absolute bottom-5 right-5 rounded-2xl border border-white/40 bg-white/90 px-4 py-3 shadow-lift backdrop-blur sm:bottom-7 sm:right-7">
-                  <p className="text-sm font-extrabold text-foreground">Home Services Made Easy</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">Simple requests. Better choices.</p>
-                </div>
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-card/25 via-transparent to-transparent" aria-hidden="true" />
               </div>
             </div>
 
-            <div className="relative -mt-1 border-x border-b border-primary/10 bg-card shadow-[var(--shadow-soft)] sm:mx-3 sm:rounded-b-[2rem] sm:border-x sm:border-b">
+            <div className="relative mx-2 -mt-6 overflow-hidden rounded-[1.6rem] border border-primary/10 bg-card shadow-[var(--shadow-soft)] sm:mx-5 lg:mx-8">
               <div className="grid sm:grid-cols-2 lg:grid-cols-5">
                 {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
                   <div
                     key={stepTitle}
                     className={`flex min-h-[118px] items-start gap-3 p-5 ${index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-foreground">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
                       <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
                     </span>
                     <div>
