@@ -1,7 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { PageLayout, Prose } from "@/components/site/PageLayout";
-import { getPublicPolicy } from "@/lib/public-policy.functions";
+import {
+  getCachedPublicPolicy,
+  getCachedPublicPolicyUpdatedAt,
+  getPublicPolicy,
+} from "@/lib/public-policy.functions";
 
 const title = "Terms of Service — Go4Task";
 
@@ -30,6 +34,9 @@ export const Route = createFileRoute("/terms")({
 });
 
 function TermsPage() {
+  const cachedPolicy = getCachedPublicPolicy("TERMS");
+  const cachedAt = getCachedPublicPolicyUpdatedAt("TERMS");
+
   const { data, isLoading, isError } = useQuery({
     queryKey: ["public-policy", "TERMS"],
     queryFn: () =>
@@ -38,13 +45,22 @@ function TermsPage() {
           type: "TERMS",
         },
       }),
+    initialData: cachedPolicy,
+    initialDataUpdatedAt: cachedAt,
+    staleTime: 5 * 60 * 1000,
+    refetchOnMount: true,
   });
 
   if (isLoading) {
     return (
       <PageLayout title="Terms of Service">
         <Prose>
-          <p>Loading terms...</p>
+          <div className="flex min-h-[280px] items-center justify-center">
+            <div className="flex flex-col items-center gap-3 text-muted-foreground">
+              <span className="h-8 w-8 animate-spin rounded-full border-2 border-primary/20 border-t-primary" />
+              <p className="text-sm">Loading terms...</p>
+            </div>
+          </div>
         </Prose>
       </PageLayout>
     );
