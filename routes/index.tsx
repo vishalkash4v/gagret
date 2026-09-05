@@ -8,11 +8,13 @@ import {
   ClipboardList,
   Gift,
   Handshake,
+  Home as HomeIcon,
   IndianRupee,
   MapPinned,
   Play,
   Send,
   ShieldCheck,
+  Sparkles,
   Star,
   UserRoundCheck,
   Users,
@@ -126,31 +128,27 @@ const features = [
   },
 ];
 
+// 4-step strip shown over the bottom edge of the hero image.
 const howItWorksSteps = [
   {
-    Icon: ClipboardList,
-    title: "1. Choose & Book a Service",
-    text: "Choose the service you want and book your request.",
+    Icon: CalendarDays,
+    title: "1. Choose a Service",
+    text: "Pick what you need",
   },
   {
-    Icon: Send,
-    title: "2. Receive Provider Offers",
-    text: "Verified professional providers will send you their offers.",
+    Icon: Users,
+    title: "2. Get a Verified Professional",
+    text: "We match you with the right expert",
   },
   {
-    Icon: BadgeCheck,
-    title: "3. Compare & Choose",
-    text: "Review multiple offers and choose the one that suits your requirements.",
-  },
-  {
-    Icon: UserRoundCheck,
-    title: "4. Wait & Relax",
-    text: "Sit back and relax — one of the selected providers will be assigned to you.",
+    Icon: HomeIcon,
+    title: "3. Sit Back & Relax",
+    text: "Your home is in safe hands",
   },
   {
     Icon: CheckCircle2,
-    title: "5. Enjoy the Service",
-    text: "Get the job done and enjoy your completed service.",
+    title: "4. Enjoy the Service",
+    text: "Quality service, every time",
   },
 ];
 
@@ -163,9 +161,13 @@ function LandingPage() {
       <SiteHeader />
 
       <main>
-        <section className="relative overflow-visible bg-background" aria-labelledby="hero-heading">
+        {/* =====================================================
+            HOMEPAGE HERO
+            Full-width photo with foreground content + floating step card.
+        ====================================================== */}
+        <section className="relative overflow-hidden bg-background" aria-labelledby="hero-heading">
           <div className="relative w-full pb-10 pt-0">
-            <div className="relative min-h-[610px] w-full overflow-hidden shadow-lift sm:min-h-[650px] lg:min-h-[690px]">
+            <div className="relative min-h-[620px] overflow-hidden shadow-lift lg:min-h-[700px]">
               <img
                 src="/go4taskbgforhero.png"
                 alt="Go4Task service professional shaking hands with a happy customer at home"
@@ -176,20 +178,25 @@ function LandingPage() {
                 className="absolute inset-0 h-full w-full object-cover object-center"
               />
 
+              {/* Soft white overlay keeps all foreground content readable while preserving the photo. */}
               <div
-                className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/45 to-transparent lg:hidden"
+                className="absolute inset-0 bg-gradient-to-r from-white via-white/94 to-white/15 md:via-white/88 md:to-transparent"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute inset-0 bg-gradient-to-t from-white/35 via-transparent to-white/5"
                 aria-hidden="true"
               />
 
-              <div className="relative z-10 mx-auto flex min-h-[610px] max-w-[1800px] items-center px-6 py-14 sm:min-h-[650px] sm:px-10 lg:min-h-[690px] lg:px-16 xl:px-20">
-                <div className="max-w-[650px]">
-                  <span className="inline-flex rounded-full border border-accent/20 bg-white/85 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-accent shadow-sm backdrop-blur-sm">
+              <div className="relative z-10 mx-auto flex min-h-[620px] max-w-[1774px] items-center px-6 py-14 sm:px-10 lg:min-h-[700px] lg:px-16 xl:px-20">
+                <div className="max-w-[690px]">
+                  <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
                     Trusted Home Services
                   </span>
 
                   <h1
                     id="hero-heading"
-                    className="mt-6 max-w-[620px] text-5xl font-extrabold leading-[0.92] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-[5.25rem] xl:text-[5.5rem]"
+                    className="mt-5 max-w-[680px] text-5xl font-extrabold leading-[0.93] tracking-[-0.06em] text-foreground sm:text-6xl lg:text-[5rem] xl:text-[5.4rem]"
                   >
                     Your Home.
                     <span className="block">
@@ -197,41 +204,39 @@ function LandingPage() {
                     </span>
                   </h1>
 
-                  <div className="mt-6 max-w-[470px] rounded-xl bg-white/72 px-3 py-2 shadow-sm ring-1 ring-white/60 backdrop-blur-[2px]">
-                    <p className="text-base font-medium leading-7 text-foreground/90 sm:text-lg sm:leading-8">
-                      Book verified professionals for all your home service needs — cleaning, plumbing,
-                      electrical, painting, AC service and more.
-                    </p>
-                  </div>
+                  <p className="mt-6 max-w-[600px] text-base font-medium leading-7 text-foreground/80 sm:text-lg sm:leading-8">
+                    Book verified professionals for all your home service needs — cleaning, plumbing,
+                    electrical, painting, AC service and more.
+                  </p>
 
-                  <div className="mt-7 flex max-w-[570px] flex-wrap items-center gap-x-6 gap-y-4">
+                  <div className="mt-8 flex flex-wrap gap-x-8 gap-y-5">
                     {[
                       { Icon: ShieldCheck, title: "Verified", text: "Professionals" },
                       { Icon: IndianRupee, title: "Transparent", text: "Pricing" },
                       { Icon: Star, title: "Reliable", text: "& On-Time" },
                     ].map(({ Icon, title: itemTitle, text }) => (
-                      <div key={itemTitle} className="flex items-center gap-3 rounded-xl bg-white/65 px-2 py-1 backdrop-blur-[2px]">
-                        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft shadow-sm">
+                      <div key={itemTitle} className="flex items-center gap-3">
+                        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-soft shadow-sm">
                           <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
                         </span>
                         <div>
                           <p className="text-sm font-extrabold text-foreground">{itemTitle}</p>
-                          <p className="text-xs text-foreground/65">{text}</p>
+                          <p className="mt-0.5 text-xs text-foreground/65">{text}</p>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-8">
-                    <p className="font-display text-3xl font-semibold italic leading-[1.02] text-accent sm:text-4xl">
+                  <div className="mt-9">
+                    <p className="max-w-[360px] text-3xl font-semibold italic leading-[1.02] text-accent sm:text-4xl">
                       A better home.
                       <br />
-                      A brighter you.
+                      A brighter you!
                     </p>
-                    <div className="mt-2 h-1 w-[205px] -rotate-2 rounded-full bg-accent" />
+                    <div className="mt-2 h-1 w-[210px] -rotate-2 rounded-full bg-accent" />
                   </div>
 
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                     <Button as="a" href="#download" variant="accent" size="lg" className="shadow-lg">
                       <Play className="h-5 w-5" aria-hidden="true" />
                       Download Android App
@@ -253,28 +258,31 @@ function LandingPage() {
               </div>
             </div>
 
-            <div className="relative z-20 mx-4 -mt-10 overflow-hidden rounded-[2rem] border border-primary/10 bg-white/95 shadow-[0_18px_50px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:mx-8 lg:mx-auto lg:w-[calc(100%-7rem)] xl:w-[calc(100%-10rem)]">
-              <div className="grid lg:grid-cols-5">
-                {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
-                  <div
-                    key={stepTitle}
-                    className={`flex min-h-[128px] items-center gap-3 px-4 py-5 sm:px-5 ${
-                      index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""
-                    }`}
-                  >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
-                      <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-[13px] font-extrabold leading-snug text-foreground">{stepTitle}</p>
-                      <p className="mt-1 text-[11px] leading-[1.45] text-muted-foreground">{text}</p>
+            {/* Floating card retained as the hero's bottom element, matching the supplied reference. */}
+            <div className="relative z-20 mx-4 -mt-10 sm:mx-8 lg:mx-auto lg:w-[calc(100%-8rem)] xl:w-[calc(100%-10rem)]">
+              <div className="overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
+                <div className="grid lg:grid-cols-4">
+                  {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
+                    <div
+                      key={stepTitle}
+                      className={`flex min-h-[116px] items-center gap-4 px-5 py-5 sm:px-7 ${
+                        index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""
+                      }`}
+                    >
+                      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-soft">
+                        <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="text-sm font-extrabold leading-snug text-foreground">{stepTitle}</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{text}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
 
-            <div className="h-6 lg:h-10" />
+            <div className="h-8 lg:h-12" />
           </div>
         </section>
 
@@ -354,7 +362,6 @@ function LandingPage() {
           </div>
         </section>
       </main>
-
       <SiteFooter />
     </div>
   );
