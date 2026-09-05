@@ -13,21 +13,19 @@ import {
   Send,
   ShieldCheck,
   Sparkles,
-  Star,
   UserRoundCheck,
   Users,
-  Wrench,
 } from "lucide-react";
 import heroImage from "@/assets/hero-handyman.jpg";
-import appScreens from "@/assets/app-screens.jpg";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { AppShowcase } from "@/components/site/AppShowcase";
 import { Button } from "@/components/site/Button";
 import { StoreBadges } from "@/components/site/StoreBadges";
 
 const title = "Go4Task — Find Local Service Professionals & Get Multiple Offers";
 const description =
-  "Go4Task connects customers with nearby service professionals. Request a service, receive offers from eligible providers, compare them, select your preferred provider and get the booking confirmed.";
+  "Go4Task connects customers with nearby eligible service professionals. Request a service, receive offers, compare providers, select your preferred provider and complete the booking confirmation.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -73,12 +71,12 @@ const customerSteps = [
   {
     Icon: Send,
     title: "Receive Multiple Offers",
-    text: "Eligible providers can send their offers. Review the price, provider details, rating and other available information.",
+    text: "Eligible providers can send their offers. Review price, provider details, ratings and other available information.",
   },
   {
     Icon: Handshake,
     title: "Select & Confirm",
-    text: "Accept or reject offers and choose the provider that suits you. The selected provider completes the final confirmation before assignment.",
+    text: "Accept or reject offers and choose the provider that suits you. The applicable final confirmation is completed before assignment.",
   },
 ];
 
@@ -86,22 +84,22 @@ const providerSteps = [
   {
     Icon: Users,
     title: "Choose Your Services",
-    text: "Join as a provider and select the service categories you currently offer. The permitted number of categories may change as Go4Task grows.",
+    text: "Join as a provider and select the service categories you currently offer. Go4Task may increase or decrease the permitted number of categories.",
   },
   {
     Icon: UserRoundCheck,
     title: "Complete KYC",
-    text: "Complete the required KYC and verification process. Only providers meeting the applicable eligibility requirements can send offers.",
+    text: "Complete the required KYC and verification process. Providers must meet applicable eligibility requirements before sending offers.",
   },
   {
     Icon: MapPinned,
     title: "Receive Nearby Requests",
-    text: "Relevant customer requests can be shown to eligible providers based on service and location criteria used by Go4Task.",
+    text: "Relevant customer requests can be shown to eligible providers based on service, location and other platform criteria.",
   },
   {
     Icon: IndianRupee,
     title: "Send an Offer",
-    text: "Review a request and submit your price and other offer details. Platform fees and promotional allowances may apply according to the current rules.",
+    text: "Review a request and submit your price and offer details. Applicable platform fees and promotional rules may change from time to time.",
   },
 ];
 
@@ -148,8 +146,7 @@ function LandingPage() {
                 Find the Right Professional for Your Task.
               </h1>
               <p className="mt-5 max-w-xl text-base text-primary-foreground/85 sm:text-lg">
-                Request a service, reach nearby eligible providers, receive multiple offers, compare
-                your options and choose the provider that works best for you.
+                Request a service, reach nearby eligible providers, receive multiple offers, compare your options and choose the provider that works best for you.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -208,9 +205,7 @@ function LandingPage() {
                   Start providing services with Go4Task
                 </h2>
                 <p className="mt-3 text-sm font-medium text-accent-foreground/90 sm:text-base">
-                  Go4Task may provide free bookings or other promotional benefits to eligible providers.
-                  The number, eligibility, duration and conditions of these promotions may be changed,
-                  paused or withdrawn at any time.
+                  Go4Task may provide free bookings or other promotional benefits to eligible providers. The number, eligibility, duration and conditions of these promotions may be changed, paused or withdrawn at any time.
                 </p>
               </div>
               <Button as="a" href="#download" variant="primary" size="lg" className="w-full md:w-auto">
@@ -229,11 +224,7 @@ function LandingPage() {
               </p>
             </div>
 
-            <div
-              role="tablist"
-              aria-label="Choose audience"
-              className="mx-auto mt-8 flex w-full max-w-xs rounded-xl border border-border bg-secondary p-1"
-            >
+            <div role="tablist" aria-label="Choose audience" className="mx-auto mt-8 flex w-full max-w-xs rounded-xl border border-border bg-secondary p-1">
               {(["customers", "providers"] as const).map((key) => (
                 <button
                   key={key}
@@ -243,23 +234,14 @@ function LandingPage() {
                   aria-selected={audience === key}
                   aria-controls="steps-panel"
                   onClick={() => setAudience(key)}
-                  className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold capitalize transition-colors ${
-                    audience === key
-                      ? "bg-card text-foreground shadow-[var(--shadow-soft)]"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold capitalize transition-colors ${audience === key ? "bg-card text-foreground shadow-[var(--shadow-soft)]" : "text-muted-foreground hover:text-foreground"}`}
                 >
                   For {key}
                 </button>
               ))}
             </div>
 
-            <ol
-              id="steps-panel"
-              role="tabpanel"
-              aria-labelledby={`tab-${audience}`}
-              className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-            >
+            <ol id="steps-panel" role="tabpanel" aria-labelledby={`tab-${audience}`} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {steps.map(({ Icon, title: stepTitle, text }, i) => (
                 <li key={stepTitle} className="surface-card p-6">
                   <div className="flex items-center justify-between">
@@ -287,10 +269,7 @@ function LandingPage() {
                 Request → Offers → Selection → Final Confirmation
               </h2>
               <p className="mt-4 leading-relaxed text-muted-foreground">
-                Customers start with a service request. Nearby eligible providers can respond with offers.
-                Customers may accept or reject offers and choose the provider they prefer. The applicable
-                final confirmation is then completed; once the booking is assigned, contact details can be
-                shared between the customer and the selected provider to coordinate the service.
+                Customers start with a service request. Nearby eligible providers can respond with offers. Customers may accept or reject offers and choose the provider they prefer. The applicable final confirmation is then completed; once the booking is assigned, contact details can be shared between the customer and the selected provider to coordinate the service.
               </p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
                 {[
@@ -307,15 +286,18 @@ function LandingPage() {
               </div>
             </div>
             <img
-              src={appScreens}
-              alt="Go4Task app screens showing the service request and offer-based booking journey"
-              width={1280}
-              height={912}
+              src="/go4task-customer-home.png"
+              alt="Go4Task customer app showing services and offers"
+              width={941}
+              height={1672}
               loading="lazy"
-              className="w-full rounded-2xl shadow-lift"
+              decoding="async"
+              className="mx-auto max-h-[680px] w-auto rounded-2xl shadow-lift"
             />
           </div>
         </section>
+
+        <AppShowcase />
 
         <section aria-labelledby="why-heading" className="px-4 py-16 sm:px-6">
           <div className="mx-auto max-w-6xl">
@@ -346,8 +328,7 @@ function LandingPage() {
                 One app. Two ways to get things done.
               </h2>
               <p className="mt-4 max-w-xl text-primary-foreground/85">
-                Join as a customer to request services and compare provider offers, or join as a provider
-                to offer your skills to nearby customers after completing the applicable verification.
+                Join as a customer to request services and compare provider offers, or join as a provider to offer your skills to nearby customers after completing the applicable verification.
               </p>
               <StoreBadges className="mt-8" />
               <p className="mt-5 text-sm text-primary-foreground/70">
@@ -357,12 +338,13 @@ function LandingPage() {
             </div>
             <div className="surface-card overflow-hidden p-2">
               <img
-                src={heroImage}
-                alt="Go4Task service professional ready to help customers"
-                width={1280}
-                height={1024}
+                src="/go4task-signup.png"
+                alt="Go4Task signup screen for customers and providers"
+                width={941}
+                height={1672}
                 loading="lazy"
-                className="w-full rounded-xl object-cover"
+                decoding="async"
+                className="mx-auto max-h-[620px] w-auto rounded-xl"
               />
             </div>
           </div>
