@@ -3,20 +3,19 @@ import { useState } from "react";
 import {
   Apple,
   BadgeCheck,
+  CalendarDays,
   ClipboardList,
-  Coins,
   Gift,
-  HandCoins,
   Handshake,
   IndianRupee,
   MapPinned,
   Play,
-  ReceiptText,
-  Search,
   Send,
   ShieldCheck,
   Sparkles,
   Star,
+  UserRoundCheck,
+  Users,
   Wrench,
 } from "lucide-react";
 import heroImage from "@/assets/hero-handyman.jpg";
@@ -26,9 +25,9 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { Button } from "@/components/site/Button";
 import { StoreBadges } from "@/components/site/StoreBadges";
 
-const title = "Go4Task — Local Plumbers, Electricians & Home Repairs Near You";
+const title = "Go4Task — Find Local Service Professionals & Get Multiple Offers";
 const description =
-  "Post a job free, get bids from verified pros within 50km and hire the best. 100% free for customers. Providers pay a small flat access fee only on won bookings.";
+  "Go4Task connects customers with nearby service professionals. Request a service, receive offers from eligible providers, compare them, select your preferred provider and get the booking confirmed.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,18 +46,12 @@ export const Route = createFileRoute("/")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "LocalBusiness",
+          "@type": "WebSite",
           name: "Go4Task",
           description,
           telephone: "+91-6230450047",
           email: "cqlsysvishal@gmail.com",
-          areaServed: "Una, Himachal Pradesh",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Una",
-            addressRegion: "Himachal Pradesh",
-            addressCountry: "IN",
-          },
+          areaServed: "India",
         }),
       },
     ],
@@ -69,33 +62,70 @@ export const Route = createFileRoute("/")({
 const customerSteps = [
   {
     Icon: ClipboardList,
-    title: "Post a Request",
-    text: "Describe the job in 30 seconds — add photos, pick a time slot, done. No fees, no calls.",
+    title: "Create a Service Request",
+    text: "Choose the service you need, describe the work, add the required details and submit your request.",
   },
   {
-    Icon: ReceiptText,
-    title: "Receive Offers",
-    text: "Verified pros near you send transparent quotes with ratings, distance and availability.",
+    Icon: MapPinned,
+    title: "Reach Nearby Providers",
+    text: "Your request is automatically made available to nearby providers who are eligible for that service.",
+  },
+  {
+    Icon: Send,
+    title: "Receive Multiple Offers",
+    text: "Eligible providers can send their offers. Review the price, provider details, rating and other available information.",
   },
   {
     Icon: Handshake,
-    title: "Accept & Relax",
-    text: "Compare, chat, accept the offer you like. Your pro shows up on schedule.",
+    title: "Select & Confirm",
+    text: "Accept or reject offers and choose the provider that suits you. The selected provider completes the final confirmation before assignment.",
   },
 ];
 
 const providerSteps = [
-  { Icon: Search, title: "See Nearby Jobs", text: "Live job feed within your 50km service radius, filtered by your skills." },
-  { Icon: Send, title: "Send Your Bid", text: "Quote your own price. No lead packs, no bidding credits to buy upfront." },
-  { Icon: HandCoins, title: "Pay Only if Accepted", text: "A small flat access fee applies only when a customer confirms your booking." },
-  { Icon: Wrench, title: "Complete the Job", text: "Do great work, collect payment directly, and grow your rating and repeat clients." },
+  {
+    Icon: Users,
+    title: "Choose Your Services",
+    text: "Join as a provider and select the service categories you currently offer. The permitted number of categories may change as Go4Task grows.",
+  },
+  {
+    Icon: UserRoundCheck,
+    title: "Complete KYC",
+    text: "Complete the required KYC and verification process. Only providers meeting the applicable eligibility requirements can send offers.",
+  },
+  {
+    Icon: MapPinned,
+    title: "Receive Nearby Requests",
+    text: "Relevant customer requests can be shown to eligible providers based on service and location criteria used by Go4Task.",
+  },
+  {
+    Icon: IndianRupee,
+    title: "Send an Offer",
+    text: "Review a request and submit your price and other offer details. Platform fees and promotional allowances may apply according to the current rules.",
+  },
 ];
 
 const features = [
-  { Icon: ShieldCheck, title: "Verified Professionals", text: "ID, skill and address checks on every pro before their first bid goes live." },
-  { Icon: MapPinned, title: "50km Hyper-Local Radius", text: "Only genuinely nearby experts see your job, so help arrives fast." },
-  { Icon: IndianRupee, title: "Transparent Pricing", text: "Real quotes from real pros. No surge pricing, no surprise line items." },
-  { Icon: Coins, title: "Zero Customer Fees", text: "Posting, bidding, chatting and booking are always 100% free for customers." },
+  {
+    Icon: ShieldCheck,
+    title: "Phone Verification",
+    text: "Customer phone numbers are verified through OTP-based verification using Firebase or another verification service used by Go4Task.",
+  },
+  {
+    Icon: BadgeCheck,
+    title: "Provider KYC",
+    text: "Provider KYC helps Go4Task verify eligibility and maintain platform trust. Verification does not guarantee service quality or outcomes.",
+  },
+  {
+    Icon: Users,
+    title: "Multiple Provider Offers",
+    text: "Customers can receive and evaluate multiple offers before selecting a provider, subject to provider availability and platform rules.",
+  },
+  {
+    Icon: Handshake,
+    title: "Confirmation Before Assignment",
+    text: "After a customer selects an offer, the applicable final confirmation is completed before the provider is assigned to the booking.",
+  },
 ];
 
 function LandingPage() {
@@ -107,20 +137,19 @@ function LandingPage() {
       <SiteHeader />
 
       <main>
-        {/* Hero */}
         <section className="bg-hero-gradient text-primary-foreground" aria-labelledby="hero-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:py-20">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/12 px-3 py-1.5 text-xs font-semibold">
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                Now live across Una, Himachal Pradesh
+                One app for customers & service professionals
               </span>
               <h1 id="hero-heading" className="mt-5 text-4xl font-extrabold leading-[1.08] sm:text-5xl lg:text-6xl">
-                Your Local Experts, Just a Tap Away.
+                Find the Right Professional for Your Task.
               </h1>
               <p className="mt-5 max-w-xl text-base text-primary-foreground/85 sm:text-lg">
-                Get plumbing, electrical, and home repairs done instantly. 100% Free for customers.
-                Providers pay only for confirmed jobs.
+                Request a service, reach nearby eligible providers, receive multiple offers, compare
+                your options and choose the provider that works best for you.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -134,27 +163,24 @@ function LandingPage() {
                 </Button>
               </div>
 
-              <dl className="mt-10 grid max-w-md grid-cols-3 gap-4 text-primary-foreground">
+              <div className="mt-10 grid max-w-xl gap-3 sm:grid-cols-3">
                 {[
-                  ["12,400+", "Jobs completed"],
-                  ["1,800+", "Verified pros"],
-                  ["4.8★", "Average rating"],
+                  ["1", "Request a service"],
+                  ["2", "Compare offers"],
+                  ["3", "Confirm your provider"],
                 ].map(([value, label]) => (
-                  <div key={label}>
-                    <dt className="sr-only">{label}</dt>
-                    <dd>
-                      <span className="block text-2xl font-extrabold">{value}</span>
-                      <span className="block text-xs text-primary-foreground/70">{label}</span>
-                    </dd>
+                  <div key={label} className="rounded-xl border border-primary-foreground/15 bg-primary-foreground/8 p-4">
+                    <span className="text-2xl font-extrabold text-accent">{value}</span>
+                    <span className="mt-1 block text-sm font-semibold">{label}</span>
                   </div>
                 ))}
-              </dl>
+              </div>
             </div>
 
             <div className="relative">
               <img
                 src={heroImage}
-                alt="Smiling verified Go4Task handyman with his toolkit greeting a happy family at their front door"
+                alt="Go4Task service professional with toolkit"
                 width={1280}
                 height={1024}
                 className="w-full rounded-2xl object-cover shadow-lift"
@@ -162,48 +188,44 @@ function LandingPage() {
               <div className="surface-card absolute -bottom-5 left-4 flex items-center gap-3 px-4 py-3 sm:left-8">
                 <BadgeCheck className="h-6 w-6 text-success" aria-hidden="true" />
                 <div>
-                  <p className="text-sm font-bold text-card-foreground">Background verified</p>
-                  <p className="flex items-center gap-1 text-xs text-muted-foreground">
-                    <Star className="h-3 w-3 text-accent" aria-hidden="true" /> 4.9 from 214 neighbours
-                  </p>
+                  <p className="text-sm font-bold text-card-foreground">Provider verification</p>
+                  <p className="text-xs text-muted-foreground">KYC is required for eligible provider offers</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Provider promo banner */}
         <section id="for-providers" aria-labelledby="promo-heading" className="px-4 py-12 sm:px-6">
           <div className="bg-promo-gradient mx-auto max-w-6xl rounded-2xl px-6 py-9 text-accent-foreground shadow-lift sm:px-10">
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-center md:justify-between">
               <div className="max-w-2xl">
                 <span className="inline-flex items-center gap-2 rounded-full bg-accent-foreground/15 px-3 py-1 text-xs font-bold uppercase tracking-wider">
                   <Gift className="h-3.5 w-3.5" aria-hidden="true" />
-                  Launch offer
+                  Provider promotional offer
                 </span>
                 <h2 id="promo-heading" className="mt-4 text-2xl font-extrabold sm:text-3xl">
-                  Are you a service professional? Get your First 3 Jobs FREE!
+                  Start providing services with Go4Task
                 </h2>
                 <p className="mt-3 text-sm font-medium text-accent-foreground/90 sm:text-base">
-                  Refer a friend to earn 3 more free bookings. Zero subscription fees, zero hidden
-                  commissions — pay a small flat access fee only when you win a booking.
+                  Go4Task may provide free bookings or other promotional benefits to eligible providers.
+                  The number, eligibility, duration and conditions of these promotions may be changed,
+                  paused or withdrawn at any time.
                 </p>
               </div>
               <Button as="a" href="#download" variant="primary" size="lg" className="w-full md:w-auto">
-                Join as a Pro
+                Join as a Provider
               </Button>
             </div>
           </div>
         </section>
 
-        {/* How it works */}
         <section id="how-it-works" aria-labelledby="how-heading" className="px-4 py-16 sm:px-6">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
               <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">How Go4Task Works</h2>
               <p className="mt-3 text-muted-foreground">
-                One simple bidding flow — built to be free for the household and fair for the
-                professional.
+                A simple customer-to-provider workflow designed around requests, offers and final confirmation.
               </p>
             </div>
 
@@ -254,15 +276,53 @@ function LandingPage() {
           </div>
         </section>
 
-        {/* Why choose us */}
-        <section aria-labelledby="why-heading" className="bg-secondary px-4 py-16 sm:px-6">
+        <section aria-labelledby="flow-heading" className="bg-secondary px-4 py-16 sm:px-6">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
+            <div>
+              <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-xs font-semibold text-primary shadow-[var(--shadow-soft)]">
+                <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
+                Built around your booking journey
+              </span>
+              <h2 id="flow-heading" className="mt-4 text-3xl font-extrabold sm:text-4xl">
+                Request → Offers → Selection → Final Confirmation
+              </h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">
+                Customers start with a service request. Nearby eligible providers can respond with offers.
+                Customers may accept or reject offers and choose the provider they prefer. The applicable
+                final confirmation is then completed; once the booking is assigned, contact details can be
+                shared between the customer and the selected provider to coordinate the service.
+              </p>
+              <div className="mt-7 grid gap-3 sm:grid-cols-2">
+                {[
+                  "Customer phone verification by OTP",
+                  "Provider KYC before eligible offers",
+                  "Multiple offers can be compared",
+                  "Contact details shared after confirmation",
+                ].map((item) => (
+                  <div key={item} className="surface-card flex items-start gap-3 p-4 text-sm font-semibold">
+                    <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <img
+              src={appScreens}
+              alt="Go4Task app screens showing the service request and offer-based booking journey"
+              width={1280}
+              height={912}
+              loading="lazy"
+              className="w-full rounded-2xl shadow-lift"
+            />
+          </div>
+        </section>
+
+        <section aria-labelledby="why-heading" className="px-4 py-16 sm:px-6">
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 id="why-heading" className="text-3xl font-extrabold sm:text-4xl">
-                Why Choose Go4Task?
-              </h2>
+              <h2 id="why-heading" className="text-3xl font-extrabold sm:text-4xl">Why Go4Task?</h2>
               <p className="mt-3 text-muted-foreground">
-                Trusted local home services — verified pros, honest quotes and no fees for customers.
+                A marketplace workflow that keeps verification, choice and booking confirmation at the centre.
               </p>
             </div>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -279,31 +339,32 @@ function LandingPage() {
           </div>
         </section>
 
-        {/* Download */}
         <section id="download" aria-labelledby="download-heading" className="bg-hero-gradient px-4 py-16 text-primary-foreground sm:px-6">
           <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
             <div>
               <h2 id="download-heading" className="text-3xl font-extrabold sm:text-4xl">
-                Available now for Android. iOS dropping soon.
+                One app. Two ways to get things done.
               </h2>
               <p className="mt-4 max-w-xl text-primary-foreground/85">
-                Post a job, compare bids and track your pro in real time — all from your phone. Pros
-                get their first 3 bookings free, plus 3 more for every provider they refer.
+                Join as a customer to request services and compare provider offers, or join as a provider
+                to offer your skills to nearby customers after completing the applicable verification.
               </p>
               <StoreBadges className="mt-8" />
               <p className="mt-5 text-sm text-primary-foreground/70">
-                Questions before you start? <Link to="/faq" className="font-semibold underline hover:text-accent">Read the FAQ</Link>{" "}
+                Need more details? <Link to="/faq" className="font-semibold underline hover:text-accent">Read the FAQ</Link>{" "}
                 or <Link to="/contact" className="font-semibold underline hover:text-accent">talk to our team</Link>.
               </p>
             </div>
-            <img
-              src={appScreens}
-              alt="Go4Task app screens showing job posting, received bids and a confirmed booking"
-              width={1280}
-              height={912}
-              loading="lazy"
-              className="w-full rounded-2xl shadow-lift"
-            />
+            <div className="surface-card overflow-hidden p-2">
+              <img
+                src={heroImage}
+                alt="Go4Task service professional ready to help customers"
+                width={1280}
+                height={1024}
+                loading="lazy"
+                className="w-full rounded-xl object-cover"
+              />
+            </div>
           </div>
         </section>
       </main>
