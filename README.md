@@ -45,7 +45,7 @@ Please generate the full landing page structure with beautiful dummy text that f
 
 
 contact us +91 6230450047
-email cqlsysvishal@gmail.com
+email go4task@gmail.com
 lcoaion Una , Himachal pradesh
 
 This project was built with [Lovable](https://lovable.dev).

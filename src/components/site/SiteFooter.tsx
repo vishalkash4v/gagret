@@ -72,7 +72,7 @@ export function SiteFooter() {
           <h3 className="text-sm font-bold uppercase tracking-wider text-primary-foreground/90">Get in Touch</h3>
           <ul className="mt-4 space-y-3 text-sm text-primary-foreground/80">
             <li className="flex items-start gap-2.5"><Phone className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /><a href="tel:+916230450047" className="hover:text-accent">+91 62304 50047</a></li>
-            <li className="flex items-start gap-2.5"><Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /><a href="mailto:cqlsysvishal@gmail.com" className="break-all hover:text-accent">cqlsysvishal@gmail.com</a></li>
+            <li className="flex items-start gap-2.5"><Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /><a href="mailto:go4task@gmail.com" className="break-all hover:text-accent">go4task@gmail.com</a></li>
             <li className="flex items-start gap-2.5"><MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /><address className="not-italic">Una, Himachal Pradesh, India</address></li>
           </ul>
         </div>

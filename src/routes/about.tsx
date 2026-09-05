@@ -81,7 +81,7 @@ function AboutPage() {
         </p>
 
         <h2>Contact</h2>
-        <p>Go4Task, Una, Himachal Pradesh · +91 62304 50047 · cqlsysvishal@gmail.com</p>
+        <p>Go4Task, Una, Himachal Pradesh · +91 62304 50047 · go4task@gmail.com</p>
       </Prose>
     </PageLayout>
   );

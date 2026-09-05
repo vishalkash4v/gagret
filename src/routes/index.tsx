@@ -48,7 +48,7 @@ export const Route = createFileRoute("/")({
           name: "Go4Task",
           description,
           telephone: "+91-6230450047",
-          email: "cqlsysvishal@gmail.com",
+          email: "go4task@gmail.com",
           areaServed: "India",
         }),
       },

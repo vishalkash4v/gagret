@@ -4,7 +4,7 @@ import { PageLayout } from "@/components/site/PageLayout";
 
 const title = "Contact Go4Task — Support for Customers & Providers";
 const description =
-  "Reach the Go4Task team in Una, Himachal Pradesh. Call +91 62304 50047 or email cqlsysvishal@gmail.com for support, partnerships or provider onboarding.";
+  "Reach the Go4Task team in Una, Himachal Pradesh. Call +91 62304 50047 or email go4task@gmail.com for support, partnerships or provider onboarding.";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -32,8 +32,8 @@ const items = [
   {
     Icon: Mail,
     label: "Email us",
-    value: "cqlsysvishal@gmail.com",
-    href: "mailto:cqlsysvishal@gmail.com",
+    value: "go4task@gmail.com",
+    href: "mailto:go4task@gmail.com",
     note: "Replies within one working day",
   },
   {
