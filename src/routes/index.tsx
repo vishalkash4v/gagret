@@ -162,47 +162,48 @@ function LandingPage() {
       <SiteHeader />
 
       <main>
-        <section className="relative overflow-hidden border-b border-primary/10 bg-background" aria-labelledby="hero-heading">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_8%_8%,var(--color-primary-soft),transparent_38%)]" aria-hidden="true" />
-          <div className="relative mx-auto max-w-7xl px-4 pb-10 pt-5 sm:px-6 sm:pb-12 sm:pt-7 lg:px-8">
-            <div className="grid min-h-[620px] overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-lift lg:grid-cols-2">
-              <div className="flex flex-col justify-center px-6 py-10 sm:px-10 lg:px-12 lg:py-12">
-                <span className="w-fit text-xs font-bold uppercase tracking-[0.18em] text-accent">
+        <section className="relative overflow-hidden bg-background" aria-labelledby="hero-heading">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-primary-soft),transparent_46%)]" aria-hidden="true" />
+          <div className="relative mx-auto max-w-7xl px-0 pb-10 pt-0 sm:px-4 sm:pt-4 lg:px-6">
+            <div className="grid min-h-[660px] overflow-hidden bg-card shadow-lift lg:grid-cols-[0.94fr_1.06fr] lg:rounded-[2rem]">
+              <div className="relative flex flex-col justify-center bg-card px-6 py-12 sm:px-10 lg:px-12 xl:px-16">
+                <div className="absolute left-0 top-0 h-1 w-32 bg-accent sm:w-40" aria-hidden="true" />
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
                   Trusted Home Services
                 </span>
 
-                <h1 id="hero-heading" className="mt-4 text-5xl font-extrabold leading-[0.98] tracking-[-0.05em] text-foreground sm:text-6xl lg:text-7xl">
+                <h1 id="hero-heading" className="mt-4 max-w-2xl text-5xl font-extrabold leading-[0.92] tracking-[-0.055em] text-foreground sm:text-6xl lg:text-7xl">
                   Your Home.
                   <span className="block">Our <span className="text-accent">Experts.</span></span>
                 </h1>
 
-                <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Book trusted professionals for cleaning, plumbing, electrical, painting, AC service and more. Create a request, receive multiple offers and choose the one that suits you.
+                <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg">
+                  Book trusted professionals for cleaning, plumbing, electrical, painting, AC service and more. Create a request, receive offers from professional providers and choose the one that suits you best.
                 </p>
 
-                <div className="mt-7 grid max-w-xl gap-3 sm:grid-cols-3">
+                <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-4">
                   {[
-                    { Icon: ShieldCheck, title: "Verified", text: "Professional providers" },
-                    { Icon: IndianRupee, title: "Multiple Offers", text: "Compare your options" },
-                    { Icon: BadgeCheck, title: "Your Choice", text: "Pick what suits you" },
+                    { Icon: ShieldCheck, title: "Verified", text: "Professionals" },
+                    { Icon: IndianRupee, title: "Multiple", text: "Offers" },
+                    { Icon: BadgeCheck, title: "Your", text: "Choice" },
                   ].map(({ Icon, title: itemTitle, text }) => (
-                    <div key={itemTitle} className="flex items-start gap-3 rounded-2xl border border-border bg-background/85 px-3 py-4">
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-foreground">
+                    <div key={itemTitle} className="flex items-center gap-3">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
                         <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
                       </span>
                       <div>
                         <p className="text-sm font-extrabold text-foreground">{itemTitle}</p>
-                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">{text}</p>
+                        <p className="text-xs text-muted-foreground">{text}</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
-                <p className="mt-7 max-w-sm text-2xl font-semibold leading-tight text-accent sm:text-3xl">
+                <p className="mt-8 max-w-xs text-2xl font-semibold italic leading-tight text-accent sm:text-3xl">
                   A better home.<br />A brighter you.
                 </p>
 
-                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button as="a" href="#download" variant="accent" size="lg">
                     <Play className="h-5 w-5" aria-hidden="true" />
                     Download Android App
@@ -214,7 +215,7 @@ function LandingPage() {
                 </div>
               </div>
 
-              <div className="relative min-h-[360px] overflow-hidden lg:min-h-full">
+              <div className="relative min-h-[390px] overflow-hidden bg-secondary lg:min-h-0">
                 <img
                   src="/go4task-hero.png"
                   alt="Go4Task service professional helping a customer at home"
@@ -222,18 +223,22 @@ function LandingPage() {
                   height={682}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-full w-full object-cover object-center"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
                 />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-card/25 via-transparent to-transparent" aria-hidden="true" />
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-card/25 to-transparent lg:w-40" aria-hidden="true" />
+                <div className="absolute bottom-6 right-6 rounded-2xl bg-white/90 px-5 py-4 shadow-lift backdrop-blur sm:bottom-8 sm:right-8">
+                  <p className="text-base font-extrabold text-foreground">Home Services Made Easy</p>
+                  <p className="mt-1 text-xs text-muted-foreground">Simple requests. Better choices.</p>
+                </div>
               </div>
             </div>
 
-            <div className="relative mx-2 -mt-6 overflow-hidden rounded-[1.6rem] border border-primary/10 bg-card shadow-[var(--shadow-soft)] sm:mx-5 lg:mx-8">
-              <div className="grid sm:grid-cols-2 lg:grid-cols-5">
+            <div className="relative z-10 mx-4 -mt-7 overflow-hidden rounded-[1.7rem] border border-primary/10 bg-card shadow-lift sm:mx-8 lg:mx-10">
+              <div className="grid lg:grid-cols-5">
                 {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
                   <div
                     key={stepTitle}
-                    className={`flex min-h-[118px] items-start gap-3 p-5 ${index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}
+                    className={`flex min-h-[122px] items-center gap-3 px-5 py-5 ${index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}
                   >
                     <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
                       <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
@@ -257,16 +262,12 @@ function LandingPage() {
                   <Gift className="h-3.5 w-3.5" aria-hidden="true" />
                   Provider promotional offer
                 </span>
-                <h2 id="promo-heading" className="mt-4 text-2xl font-extrabold sm:text-3xl">
-                  Start providing services with Go4Task
-                </h2>
+                <h2 id="promo-heading" className="mt-4 text-2xl font-extrabold sm:text-3xl">Start providing services with Go4Task</h2>
                 <p className="mt-3 text-sm font-medium text-accent-foreground/90 sm:text-base">
                   Go4Task may provide free bookings or other promotional benefits to eligible providers. The number, eligibility, duration and conditions of these promotions may be changed, paused or withdrawn at any time.
                 </p>
               </div>
-              <Button as="a" href="#download" variant="primary" size="lg" className="w-full md:w-auto">
-                Join as a Provider
-              </Button>
+              <Button as="a" href="#download" variant="primary" size="lg" className="w-full md:w-auto">Join as a Provider</Button>
             </div>
           </div>
         </section>
@@ -275,35 +276,18 @@ function LandingPage() {
           <div className="mx-auto max-w-6xl">
             <div className="mx-auto max-w-2xl text-center">
               <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">How Go4Task Works</h2>
-              <p className="mt-3 text-muted-foreground">
-                A simple customer-to-provider workflow designed around requests, offers and final confirmation.
-              </p>
+              <p className="mt-3 text-muted-foreground">A simple customer-to-provider workflow designed around requests, offers and final confirmation.</p>
             </div>
-
             <div role="tablist" aria-label="Choose audience" className="mx-auto mt-8 flex w-full max-w-xs rounded-xl border border-border bg-secondary p-1">
               {(["customers", "providers"] as const).map((key) => (
-                <button
-                  key={key}
-                  role="tab"
-                  type="button"
-                  id={`tab-${key}`}
-                  aria-selected={audience === key}
-                  aria-controls="steps-panel"
-                  onClick={() => setAudience(key)}
-                  className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold capitalize transition-colors ${audience === key ? "bg-card text-foreground shadow-[var(--shadow-soft)]" : "text-muted-foreground hover:text-foreground"}`}
-                >
-                  For {key}
-                </button>
+                <button key={key} role="tab" type="button" id={`tab-${key}`} aria-selected={audience === key} aria-controls="steps-panel" onClick={() => setAudience(key)} className={`flex-1 rounded-lg px-4 py-2.5 text-sm font-semibold capitalize transition-colors ${audience === key ? "bg-card text-foreground shadow-[var(--shadow-soft)]" : "text-muted-foreground hover:text-foreground"}`}>For {key}</button>
               ))}
             </div>
-
             <ol id="steps-panel" role="tabpanel" aria-labelledby={`tab-${audience}`} className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {steps.map(({ Icon, title: stepTitle, text }, i) => (
                 <li key={stepTitle} className="surface-card p-6">
                   <div className="flex items-center justify-between">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-soft text-primary">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-soft text-primary"><Icon className="h-5 w-5" aria-hidden="true" /></span>
                     <span className="font-display text-2xl font-extrabold text-border">0{i + 1}</span>
                   </div>
                   <h3 className="mt-4 text-lg font-bold">{stepTitle}</h3>
@@ -317,39 +301,14 @@ function LandingPage() {
         <section aria-labelledby="flow-heading" className="bg-secondary px-4 py-16 sm:px-6">
           <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-xs font-semibold text-primary shadow-[var(--shadow-soft)]">
-                <CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />
-                Built around your booking journey
-              </span>
-              <h2 id="flow-heading" className="mt-4 text-3xl font-extrabold sm:text-4xl">
-                Request → Offers → Selection → Final Confirmation
-              </h2>
-              <p className="mt-4 leading-relaxed text-muted-foreground">
-                Customers start with a service request. Nearby eligible providers can respond with offers. Customers may accept or reject offers and choose the provider they prefer. The applicable final confirmation is then completed; once the booking is assigned, contact details can be shared between the customer and the selected provider to coordinate the service.
-              </p>
+              <span className="inline-flex items-center gap-2 rounded-full bg-card px-3 py-1.5 text-xs font-semibold text-primary shadow-[var(--shadow-soft)]"><CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />Built around your booking journey</span>
+              <h2 id="flow-heading" className="mt-4 text-3xl font-extrabold sm:text-4xl">Request → Offers → Selection → Final Confirmation</h2>
+              <p className="mt-4 leading-relaxed text-muted-foreground">Customers start with a service request. Nearby eligible providers can respond with offers. Customers may accept or reject offers and choose the provider they prefer. The applicable final confirmation is then completed; once the booking is assigned, contact details can be shared between the customer and the selected provider to coordinate the service.</p>
               <div className="mt-7 grid gap-3 sm:grid-cols-2">
-                {[
-                  "Customer phone verification by OTP",
-                  "Provider KYC before eligible offers",
-                  "Multiple offers can be compared",
-                  "Contact details shared after confirmation",
-                ].map((item) => (
-                  <div key={item} className="surface-card flex items-start gap-3 p-4 text-sm font-semibold">
-                    <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" />
-                    <span>{item}</span>
-                  </div>
-                ))}
+                {["Customer phone verification by OTP","Provider KYC before eligible offers","Multiple offers can be compared","Contact details shared after confirmation"].map((item) => <div key={item} className="surface-card flex items-start gap-3 p-4 text-sm font-semibold"><ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-success" aria-hidden="true" /><span>{item}</span></div>)}
               </div>
             </div>
-            <img
-              src="/go4task-customer-home.png"
-              alt="Go4Task customer app showing services and offers"
-              width={941}
-              height={1672}
-              loading="lazy"
-              decoding="async"
-              className="mx-auto max-h-[680px] w-auto rounded-2xl shadow-lift"
-            />
+            <img src="/go4task-customer-home.png" alt="Go4Task customer app showing services and offers" width={941} height={1672} loading="lazy" decoding="async" className="mx-auto max-h-[680px] w-auto rounded-2xl shadow-lift" />
           </div>
         </section>
 
@@ -357,53 +316,20 @@ function LandingPage() {
 
         <section aria-labelledby="why-heading" className="px-4 py-16 sm:px-6">
           <div className="mx-auto max-w-6xl">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 id="why-heading" className="text-3xl font-extrabold sm:text-4xl">Why Go4Task?</h2>
-              <p className="mt-3 text-muted-foreground">
-                A marketplace workflow that keeps verification, choice and booking confirmation at the centre.
-              </p>
-            </div>
+            <div className="mx-auto max-w-2xl text-center"><h2 id="why-heading" className="text-3xl font-extrabold sm:text-4xl">Why Go4Task?</h2><p className="mt-3 text-muted-foreground">A marketplace workflow that keeps verification, choice and booking confirmation at the centre.</p></div>
             <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {features.map(({ Icon, title: featureTitle, text }) => (
-                <article key={featureTitle} className="surface-card p-6">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-success-soft text-success">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <h3 className="mt-4 text-base font-bold">{featureTitle}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
-                </article>
-              ))}
+              {features.map(({ Icon, title: featureTitle, text }) => <article key={featureTitle} className="surface-card p-6"><span className="flex h-11 w-11 items-center justify-center rounded-xl bg-success-soft text-success"><Icon className="h-5 w-5" aria-hidden="true" /></span><h3 className="mt-4 text-base font-bold">{featureTitle}</h3><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p></article>)}
             </div>
           </div>
         </section>
 
         <section id="download" aria-labelledby="download-heading" className="bg-hero-gradient px-4 py-16 text-primary-foreground sm:px-6">
           <div className="mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-2">
-            <div>
-              <h2 id="download-heading" className="text-3xl font-extrabold sm:text-4xl">
-                One app. Two ways to get things done.
-              </h2>
-              <p className="mt-4 max-w-xl text-primary-foreground/85">
-                Join as a customer to request services and compare provider offers, or join as a provider to offer your skills to nearby customers after completing the applicable verification.
-              </p>
-              <StoreBadges className="mt-8" />
-              <p className="mt-5 text-sm text-primary-foreground/70">
-                Need more details? <Link to="/faq" className="font-semibold text-primary-foreground underline-offset-4 hover:underline">Read the FAQ</Link> or review our <Link to="/terms" className="font-semibold text-primary-foreground underline-offset-4 hover:underline">Terms</Link>.
-              </p>
-            </div>
-            <img
-              src="/go4task-provider-home.png"
-              alt="Go4Task provider app home screen"
-              width={941}
-              height={1672}
-              loading="lazy"
-              decoding="async"
-              className="mx-auto max-h-[680px] w-auto rounded-2xl shadow-lift"
-            />
+            <div><h2 id="download-heading" className="text-3xl font-extrabold sm:text-4xl">One app. Two ways to get things done.</h2><p className="mt-4 max-w-xl text-primary-foreground/85">Join as a customer to request services and compare provider offers, or join as a provider to offer your skills to nearby customers after completing the applicable verification.</p><StoreBadges className="mt-8" /><p className="mt-5 text-sm text-primary-foreground/70">Need more details? <Link to="/faq" className="font-semibold text-primary-foreground underline-offset-4 hover:underline">Read the FAQ</Link> or review our <Link to="/terms" className="font-semibold text-primary-foreground underline-offset-4 hover:underline">Terms</Link>.</p></div>
+            <img src="/go4task-provider-home.png" alt="Go4Task provider app home screen" width={941} height={1672} loading="lazy" decoding="async" className="mx-auto max-h-[680px] w-auto rounded-2xl shadow-lift" />
           </div>
         </section>
       </main>
-
       <SiteFooter />
     </div>
   );
