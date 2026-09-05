@@ -1,42 +1,58 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageLayout } from "@/components/site/PageLayout";
 
-const title = "FAQ — Go4Task Home Services & Provider Access Fee";
+const title = "FAQ — Go4Task Customer & Provider Marketplace";
 const description =
-  "Answers about Go4Task: how bidding works, why it is free for customers, the flat access fee for providers, and the first 3 free bookings offer.";
+  "Answers about Go4Task service requests, nearby providers, multiple offers, KYC, booking confirmation, platform fees and provider promotions.";
 
 const faqs = [
   {
-    q: "Is Go4Task really free for customers?",
-    a: "Yes. Posting a job, receiving bids, chatting with pros and confirming a booking are 100% free. You only pay the professional for the work itself, at the price you accepted.",
+    q: "Can I join Go4Task as a customer or a provider?",
+    a: "Yes. Go4Task supports both customer and provider accounts. Customers can request services, while providers can offer the services they are eligible to provide.",
   },
   {
-    q: "How does the bidding model work?",
-    a: "You describe the job and verified professionals within 50km send you quotes. You compare price, rating and distance, then accept the offer that suits you best.",
+    q: "How does a customer request a service?",
+    a: "The customer selects the required service and submits the relevant request details. Go4Task can automatically make the request available to nearby providers who match the applicable service and eligibility criteria.",
   },
   {
-    q: "What do service providers pay?",
-    a: "No subscriptions and no hidden commissions. A small flat access fee is charged only when a customer confirms your booking — if you don't win the job, you pay nothing.",
+    q: "Can a customer receive multiple offers?",
+    a: "Yes. Multiple eligible providers may send offers for the same request. The customer can review the available offers and accept or reject them according to the options provided in the app.",
   },
   {
-    q: "What is the current promo for providers?",
-    a: "Your first 3 bookings are absolutely free. Refer another provider who joins and completes verification, and you get 3 more free bookings.",
+    q: "How is the provider finally assigned?",
+    a: "After reviewing offers, the customer selects a preferred provider. The applicable final confirmation is then completed before the selected provider is assigned to the booking. Once confirmed, relevant contact details may be shared so both parties can coordinate the service.",
   },
   {
-    q: "How are professionals verified?",
-    a: "Every pro submits government ID, address proof and skill details. We review documents and check reviews continuously; repeat low ratings remove a pro from the feed.",
+    q: "Why does a provider need KYC?",
+    a: "Provider KYC is part of Go4Task's verification and eligibility process. A provider must complete the applicable KYC requirements before being permitted to send eligible offers. KYC verification does not guarantee the quality, safety or outcome of a service.",
   },
   {
-    q: "Which services are available?",
-    a: "Plumbing, electrical, carpentry, appliance repair, painting, deep cleaning, RO and AC servicing, pest control and general handyman work.",
+    q: "How is my phone number verified?",
+    a: "Customer phone numbers are verified through OTP-based verification using Firebase or another verification service used by Go4Task.",
   },
   {
-    q: "Which areas do you serve?",
-    a: "We are live in Una, Himachal Pradesh and surrounding towns, matching jobs within a 50km hyper-local radius. New districts are added every month.",
+    q: "How many services can a provider select?",
+    a: "The provider service-category limit is a platform setting. It may currently be limited to a certain number, such as three, and Go4Task may increase or decrease that limit in the future.",
   },
   {
-    q: "Is the iOS app available?",
-    a: "The Android app is live now. The iOS app is in final review and will be announced on this page and in the app.",
+    q: "Does Go4Task charge a platform fee?",
+    a: "Go4Task may charge a platform fee on applicable orders or bookings. The applicable amount, structure and conditions may be updated from time to time and will be governed by the information and terms applicable when the booking is processed.",
+  },
+  {
+    q: "Do providers get free bookings or promotions?",
+    a: "Go4Task may offer eligible providers free bookings, credits or other promotional benefits. The number and conditions of these benefits can change, and a promotion may be paused or withdrawn subject to its stated terms.",
+  },
+  {
+    q: "Does KYC mean a provider is guaranteed to be trustworthy?",
+    a: "No. KYC and verification are intended to support platform safety and identity checks. They are not a guarantee of a provider's conduct, workmanship, licensing status or service result.",
+  },
+  {
+    q: "What happens if a provider behaves improperly?",
+    a: "Go4Task may investigate complaints, restrict or suspend accounts, preserve relevant records and disclose KYC or other relevant information to authorised authorities where required or permitted by applicable law.",
+  },
+  {
+    q: "Which services and locations are available?",
+    a: "Available services and locations depend on the current Go4Task platform coverage and provider availability. The catalogue and service area may expand or change over time.",
   },
 ];
 
@@ -73,7 +89,7 @@ function FaqPage() {
   return (
     <PageLayout
       title="Frequently Asked Questions"
-      intro="Everything about our bidding model, verification and the provider access fee."
+      intro="Everything about customer requests, provider offers, verification and booking confirmation."
     >
       <div className="space-y-3">
         {faqs.map((f) => (
