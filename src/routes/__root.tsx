@@ -12,6 +12,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
+
+const defaultTitle = "Go4Task — Local Home Services & Trusted Professionals";
 
 function NotFoundComponent() {
   return (
@@ -76,28 +79,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Go4Task — Hyper-Local Home Services App" },
-      {
-        name: "description",
-        content:
-          "Book verified local plumbers, electricians and handymen. Free for customers; providers pay a simple platform fee on eligible bookings.",
-      },
+      { title: defaultTitle },
+      { name: "description", content: SITE_DESCRIPTION },
+      { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+      { name: "googlebot", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
+      { name: "referrer", content: "strict-origin-when-cross-origin" },
       { name: "theme-color", content: "#183F8C" },
-      { property: "og:site_name", content: "Go4Task" },
+      { name: "application-name", content: SITE_NAME },
+      { property: "og:site_name", content: SITE_NAME },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Go4Task — Hyper-Local Home Services App" },
-      {
-        property: "og:description",
-        content: "Find local service providers, compare offers and book the right professional for your job.",
-      },
-      { property: "og:image", content: "/go4task-logo-hd.png" },
+      { property: "og:url", content: `${SITE_URL}/` },
+      { property: "og:title", content: defaultTitle },
+      { property: "og:description", content: SITE_DESCRIPTION },
+      { property: "og:image", content: `${SITE_URL}/go4task-logo-hd.png` },
+      { property: "og:image:alt", content: "Go4Task — Local Home Services" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Go4Task — Hyper-Local Home Services App" },
-      {
-        name: "twitter:description",
-        content: "Find local service providers, compare offers and book the right professional for your job.",
-      },
-      { name: "twitter:image", content: "/go4task-logo-hd.png" },
+      { name: "twitter:title", content: defaultTitle },
+      { name: "twitter:description", content: SITE_DESCRIPTION },
+      { name: "twitter:image", content: `${SITE_URL}/go4task-logo-hd.png` },
+      { name: "twitter:image:alt", content: "Go4Task — Local Home Services" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -107,9 +108,77 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
+      { rel: "canonical", href: `${SITE_URL}/` },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "shortcut icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "Organization",
+              "@id": `${SITE_URL}/#organization`,
+              name: SITE_NAME,
+              url: SITE_URL,
+              logo: `${SITE_URL}/go4task-logo-header.png`,
+              image: `${SITE_URL}/go4task-logo-header.png`,
+              description: SITE_DESCRIPTION,
+              email: "go4task@gmail.com",
+              telephone: "+91-6230450047",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Una",
+                addressRegion: "Himachal Pradesh",
+                addressCountry: "IN",
+              },
+              areaServed: { "@type": "Country", name: "India" },
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer support",
+                telephone: "+91-6230450047",
+                email: "go4task@gmail.com",
+                areaServed: "IN",
+                availableLanguage: ["English", "Hindi"],
+              },
+            },
+            {
+              "@type": "WebSite",
+              "@id": `${SITE_URL}/#website`,
+              url: SITE_URL,
+              name: SITE_NAME,
+              description: SITE_DESCRIPTION,
+              publisher: { "@id": `${SITE_URL}/#organization` },
+              inLanguage: "en-IN",
+            },
+            {
+              "@type": "WebPage",
+              "@id": `${SITE_URL}/#webpage`,
+              url: `${SITE_URL}/`,
+              name: defaultTitle,
+              description: SITE_DESCRIPTION,
+              isPartOf: { "@id": `${SITE_URL}/#website` },
+              about: { "@id": `${SITE_URL}/#organization` },
+              primaryImageOfPage: {
+                "@type": "ImageObject",
+                url: `${SITE_URL}/go4taskbgforhero.png`,
+              },
+            },
+            {
+              "@type": "SoftwareApplication",
+              name: SITE_NAME,
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Android",
+              description: "Go4Task connects customers with eligible local service professionals through service requests, provider offers and booking confirmation.",
+              url: SITE_URL,
+              publisher: { "@id": `${SITE_URL}/#organization` },
+            },
+          ],
+        }),
+      },
     ],
   }),
 
@@ -121,7 +190,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-IN">
       <head>
         <HeadContent />
       </head>
