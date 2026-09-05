@@ -1,11 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { PageLayout, Prose } from "@/components/site/PageLayout";
+import { getPublicPolicy } from "@/lib/public-policy.functions";
 
 const title = "Terms & Conditions — Go4Task";
 const description =
   "The terms governing use of the Go4Task home services app for customers and service providers, including the flat access fee model.";
 
 export const Route = createFileRoute("/terms")({
+  loader: ({ context }) => context.queryClient.ensureQueryData({
+    queryKey: ["public-policy", "TERMS"],
+    queryFn: () => getPublicPolicy({ data: { type: "TERMS" } }),
+  }),
   head: () => ({
     meta: [
       { title },
@@ -21,45 +27,15 @@ export const Route = createFileRoute("/terms")({
 });
 
 function TermsPage() {
+  const { data } = useSuspenseQuery({
+    queryKey: ["public-policy", "TERMS"],
+    queryFn: () => getPublicPolicy({ data: { type: "TERMS" } }),
+  });
+
   return (
-    <PageLayout title="Terms & Conditions" intro="Last updated: 1 August 2026">
+    <PageLayout title="Terms & Conditions" intro={data.updatedAt ? `Last updated: ${new Date(data.updatedAt).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" })}` : undefined}>
       <Prose>
-        <h2>1. About the platform</h2>
-        <p>
-          Go4Task connects customers with independent local service professionals. We are a
-          marketplace: the professional, not Go4Task, performs the service and is responsible for the
-          quality of their work.
-        </p>
-
-        <h2>2. Customer terms</h2>
-        <ul>
-          <li>Using Go4Task as a customer is free — posting, bidding and booking carry no platform fee.</li>
-          <li>Job descriptions must be accurate and lawful.</li>
-          <li>Payment for completed work is settled directly with the professional at the accepted price.</li>
-        </ul>
-
-        <h2>3. Provider terms</h2>
-        <ul>
-          <li>No subscription and no percentage commission.</li>
-          <li>A small flat access fee is payable only when a customer confirms your booking.</li>
-          <li>Promotional free bookings (first 3 bookings, plus 3 per successful referral) are non-transferable and may not be combined with abuse of duplicate accounts.</li>
-          <li>Providers must hold any licence or certification required for their trade.</li>
-        </ul>
-
-        <h2>4. Conduct</h2>
-        <p>
-          Off-platform solicitation to avoid access fees, fake reviews, and misuse of customer contact
-          details may lead to suspension.
-        </p>
-
-        <h2>5. Liability</h2>
-        <p>
-          Our liability is limited to fees paid to Go4Task in the preceding three months. Disputes
-          about workmanship are mediated by our support team in good faith.
-        </p>
-
-        <h2>6. Governing law</h2>
-        <p>These terms are governed by the laws of India, with courts in Una, Himachal Pradesh having jurisdiction.</p>
+        {data.content ? <div dangerouslySetInnerHTML={{ __html: data.content }} /> : <p>Terms and conditions content is currently unavailable.</p>}
       </Prose>
     </PageLayout>
   );
