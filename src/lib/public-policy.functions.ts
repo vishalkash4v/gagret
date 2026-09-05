@@ -3,31 +3,46 @@ export async function getPublicPolicy({
 }: {
   data: { type: string };
 }) {
-  try {
-    const response = await fetch(
-      `https://providersbackend.vercel.app/api/admin/policy/${type}`
-    );
+  const policyType = String(type).trim().toUpperCase();
 
-    if (!response.ok) {
-      throw new Error(`Policy API failed: ${response.status}`);
+  const response = await fetch(
+    `https://providersbackend.vercel.app/api/admin/policy/${encodeURIComponent(
+      policyType
+    )}`,
+    {
+      headers: {
+        Accept: "application/json",
+      },
+      cache: "no-store",
     }
+  );
 
-    const json = await response.json();
+  if (!response.ok) {
+    const errorText = await response.text();
 
-    const policy = Array.isArray(json.data)
-      ? json.data[0]
-      : json.data;
+    console.error("Policy API Error:", {
+      type: policyType,
+      status: response.status,
+      body: errorText,
+    });
 
-    return {
-      content: policy?.content || null,
-      updatedAt: policy?.updatedAt || null,
-    };
-  } catch (error) {
-    console.error(`Failed to fetch ${type} policy:`, error);
-
-    return {
-      content: null,
-      updatedAt: null,
-    };
+    throw new Error(
+      `Failed to load ${policyType} policy: ${response.status}`
+    );
   }
+
+  const json = await response.json();
+
+  const policy = Array.isArray(json.data)
+    ? json.data[0]
+    : json.data;
+
+  if (!policy) {
+    throw new Error(`No ${policyType} policy found`);
+  }
+
+  return {
+    content: policy.content ?? null,
+    updatedAt: policy.updatedAt ?? null,
+  };
 }
