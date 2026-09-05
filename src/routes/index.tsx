@@ -8,7 +8,6 @@ import {
   ClipboardList,
   Gift,
   Handshake,
-  Home as HomeIcon,
   IndianRupee,
   MapPinned,
   Play,
@@ -129,24 +128,29 @@ const features = [
 
 const howItWorksSteps = [
   {
-    Icon: CalendarDays,
-    title: "1. Choose a Service",
-    text: "Pick what you need",
+    Icon: ClipboardList,
+    title: "1. Choose & Book a Service",
+    text: "Choose the service you want and book your request.",
   },
   {
-    Icon: Users,
-    title: "2. Get a Verified Professional",
-    text: "We match you with the right expert",
+    Icon: Send,
+    title: "2. Receive Provider Offers",
+    text: "Verified professional providers will send you their offers.",
   },
   {
-    Icon: HomeIcon,
-    title: "3. Sit Back & Relax",
-    text: "Your home is in safe hands",
+    Icon: BadgeCheck,
+    title: "3. Compare & Choose",
+    text: "Review multiple offers and choose the one that suits your requirements.",
+  },
+  {
+    Icon: UserRoundCheck,
+    title: "4. Wait & Relax",
+    text: "Sit back and relax — one of the selected providers will be assigned to you.",
   },
   {
     Icon: CheckCircle2,
-    title: "4. Enjoy the Service",
-    text: "Quality service, every time",
+    title: "5. Enjoy the Service",
+    text: "Get the job done and enjoy your completed service.",
   },
 ];
 
@@ -159,15 +163,8 @@ function LandingPage() {
       <SiteHeader />
 
       <main>
-        {/* Homepage hero */}
         <section className="relative overflow-visible bg-background" aria-labelledby="hero-heading">
           <div className="relative w-full pb-10 pt-0">
-            {/*
-              Selected Go4Task hero artwork.
-              The source image already has a clean/white left side for the text,
-              so we do NOT put a heavy gradient over it. This keeps the provider
-              and customer scene crisp on the right.
-            */}
             <div className="relative min-h-[610px] w-full overflow-hidden shadow-lift sm:min-h-[650px] lg:min-h-[690px]">
               <img
                 src="/go4taskbgforhero.png"
@@ -179,7 +176,6 @@ function LandingPage() {
                 className="absolute inset-0 h-full w-full object-cover object-center"
               />
 
-              {/* Only a very soft mobile readability layer; desktop uses the image's own white space. */}
               <div
                 className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/45 to-transparent lg:hidden"
                 aria-hidden="true"
@@ -201,18 +197,20 @@ function LandingPage() {
                     </span>
                   </h1>
 
-                  <p className="mt-6 max-w-[570px] text-base font-medium leading-7 text-foreground/75 sm:text-lg sm:leading-8">
-                    Book verified professionals for all your home service needs — cleaning, plumbing,
-                    electrical, painting, AC service and more.
-                  </p>
+                  <div className="mt-6 max-w-[470px] rounded-xl bg-white/72 px-3 py-2 shadow-sm ring-1 ring-white/60 backdrop-blur-[2px]">
+                    <p className="text-base font-medium leading-7 text-foreground/90 sm:text-lg sm:leading-8">
+                      Book verified professionals for all your home service needs — cleaning, plumbing,
+                      electrical, painting, AC service and more.
+                    </p>
+                  </div>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-4">
+                  <div className="mt-7 flex max-w-[570px] flex-wrap items-center gap-x-6 gap-y-4">
                     {[
                       { Icon: ShieldCheck, title: "Verified", text: "Professionals" },
                       { Icon: IndianRupee, title: "Transparent", text: "Pricing" },
                       { Icon: Star, title: "Reliable", text: "& On-Time" },
                     ].map(({ Icon, title: itemTitle, text }) => (
-                      <div key={itemTitle} className="flex items-center gap-3 rounded-xl bg-white/55 px-2 py-1 backdrop-blur-[2px]">
+                      <div key={itemTitle} className="flex items-center gap-3 rounded-xl bg-white/65 px-2 py-1 backdrop-blur-[2px]">
                         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft shadow-sm">
                           <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
                         </span>
@@ -255,22 +253,21 @@ function LandingPage() {
               </div>
             </div>
 
-            {/* Floating step card, intentionally overlapping the hero bottom edge. */}
-            <div className="relative z-20 mx-4 -mt-10 overflow-hidden rounded-[2rem] border border-primary/10 bg-white/95 shadow-[0_18px_50px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:mx-8 lg:mx-auto lg:w-[calc(100%-9rem)] xl:w-[calc(100%-12rem)]">
-              <div className="grid lg:grid-cols-4">
+            <div className="relative z-20 mx-4 -mt-10 overflow-hidden rounded-[2rem] border border-primary/10 bg-white/95 shadow-[0_18px_50px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:mx-8 lg:mx-auto lg:w-[calc(100%-7rem)] xl:w-[calc(100%-10rem)]">
+              <div className="grid lg:grid-cols-5">
                 {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
                   <div
                     key={stepTitle}
-                    className={`flex min-h-[116px] items-center gap-4 px-5 py-5 sm:px-7 ${
+                    className={`flex min-h-[128px] items-center gap-3 px-4 py-5 sm:px-5 ${
                       index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""
                     }`}
                   >
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent-soft">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft">
                       <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
                     </span>
                     <div className="min-w-0">
-                      <p className="text-sm font-extrabold leading-snug text-foreground">{stepTitle}</p>
-                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{text}</p>
+                      <p className="text-[13px] font-extrabold leading-snug text-foreground">{stepTitle}</p>
+                      <p className="mt-1 text-[11px] leading-[1.45] text-muted-foreground">{text}</p>
                     </div>
                   </div>
                 ))}
@@ -357,6 +354,7 @@ function LandingPage() {
           </div>
         </section>
       </main>
+
       <SiteFooter />
     </div>
   );
