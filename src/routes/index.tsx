@@ -125,6 +125,34 @@ const features = [
   },
 ];
 
+const howItWorksSteps = [
+  {
+    Icon: CalendarDays,
+    title: "1. Choose a Service",
+    text: "Tell us what you need and share the details for your task.",
+  },
+  {
+    Icon: Users,
+    title: "2. Get the Best Offers",
+    text: "Receive offers from eligible professional providers near you.",
+  },
+  {
+    Icon: Handshake,
+    title: "3. Choose What Suits You",
+    text: "Compare the available offers and select the one that works best for you.",
+  },
+  {
+    Icon: Sparkles,
+    title: "4. Sit Back & Relax",
+    text: "Your selected professional takes care of the service while you relax.",
+  },
+  {
+    Icon: BadgeCheck,
+    title: "5. Enjoy the Service",
+    text: "Get the service completed and enjoy a simpler way to get things done.",
+  },
+];
+
 function LandingPage() {
   const [audience, setAudience] = useState<"customers" | "providers">("customers");
   const steps = audience === "customers" ? customerSteps : providerSteps;
@@ -136,55 +164,54 @@ function LandingPage() {
       <main>
         <section className="relative overflow-hidden border-b border-primary/10 bg-background" aria-labelledby="hero-heading">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,var(--color-primary-soft),transparent_48%)]" aria-hidden="true" />
-          <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pb-8 pt-8 sm:px-6 sm:pb-12 sm:pt-10 lg:grid-cols-[0.96fr_1.04fr] lg:gap-10 lg:pb-14 lg:pt-12">
-            <div className="max-w-2xl">
-              <span className="inline-flex items-center gap-2 rounded-full bg-primary-soft px-3 py-1.5 text-xs font-bold text-primary">
-                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                Trusted local home services
-              </span>
-              <h1 id="hero-heading" className="mt-5 max-w-2xl text-4xl font-extrabold leading-[1.03] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
-                Your Task.
-                <span className="block text-primary">Our Trusted Experts.</span>
-              </h1>
-              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-                Get the right professional for your home service needs. Send a request, receive multiple offers, compare your options and choose with confidence.
-              </p>
+          <div className="relative mx-auto max-w-7xl px-4 pb-7 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pb-8">
+            <div className="grid items-stretch gap-0 overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-lift lg:grid-cols-[0.9fr_1.1fr]">
+              <div className="flex flex-col justify-center px-7 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
+                <span className="inline-flex w-fit items-center gap-2 rounded-full bg-accent-soft px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-accent-foreground">
+                  <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+                  Trusted Home Services
+                </span>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <Button as="a" href="#download" variant="accent" size="lg">
-                  <Play className="h-5 w-5" aria-hidden="true" />
-                  Download Android App
-                </Button>
-                <Button as="button" type="button" variant="muted" size="lg" disabled aria-disabled="true">
-                  <Apple className="h-5 w-5" aria-hidden="true" />
-                  iOS App — Coming Soon
-                </Button>
-              </div>
+                <h1 id="hero-heading" className="mt-5 max-w-2xl text-4xl font-extrabold leading-[0.98] tracking-[-0.04em] text-foreground sm:text-5xl lg:text-6xl xl:text-7xl">
+                  Your Home.
+                  <span className="block text-primary">Our <span className="text-accent">Experts.</span></span>
+                </h1>
 
-              <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold text-foreground">
-                {[
-                  "Verified providers",
-                  "Multiple offers",
-                  "Simple booking flow",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 rounded-full border border-border bg-card px-3 py-2 shadow-[var(--shadow-soft)]">
-                    <BadgeCheck className="h-4 w-4 text-primary" aria-hidden="true" />
-                    {item}
-                  </div>
-                ))}
-              </div>
+                <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+                  Book the right professional for your home service needs. Create a request, get offers from eligible providers and choose the offer that suits you best.
+                </p>
 
-              <div className="mt-7 rounded-2xl border border-primary/10 bg-card p-4 shadow-[var(--shadow-soft)] sm:p-5">
-                <p className="text-sm font-extrabold text-primary">Home services made easier.</p>
-                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  One marketplace for customers who need help and service professionals who are ready to help.
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <Button as="a" href="#download" variant="accent" size="lg">
+                    <Play className="h-5 w-5" aria-hidden="true" />
+                    Download Android App
+                  </Button>
+                  <Button as="button" type="button" variant="muted" size="lg" disabled aria-disabled="true">
+                    <Apple className="h-5 w-5" aria-hidden="true" />
+                    iOS App — Coming Soon
+                  </Button>
+                </div>
+
+                <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                  {[
+                    ["Verified", "Professional providers"],
+                    ["Multiple", "Offers to compare"],
+                    ["Your Choice", "Pick what suits you"],
+                  ].map(([label, text]) => (
+                    <div key={label} className="rounded-2xl border border-border bg-background/80 p-4">
+                      <BadgeCheck className="h-5 w-5 text-accent" aria-hidden="true" />
+                      <p className="mt-2 text-sm font-extrabold text-foreground">{label}</p>
+                      <p className="mt-0.5 text-xs text-muted-foreground">{text}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="mt-7 max-w-sm text-xl font-semibold leading-tight text-accent sm:text-2xl">
+                  A better home.<br />A brighter you.
                 </p>
               </div>
-            </div>
 
-            <div className="relative lg:pl-2">
-              <div className="absolute -inset-5 rounded-[2rem] bg-primary-soft/50 blur-2xl" aria-hidden="true" />
-              <div className="relative overflow-hidden rounded-[2rem] border border-primary/10 bg-card shadow-lift">
+              <div className="relative min-h-[360px] overflow-hidden bg-secondary lg:min-h-[620px]">
                 <img
                   src="/go4task-hero.png"
                   alt="Go4Task service professional helping a customer at home"
@@ -192,30 +219,33 @@ function LandingPage() {
                   height={682}
                   fetchPriority="high"
                   decoding="async"
-                  className="h-auto w-full object-cover"
+                  className="h-full w-full object-cover object-center"
                 />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-card/10 via-transparent to-transparent" aria-hidden="true" />
+                <div className="absolute bottom-5 right-5 rounded-2xl border border-white/40 bg-white/90 px-4 py-3 shadow-lift backdrop-blur sm:bottom-7 sm:right-7">
+                  <p className="text-sm font-extrabold text-foreground">Home Services Made Easy</p>
+                  <p className="mt-0.5 text-xs text-muted-foreground">Simple requests. Better choices.</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="relative mx-auto -mb-1 max-w-6xl px-4 pb-8 sm:px-6 lg:pb-10">
-            <div className="grid overflow-hidden rounded-2xl border border-primary/10 bg-card shadow-[var(--shadow-soft)] sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                { Icon: CalendarDays, title: "1. Choose a Service", text: "Pick what you need" },
-                { Icon: Users, title: "2. Get a Verified Professional", text: "We help connect you" },
-                { Icon: ClipboardList, title: "3. Sit Back & Relax", text: "Your request is in progress" },
-                { Icon: BadgeCheck, title: "4. Enjoy the Service", text: "Quality service, every time" },
-              ].map(({ Icon, title: stepTitle, text }, index) => (
-                <div key={stepTitle} className={`flex items-center gap-3 p-4 sm:p-5 ${index > 0 ? "border-t border-border sm:border-t-0 sm:border-l" : ""}`}>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-extrabold text-foreground">{stepTitle}</p>
-                    <p className="mt-0.5 text-xs text-muted-foreground">{text}</p>
+            <div className="relative -mt-1 border-x border-b border-primary/10 bg-card shadow-[var(--shadow-soft)] sm:mx-3 sm:rounded-b-[2rem] sm:border-x sm:border-b">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-5">
+                {howItWorksSteps.map(({ Icon, title: stepTitle, text }, index) => (
+                  <div
+                    key={stepTitle}
+                    className={`flex min-h-[118px] items-start gap-3 p-5 ${index > 0 ? "border-t border-border lg:border-l lg:border-t-0" : ""}`}
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-foreground">
+                      <Icon className="h-5 w-5 text-accent" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <p className="text-sm font-extrabold leading-snug text-foreground">{stepTitle}</p>
+                      <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{text}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>
