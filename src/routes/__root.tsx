@@ -81,6 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: defaultTitle },
       { name: "description", content: SITE_DESCRIPTION },
+      { name: "google-site-verification", content: "XVJyWki_MPt_CNd3bNCBdy2S7DTkUWBbUY56CqQ3YVg" },
       { name: "robots", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "googlebot", content: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" },
       { name: "referrer", content: "strict-origin-when-cross-origin" },
