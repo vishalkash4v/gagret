@@ -28,10 +28,10 @@ export function SiteFooter() {
         <div className="md:col-span-1">
           <Link to="/" className="inline-flex items-center rounded-md bg-white px-3 py-1.5" aria-label="Go4Task home">
             <img
-              src="/go4task-logo.png"
+              src="/go4task-logo-hd.png"
               alt="Go4Task - Home Services Marketplace"
-              width={180}
-              height={68}
+              width={320}
+              height={107}
               className="h-12 w-auto object-contain"
               loading="lazy"
             />
