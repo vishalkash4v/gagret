@@ -28,7 +28,6 @@ const navItems = [
   { to: "/admin/bookings", label: "Bookings", Icon: CalendarCheck },
   { to: "/admin/offers", label: "Offers", Icon: BadgePercent },
   { to: "/admin/transactions", label: "Transactions", Icon: Receipt },
-  { to: "/admin/cms", label: "CMS Pages", Icon: FileText },
   { to: "/admin/policy", label: "Policies", Icon: FileText },
   { to: "/admin/support", label: "Support Tickets", Icon: LifeBuoy },
   { to: "/admin/kyc", label: "KYC Verification", Icon: FileCheck2 },
