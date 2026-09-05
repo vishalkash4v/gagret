@@ -45,9 +45,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
@@ -82,24 +80,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Book verified local plumbers, electricians and handymen. Free for customers; providers pay a flat access fee only on won bookings.",
+          "Book verified local plumbers, electricians and handymen. Free for customers; providers pay a simple platform fee on eligible bookings.",
       },
+      { name: "theme-color", content: "#183F8C" },
       { property: "og:site_name", content: "Go4Task" },
       { property: "og:type", content: "website" },
+      { property: "og:title", content: "Go4Task — Hyper-Local Home Services App" },
+      {
+        property: "og:description",
+        content: "Find local service providers, compare offers and book the right professional for your job.",
+      },
+      { property: "og:image", content: "/logo.png" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Go4Task — Hyper-Local Home Services App" },
+      {
+        name: "twitter:description",
+        content: "Find local service providers, compare offers and book the right professional for your job.",
+      },
+      { name: "twitter:image", content: "/logo.png" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "shortcut icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
   }),
 
@@ -128,7 +138,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster richColors position="top-right" />
     </QueryClientProvider>

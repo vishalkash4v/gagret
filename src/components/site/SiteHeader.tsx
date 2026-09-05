@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Wrench, Download } from "lucide-react";
+import { Menu, X, Download } from "lucide-react";
 import { Button } from "./Button";
 
 const navLinks = [
@@ -15,15 +15,17 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link to="/" className="flex items-center gap-2" aria-label="Go4Task home">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Wrench className="h-5 w-5" aria-hidden="true" />
-          </span>
-          <span className="font-display text-lg font-extrabold tracking-tight">
-            Go<span className="text-accent">4Task</span>
-          </span>
+        <Link to="/" className="flex items-center" aria-label="Go4Task home">
+          <img
+            src="/go4task-logo.png"
+            alt="Go4Task - Home Services Marketplace"
+            width={160}
+            height={62}
+            className="h-12 w-auto object-contain sm:h-14"
+            fetchPriority="high"
+          />
         </Link>
 
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
