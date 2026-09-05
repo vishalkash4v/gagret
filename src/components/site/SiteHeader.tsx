@@ -19,10 +19,10 @@ export function SiteHeader() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex items-center" aria-label="Go4Task home">
           <img
-            src="/go4task-logo.png"
+            src="/go4task-logo-hd.png"
             alt="Go4Task - Home Services Marketplace"
-            width={160}
-            height={62}
+            width={320}
+            height={107}
             className="h-12 w-auto object-contain sm:h-14"
             fetchPriority="high"
           />
